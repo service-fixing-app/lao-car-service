@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:service_fixing/views/home_page.dart';
+import 'package:service_fixing/views/map.dart';
 import 'package:service_fixing/views/login_page.dart';
+import 'package:get/get.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(GetMaterialApp(
+    home: const MyApp(),
+    getPages: [
+      GetPage(
+        name: '/home',
+        page: () => const HomePage(),
+        // name: '/map',
+        // page: () => MapsPage(),
+      ),
+    ],
+  ));
 }
 
 class MyApp extends StatelessWidget {

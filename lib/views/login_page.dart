@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,11 +24,30 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: ListView(
-            children: [
-              Column(
+        child: ListView(
+          children: [
+            // Container(
+            //   height: 300.0,
+            //   width: double.infinity,
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(
+            //       colors: [Colors.orange.shade900, Colors.orange.shade700],
+            //       begin: Alignment.topCenter,
+            //       end: Alignment.bottomCenter,
+            //     ),
+            //     borderRadius: const BorderRadius.only(
+            //       bottomLeft: Radius.circular(90.0),
+            //     ),
+            //   ),
+            //   child: Image.asset(
+            //     'assets/images/icon/app_icon.png',
+            //     width: 0.1,
+            //     height: 0.1,
+            //   ),
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
                 children: [
                   const SizedBox(
                     height: 100.0,
@@ -47,94 +65,60 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Welcome',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Get started by entering your Email address',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color(0xFF6B7280),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Password',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color(0xFF6B7280),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 40.0,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Email',
-                        style: TextStyle(color: Colors.grey),
-                      ),
                       Container(
+                        height: 55,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30.0),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 195, 194, 194),
+                              offset: Offset(0, 2),
+                              blurRadius: 3.0,
+                              spreadRadius: 0.0,
+                            ),
+                          ],
                         ),
-                        child: const TextField(
-                          decoration: InputDecoration(
+                        child: TextField(
+                          controller: emailController,
+                          decoration: const InputDecoration(
                             hintText: 'Email',
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                            ), // Optional: Add padding to the text input
+                              horizontal: 20.0,
+                            ),
                           ),
                         ),
                       ),
                       const SizedBox(
-                        height: 10.0,
-                      ),
-                      const Text(
-                        'Password',
-                        style: TextStyle(color: Colors.grey),
+                        height: 20.0,
                       ),
                       Container(
+                        height: 55,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30.0),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 195, 194, 194),
+                              offset: Offset(0, 2),
+                              blurRadius: 3.0,
+                              spreadRadius: 0.0,
+                            ),
+                          ],
                         ),
-                        child: const TextField(
-                          decoration: InputDecoration(
+                        child: TextField(
+                          controller: passwordController,
+                          decoration: const InputDecoration(
                             hintText: 'Password',
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                            ), // Optional: Add padding to the text input
+                              horizontal: 20.0,
+                            ),
                           ),
                         ),
                       ),
@@ -158,14 +142,24 @@ class _LoginPageState extends State<LoginPage> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            //login method
-                            _handleLogin;
-                            print('Login Fiels');
+                            // Login method
+                            print("Email: " + emailController.text);
+                            print("Password: " + passwordController.text);
+                            _handleLogin();
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.orange.shade800,
                             ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    30.0), // Set the border-radius
+                              ),
+                            ),
+                            elevation: MaterialStateProperty.all<double>(
+                                3.0), // Set the elevation (shadow)
                           ),
                           child: const Text('Login'),
                         ),
@@ -204,27 +198,6 @@ class _LoginPageState extends State<LoginPage> {
                     height: 30.0,
                   ),
                   // Google and facebook icons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/icon/google.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Image.asset(
-                        'assets/images/icon/facebook.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -243,8 +216,8 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
