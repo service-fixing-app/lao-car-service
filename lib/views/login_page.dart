@@ -14,6 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  bool _seepass = true;
   void _handleLogin() {
     final email = emailController.text;
     final password = passwordController.text;
@@ -88,8 +89,11 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: const InputDecoration(
                             hintText: 'Email',
                             border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 20.0,
+                            contentPadding: EdgeInsets.only(
+                              left: 20,
+                              top: 20,
+                              bottom: 20,
+                              right: 20,
                             ),
                           ),
                         ),
@@ -112,12 +116,29 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         child: TextField(
+                          obscureText: _seepass,
                           controller: passwordController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             hintText: 'Password',
                             border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 20.0,
+                            contentPadding: const EdgeInsets.only(
+                              left: 20,
+                              top: 20,
+                              bottom: 20,
+                              right: 20,
+                            ),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _seepass = !_seepass;
+                                  });
+                                },
+                                icon: _seepass
+                                    ? const Icon(Icons.visibility_off)
+                                    : const Icon(Icons.visibility),
+                              ),
                             ),
                           ),
                         ),
