@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:service_fixing/pages/home_page.dart';
 
 class AuthController extends GetxController {
   var isAuthenticated = false.obs;
@@ -20,7 +21,7 @@ class AuthController extends GetxController {
       final responseData = json.decode(response.body);
       token.value = responseData['token'];
       isAuthenticated.value = true;
-      Get.offNamed('/home'); // Navigate to the home page on successful login
+      Get.to(() => HomePage()); // Navigate to the home page on successful login
     } else {
       isAuthenticated.value = false;
       // Handle login failure here

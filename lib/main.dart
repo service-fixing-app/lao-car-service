@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:service_fixing/views/home_page.dart';
-import 'package:service_fixing/views/map.dart';
-import 'package:service_fixing/views/login_page.dart';
+import 'package:service_fixing/pages/login_page.dart';
 import 'package:get/get.dart';
 
 void main() {
-  runApp(GetMaterialApp(
-    home: const MyApp(),
-    getPages: [
-      GetPage(
-        name: '/home',
-        page: () => const HomePage(),
-        // name: '/map',
-        // page: () => MapsPage(),
-      ),
-    ],
-  ));
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Services Fixing Car',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
