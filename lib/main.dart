@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:service_fixing/pages/login_page.dart';
+import 'package:service_fixing/clients/pages/home_page.dart';
+import 'package:service_fixing/clients/pages/login_page.dart';
 import 'package:get/get.dart';
 
 void main() {

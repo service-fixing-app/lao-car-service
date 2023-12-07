@@ -10,3 +10,4 @@ com.example.service_fixing.app-rs-8 C:\Users\ACER\Desktop\Service_Fixing\front_e
 com.example.service_fixing.app-mergeDebugResources-9 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
 com.example.service_fixing.app-mergeDebugResources-10 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
 com.example.service_fixing.app-merged_res-11 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\app\intermediates\merged_res\debug
+com.example.service_fixing.app-packaged_res-12 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\path_provider_android\intermediates\packaged_res\debug
