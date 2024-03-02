@@ -41,8 +41,16 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   google_fonts: ^6.1.0
   rolling_bottom_bar: ^0.2.2
-  # geolocator: ^8.0.1
-  # google_maps_flutter: ^2.1.1
+  google_maps_flutter: ^2.5.0
+  location: ^5.0.3
+  geolocator: ^8.0.1
+  flutter_polyline_points: ^2.0.0
+  snippet_coder_utils: ^1.0.15
+  image_picker: ^1.0.7
+  bottom_bar: ^2.0.3
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+ 
 
 dev_dependencies:
   flutter_test:
@@ -79,7 +87,7 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/icon/icons.png"
+  image_path: "assets/images/icon/logo.png"
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

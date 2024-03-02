@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:service_fixing/constants.dart';
+import '../components/registers/input_fields.dart';
+import '../components/registers/user_profile.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -13,6 +16,7 @@ final RegisterController authController = RegisterController();
 final TextEditingController fullnameController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 final TextEditingController emailController = TextEditingController();
+final TextEditingController phoneController = TextEditingController();
 
 void _handleSignup() {
   final username = fullnameController.text;
@@ -25,70 +29,63 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-              ),
-            ),
-          ],
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+        title: const Text(
+          'ລົງທະບຽນຜູ້ໃຊ້',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'phetsarath_ot',
+          ),
         ),
-        Column(
-          children: [
-            const Center(
-              child: Text(
-                'Sign Up',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: fullnameController,
-                      decoration: const InputDecoration(
-                        hintText: 'fullname',
-                      ),
-                    ),
-                    TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        hintText: 'Email',
-                      ),
-                    ),
-                    TextField(
-                      controller: passwordController,
-                      decoration: const InputDecoration(
-                        hintText: 'Password',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    _buildSignUpButton(),
-                  ],
-                ),
-              ),
-            )
-          ],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back();
+          },
         ),
-      ],
-    ));
+      ),
+      body: ListView(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 20.0,
+              ),
+              const UserProfile(),
+              SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Column(
+                    children: [
+                      const UserNameInput(),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      const PhoneNumberInput(),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      const EmailInput(),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      const PasswordInput(),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
+                      _buildSignUpButton(),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -105,7 +102,14 @@ Widget _buildSignUpButton() {
         ),
         elevation: 3.0,
       ),
-      child: const Text('Sign Up'),
+      child: const Text(
+        'ລົງທະບຽນ',
+        style: TextStyle(
+          fontFamily: 'phetsarath_ot',
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     ),
   );
 }

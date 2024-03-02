@@ -22,7 +22,7 @@ class RegisterController extends GetxController {
         }),
       );
 
-      print(response.statusCode);
+      //print(response.statusCode);
 
       if (response.statusCode == 200) {
         // Registration successful
@@ -31,12 +31,12 @@ class RegisterController extends GetxController {
       } else {
         // Registration failed
         isSuccess.value = false;
-        print("Error: ${response.statusCode}");
+        //print("Error: ${response.statusCode}");
         Get.to(() => const LoginPage());
       }
     } catch (error) {
       // Handle network errors or exceptions
-      print("Error: $error");
+      //print("Error: $error");
       isSuccess.value = false;
     } finally {
       isLoading.value = false;

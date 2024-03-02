@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FindMap extends StatelessWidget {
   const FindMap({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class FindMap extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(10),
                 onTap: () {
-                  // Your onTap logic here
+                  Get.toNamed('/Map');
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

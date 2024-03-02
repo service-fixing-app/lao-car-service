@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
           children: [
@@ -35,13 +36,13 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  color: Color(int.parse('0xFFD2D9E1')),
+                  color: Colors.white,
                   child: Column(
                     children: [
-                      Image.asset(
-                        'assets/images/service-car.jpg',
-                        fit: BoxFit.cover,
-                      ),
+                      // Image.asset(
+                      //   'assets/images/findcar.png',
+                      //   fit: BoxFit.cover,
+                      // ),
                       Container(
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -76,6 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                             const SizedBox(height: 30.0),
                             _buildSocialMediaIcons(),
                             const SizedBox(height: 10.0),
+                            Container()
+
                           ],
                         ),
                       ),
@@ -173,18 +176,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildForgotPasswordText() {
-    return const Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Text(
-          'Forgot Password?',
-          style: TextStyle(
-            color: Colors.grey,
-            fontFamily: 'phetsarath_ot',
-          ),
-        ),
-      ],
-    );
+    return Obx(() {
+      return authController.isLoading.value
+          ? const CircularProgressIndicator()
+          : const Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontFamily: 'phetsarath_ot',
+                  ),
+                ),
+              ],
+            );
+    });
   }
 
   Widget _buildLoginButton() {

@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:rolling_bottom_bar/rolling_bottom_bar.dart';
 import 'package:rolling_bottom_bar/rolling_bottom_bar_item.dart';
 import 'package:service_fixing/clients/pages/home_page.dart';
-import 'package:service_fixing/constants.dart';
+import 'package:service_fixing/clients/pages/account_setting.dart';
+
+import 'map.dart';
+import 'map_test.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key});
+  // final Map<String, dynamic> userData;
+
+  // const BottomBar({Key? key, required this.userData}) : super(key: key);
+  const BottomBar({Key? key}) : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -25,11 +31,13 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       body: PageView(
         controller: _controller,
-        children: const <Widget>[
-          HomePage(),
-          ColoredBox(color: Colors.redAccent),
-          ColoredBox(color: Colors.greenAccent),
-          ColoredBox(color: Colors.yellowAccent),
+        children: <Widget>[
+          const HomePage(),
+          const ColoredBox(color: Colors.redAccent),
+          const ColoredBox(color: Colors.redAccent),
+          const ColoredBox(color: Colors.redAccent),
+          // MapsPage(),
+          // const AccountSetting(),
         ],
       ),
       extendBody: true,
@@ -46,7 +54,7 @@ class _BottomBarState extends State<BottomBar> {
           RollingBottomBarItem(Icons.notifications,
               label: 'Page 3', activeColor: Colors.yellowAccent),
           RollingBottomBarItem(Icons.person,
-              label: 'Page 4', activeColor: Colors.orangeAccent),
+              label: 'account', activeColor: Colors.orangeAccent),
         ],
         enableIconRotation: true,
         onTap: (index) {
