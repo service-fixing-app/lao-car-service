@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
+import 'package:path/path.dart' as path;
 
 import '../../../../constants.dart';
+import 'customer_verify.dart';
 
 class CustomerForm extends StatefulWidget {
   const CustomerForm({super.key});
@@ -76,152 +79,23 @@ class _CustomerFormState extends State<CustomerForm> {
       {"ID": 8, "Name": "ເມືອງສັງທອງ", "ParentId": 1},
       {"ID": 9, "Name": "ເມືອງໃໝ່ປາກງື່ມ", "ParentId": 1},
       {"ID": 10, "Name": "ເມືອງບຸນໃຕ້", "ParentId": 2},
-      {"ID": 11, "Name": "ເມືອງຂວາ", "ParentId": 2},
-      {"ID": 12, "Name": "ເມືອງໃໝ່", "ParentId": 2},
-      {"ID": 13, "Name": "ເມືອງຍອດອູ", "ParentId": 2},
-      {"ID": 14, "Name": "ເມືອງຜົ້ງສາລີ", "ParentId": 2},
-      {"ID": 15, "Name": "ເມືອງສຳພັນ", "ParentId": 2},
-      {"ID": 16, "Name": "ເມືອງບຸນເໜືອ", "ParentId": 2},
-      {"ID": 17, "Name": "ເມືອງຫຼວງນໍ້າທາ", "ParentId": 3},
-      {"ID": 18, "Name": "ເມືອງສີງ", "ParentId": 3},
-      {"ID": 19, "Name": "ເມືອງລອງ", "ParentId": 3},
-      {"ID": 20, "Name": "ເມືອງວຽງພູຄາ", "ParentId": 3},
-      {"ID": 21, "Name": "ເມືອງນາແລ", "ParentId": 3},
-      {"ID": 22, "Name": "ເມືອງຫ້ວຍຊາຍ", "ParentId": 4},
-      {"ID": 23, "Name": "ເມືອງຕົ້ນເຜິ້ງ", "ParentId": 4},
-      {"ID": 24, "Name": "ເມືອງເມິງ", "ParentId": 4},
-      {"ID": 25, "Name": "ເມືອງຜາອຸດົມ", "ParentId": 4},
-      {"ID": 26, "Name": "ເມືອງປາກທາ", "ParentId": 4},
-      {"ID": 27, "Name": "ເມືອງໄຊ", "ParentId": 5},
-      {"ID": 28, "Name": "ເມືອງຫລາ", "ParentId": 5},
-      {"ID": 29, "Name": "ເມືອງນາໝໍ້", "ParentId": 5},
-      {"ID": 30, "Name": "ເມືອງງາ", "ParentId": 5},
-      {"ID": 31, "Name": "ເມືອງແບ່ງ", "ParentId": 5},
-      {"ID": 32, "Name": "ເມືອງຮຸນ", "ParentId": 5},
-      {"ID": 33, "Name": "ເມືອງປາກແບ່ງ", "ParentId": 5},
-      {"ID": 34, "Name": "ເມືອງຫຼວງພະບາງ", "ParentId": 6},
-      {"ID": 35, "Name": "ເມືອງຊຽງເງິນ", "ParentId": 6},
-      {"ID": 36, "Name": "ເມືອງນານ", "ParentId": 6},
-      {"ID": 37, "Name": "ເມືອງປາກອູ", "ParentId": 6},
-      {"ID": 38, "Name": "ເມືອງນ້ຳບາກ", "ParentId": 6},
-      {"ID": 39, "Name": "ເມືອງງອຍ", "ParentId": 6},
-      {"ID": 40, "Name": "ເມືອງປາກແຊງ", "ParentId": 6},
-      {"ID": 41, "Name": "ເມືອງໂພນໄຊງ", "ParentId": 6},
-      {"ID": 42, "Name": "ເມືອງຈອມເພັດ", "ParentId": 6},
-      {"ID": 43, "Name": "ເມືອງວຽງຄຳ", "ParentId": 6},
-      {"ID": 44, "Name": "ເມືອງພູຄູນ", "ParentId": 6},
-      {"ID": 44, "Name": "ເມືອງໂພນທອງ", "ParentId": 6},
-      {"ID": 45, "Name": "ເມືອງບໍ່ແຕນ", "ParentId": 7},
-      {"ID": 46, "Name": "ເມືອງຫົງສາ", "ParentId": 7},
-      {"ID": 47, "Name": "ເມືອງແກ່ນທ້າວ", "ParentId": 7},
-      {"ID": 48, "Name": "ເມືອງຄອບ", "ParentId": 7},
-      {"ID": 49, "Name": "ເມືອງເງິນ", "ParentId": 7},
-      {"ID": 50, "Name": "ເມືອງປາກລາຍ", "ParentId": 7},
-      {"ID": 51, "Name": "ເມືອງພຽງ", "ParentId": 7},
-      {"ID": 52, "Name": "ເມືອງທົ່ງມີໄຊ", "ParentId": 7},
-      {"ID": 53, "Name": "ເມືອງໄຊຍະບູລີ", "ParentId": 7},
-      {"ID": 54, "Name": "ເມືອງຊຽງຮ່ອນ", "ParentId": 7},
-      {"ID": 55, "Name": "ເມືອງໄຊສະຖານ", "ParentId": 7},
-      {"ID": 56, "Name": "ເມືອງຊຳເໜືອ", "ParentId": 8},
-      {"ID": 57, "Name": "ເມືອງຊຽງຄໍ້", "ParentId": 8},
-      {"ID": 58, "Name": "ເມືອງຮ້ຽມ", "ParentId": 8},
-      {"ID": 59, "Name": "ເມືອງວຽງໄຊ", "ParentId": 8},
-      {"ID": 60, "Name": "ເມືອງຫົວເມືອງ", "ParentId": 8},
-      {"ID": 61, "Name": "ເມືອງຊຳໃຕ້", "ParentId": 8},
-      {"ID": 62, "Name": "ເມືອງສົບເບົາ", "ParentId": 8},
-      {"ID": 63, "Name": "ເມືອງແອດ", "ParentId": 8},
-      {"ID": 64, "Name": "ເມືອງກວັນ", "ParentId": 8},
-      {"ID": 65, "Name": "ເມືອງຊ່ອນ", "ParentId": 8},
-      {"ID": 66, "Name": "ເມືອງແປກ(ໂພນສະຫວັນ)", "ParentId": 9},
-      {"ID": 67, "Name": "ເມືອງຄຳ", "ParentId": 9},
-      {"ID": 68, "Name": "ເມືອງໜອງແຮດ", "ParentId": 9},
-      {"ID": 69, "Name": "ເມືອງຄູນ", "ParentId": 9},
-      {"ID": 70, "Name": "ເມືອງໝອກ", "ParentId": 9},
-      {"ID": 71, "Name": "ເມືອງພູກູດ", "ParentId": 9},
-      {"ID": 72, "Name": "ເມືອງຜາໄຊ", "ParentId": 9},
-      {"ID": 73, "Name": "ເມືອງເຟືອງ", "ParentId": 10},
-      {"ID": 74, "Name": "ເມືອງຫີນເຫີບ", "ParentId": 10},
-      {"ID": 75, "Name": "ເມືອງກາສີ", "ParentId": 10},
-      {"ID": 76, "Name": "ເມືອງແກ້ວອຸດົມ", "ParentId": 10},
-      {"ID": 77, "Name": "ເມືອງແມດ", "ParentId": 10},
-      {"ID": 78, "Name": "ເມືອງໂພນໂຮງ", "ParentId": 10},
-      {"ID": 79, "Name": "ເມືອງທຸລະຄົມ", "ParentId": 10},
-      {"ID": 80, "Name": "ເມືອງວັງວຽງ", "ParentId": 10},
-      {"ID": 81, "Name": "ເມືອງວັງວຽງ", "ParentId": 10},
-      {"ID": 82, "Name": "ເມືອງຊະນະຄາມ", "ParentId": 10},
-      {"ID": 83, "Name": "ເມືອງໝື່ນ", "ParentId": 10},
-      {"ID": 84, "Name": "ເມືອງລ້ອງແຈ້ງ", "ParentId": 11},
-      {"ID": 85, "Name": "ເມືອງທ່າໂທມ", "ParentId": 11},
-      {"ID": 86, "Name": "ເມືອງອະນຸວົງ", "ParentId": 11},
-      {"ID": 87, "Name": "ເມືອງລ້ອງຊານ", "ParentId": 11},
-      {"ID": 88, "Name": "ເມືອງຮົ່ມ", "ParentId": 11},
-      {"ID": 89, "Name": "ເມືອງປາກຊັນ", "ParentId": 12},
-      {"ID": 90, "Name": "ເມືອງທ່າພະບາດ", "ParentId": 12},
-      {"ID": 91, "Name": "ເມືອງປາກກະດິງ", "ParentId": 12},
-      {"ID": 92, "Name": "ເມືອງຄຳເກີດ(ຫຼັກ20)", "ParentId": 12},
-      {"ID": 93, "Name": "ເມືອງບໍລິຄັນ", "ParentId": 12},
-      {"ID": 94, "Name": "ເມືອງວຽງທອງ", "ParentId": 12},
-      {"ID": 95, "Name": "ເມືອງໄຊຈຳພອນ", "ParentId": 12},
-      {"ID": 96, "Name": "ເມືອງທ່າແຂກ", "ParentId": 13},
-      {"ID": 97, "Name": "ເມືອງມະຫາໄຊ", "ParentId": 13},
-      {"ID": 98, "Name": "ເມືອງໜອງບົກ", "ParentId": 13},
-      {"ID": 99, "Name": "ເມືອງຫີນບູນ", "ParentId": 13},
-      {"ID": 100, "Name": "ເມືອງຍົມມະລາດ", "ParentId": 13},
-      {"ID": 101, "Name": "ເມືອງບົວລະພາ", "ParentId": 13},
-      {"ID": 102, "Name": "ເມືອງນາກາຍ", "ParentId": 13},
-      {"ID": 103, "Name": "ເມືອງເຊບັ້ງໄຟ", "ParentId": 13},
-      {"ID": 104, "Name": "ເມືອງໄຊບົວທອງ", "ParentId": 13},
-      {"ID": 105, "Name": "ເມືອງຄູນຄຳ", "ParentId": 13},
-      {"ID": 106, "Name": "ເມືອງໄກສອນພົມວິຫານ", "ParentId": 14},
-      {"ID": 107, "Name": "ເມືອງອຸທຸມພອນ", "ParentId": 14},
-      {"ID": 108, "Name": "ເມືອງອາດສະພັງທອງ", "ParentId": 14},
-      {"ID": 109, "Name": "ເມືອງພີນ", "ParentId": 14},
-      {"ID": 110, "Name": "ເມືອງເຊໂປນ", "ParentId": 14},
-      {"ID": 111, "Name": "ເມືອງນອງ", "ParentId": 14},
-      {"ID": 112, "Name": "ເມືອງທ່າປາງທອງ", "ParentId": 14},
-      {"ID": 113, "Name": "ເມືອງສອງຄອນ", "ParentId": 14},
-      {"ID": 114, "Name": "ເມືອງຈຳພອນ", "ParentId": 14},
-      {"ID": 115, "Name": "ເມືອງຊົນນະບູລີ", "ParentId": 14},
-      {"ID": 116, "Name": "ເມືອງໄຊບູລີ", "ParentId": 14},
-      {"ID": 117, "Name": "ເມືອງວິລະບູລີ", "ParentId": 14},
-      {"ID": 118, "Name": "ເມືອງອາດສະພອນ", "ParentId": 14},
-      {"ID": 119, "Name": "ເມືອງໄຊພູທອງ", "ParentId": 14},
-      {"ID": 120, "Name": "ເມືອງພະລານໄຊ", "ParentId": 14},
-      {"ID": 121, "Name": "ເມືອງສາລະວັນ", "ParentId": 15},
-      {"ID": 122, "Name": "ເມືອງລະຄອນເພັງ", "ParentId": 15},
-      {"ID": 123, "Name": "ເມືອງວາປີ", "ParentId": 15},
-      {"ID": 124, "Name": "ເມືອງເລົ່າງາມ", "ParentId": 15},
-      {"ID": 125, "Name": "ເມືອງຕຸ້ມລານ", "ParentId": 15},
-      {"ID": 126, "Name": "ເມືອງຕະໂອ້ຍ", "ParentId": 15},
-      {"ID": 127, "Name": "ເມືອງຄົງເຊໂດນ", "ParentId": 15},
-      {"ID": 128, "Name": "ເມືອງສະມ້ວຍ", "ParentId": 15},
-      {"ID": 129, "Name": "ເມືອງປາກເຊ", "ParentId": 16},
-      {"ID": 130, "Name": "ເມືອງຊະນະສົມບູນ", "ParentId": 16},
-      {"ID": 131, "Name": "ເມືອງບາຈຽງຈະເລີນສຸກ", "ParentId": 16},
-      {"ID": 132, "Name": "ເມືອງປາກຊ່ອງ", "ParentId": 16},
-      {"ID": 133, "Name": "ເມືອປະທຸມພອນ", "ParentId": 16},
-      {"ID": 134, "Name": "ເມືອງໂພນທອງ", "ParentId": 16},
-      {"ID": 135, "Name": "ເມືອງຈຳປາສັກ", "ParentId": 16},
-      {"ID": 136, "Name": "ເມືອງສຸຂຸມາ", "ParentId": 16},
-      {"ID": 137, "Name": "ເມືອງມູນລະປະໂມກ", "ParentId": 16},
-      {"ID": 138, "Name": "ເມືອງໂຂງ", "ParentId": 16},
-      {"ID": 139, "Name": "ເມືອງທ່າແຕງ", "ParentId": 17},
-      {"ID": 140, "Name": "ເມືອງລະມາມ", "ParentId": 17},
-      {"ID": 141, "Name": "ເມືອງກະລຶມ", "ParentId": 17},
-      {"ID": 142, "Name": "ເມືອງດັກຈຶງ", "ParentId": 17},
-      {"ID": 143, "Name": "ເມືອງໄຊເຊດຖາ", "ParentId": 18},
-      {"ID": 144, "Name": "ເມືອງສາມັກຄີໄຊ", "ParentId": 18},
-      {"ID": 145, "Name": "ເມືອງສະໜາມໄຊ", "ParentId": 18},
-      {"ID": 146, "Name": "ເມືອງຊານໄຊ", "ParentId": 18},
-      {"ID": 147, "Name": "ເມືອງພູວົງ", "ParentId": 18},
     ];
   }
+
+  // this is method call controller using getx
+  //CustomerRegisterController customerRegisterController = Get.find();
+
+  // degine varrible in textfield
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController villageController = TextEditingController();
 
   //uploa user profile
   File? _imageFile;
 
   final ImagePicker _picker = ImagePicker();
-
   Future<void> _getImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
 
@@ -340,6 +214,7 @@ class _CustomerFormState extends State<CustomerForm> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: firstNameController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'ຊື່ຜູ້ໃຊ້',
@@ -367,6 +242,7 @@ class _CustomerFormState extends State<CustomerForm> {
                 ),
 
                 TextField(
+                  controller: lastNameController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'ນາມສະກຸນ',
@@ -393,6 +269,7 @@ class _CustomerFormState extends State<CustomerForm> {
                 ),
 
                 TextField(
+                  controller: ageController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'ອາຍຸ',
@@ -579,6 +456,7 @@ class _CustomerFormState extends State<CustomerForm> {
                 ),
                 const SizedBox(height: 20.0),
                 TextField(
+                  controller: villageController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'ບ້ານ',
@@ -603,6 +481,7 @@ class _CustomerFormState extends State<CustomerForm> {
                 const SizedBox(height: 20.0),
                 // button data
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
                       height: 50.0,
@@ -619,7 +498,7 @@ class _CustomerFormState extends State<CustomerForm> {
                           elevation: 3.0,
                         ),
                         child: const Text(
-                          'canel',
+                          'ຍົກເລີກ',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -635,7 +514,49 @@ class _CustomerFormState extends State<CustomerForm> {
                       width: 100.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.toNamed('/customerVerify');
+                          // Call the method to update registration data
+                          // customerRegisterController.updateRegistrationData(
+                          //   firstName: firstNameController.text,
+                          //   lastName: lastNameController.text,
+                          //   age: ageController.text,
+                          //   gender: _selectGender,
+                          //   birthdate: _selectedDate != null
+                          //       ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                          //       : '',
+                          //   province: selectedProvince ??
+                          //       '', // Retrieve selected province
+                          //   district: selectedState ??
+                          //       '', // Retrieve selected district
+                          //   village: villageController.text,
+                          //   profileImage: _imageFile != null
+                          //       ? _imageFile!.path
+                          //       : '', // Retrieve profile image path
+                          //   password: '', // will get value in next page
+                          //   tel: '', // will get value in next page
+                          // );
+                          // String fileName =
+                          //     path.basename(_imageFile?.path ?? '');
+                          // String profileImage =
+                          //     _imageFile != null ? fileName : '';
+                          // Navigate to the next page
+                          print('image path : ${_imageFile}');
+                          Get.to(
+                            CustomerVerify(
+                              firstName: firstNameController.text,
+                              lastName: lastNameController.text,
+                              age: ageController.text,
+                              gender: _selectGender,
+                              birthdate: _selectedDate != null
+                                  ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                                  : '',
+                              province: selectedProvince ?? '',
+                              district: selectedState ?? '',
+                              village: villageController.text,
+                              profileImage: _imageFile,
+                              tel: '',
+                              isVerified: false,
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
@@ -645,10 +566,11 @@ class _CustomerFormState extends State<CustomerForm> {
                           elevation: 3.0,
                         ),
                         child: const Text(
-                          'submit',
+                          'ຕໍ່ໄປ',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
+                            fontFamily: 'phetsarath_ot',
                           ),
                         ),
                       ),

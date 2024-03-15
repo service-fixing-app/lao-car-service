@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final AuthController authController = AuthController();
   final TextEditingController telController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  bool _hidePassword = true;
   void _handleLogin() {
     final tel = telController.text;
     final password = passwordController.text;
@@ -58,89 +58,93 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 20.0),
                     // phone number
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'ເບີໂທລະສັບ',
-                          style: TextStyle(
-                            fontFamily: 'phetsarath_ot',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                    TextField(
+                      controller: telController,
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        labelText: 'ເບີໂທລະສັບ',
+                        labelStyle: const TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'phetsarath_ot',
+                          fontWeight: FontWeight.w500,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(width: 2.0),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 20.0,
+                        ),
+                        prefixText: '+856 ',
+                        prefixIcon: const Icon(
+                          Icons.phone,
+                          color: Colors.grey,
+                        ),
+                        focusColor: Colors.black87,
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
                           ),
                         ),
+                      ),
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10),
                       ],
-                    ),
-                    const SizedBox(
-                      height: 2.0,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                          color: Colors.black45,
-                          width: 1.0,
-                        ),
-                      ),
-                      child: TextField(
-                        controller: telController,
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                        ),
-                        keyboardType: TextInputType.phone,
-                        decoration: const InputDecoration(
-                          prefixText: '+856 20 ',
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 10.0),
-                          border: InputBorder.none,
-                        ),
-                        inputFormatters: [LengthLimitingTextInputFormatter(12)],
-                      ),
                     ),
                     // password
-                    const SizedBox(height: 10.0),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'ລະຫັດຜ່ານ',
-                          style: TextStyle(
-                            fontFamily: 'phetsarath_ot',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                    const SizedBox(height: 20.0),
+                    TextField(
+                      obscureText: _hidePassword,
+                      controller: passwordController,
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        labelText: 'ລະຫັດຜ່ານ',
+                        labelStyle: const TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'phetsarath_ot',
+                          fontWeight: FontWeight.w500,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(width: 2.0),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 15.0,
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.lock_outline_rounded,
+                          color: Colors.grey,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _hidePassword = !_hidePassword;
+                              });
+                            },
+                            icon: _hidePassword
+                                ? const Icon(Icons.visibility_off)
+                                : const Icon(Icons.visibility),
+                            color: Colors.grey,
                           ),
                         ),
+                        focusColor: Colors.black87,
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(8),
                       ],
-                    ),
-                    const SizedBox(
-                      height: 2.0,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                          color: Colors.black45,
-                          width: 1.0,
-                        ),
-                      ),
-                      child: TextField(
-                        controller: passwordController,
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                        ),
-                        textAlignVertical: TextAlignVertical.center,
-                        keyboardType: TextInputType.visiblePassword,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.lock_outline_rounded),
-                          suffixIcon: Icon(Icons.remove_red_eye_rounded),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 8.0,
-                          ),
-                          border: InputBorder.none,
-                        ),
-                        inputFormatters: [LengthLimitingTextInputFormatter(8)],
-                      ),
                     ),
 
                     const SizedBox(

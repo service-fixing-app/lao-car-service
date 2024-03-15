@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:service_fixing/clients/controllers/repairshop/repairshopRegister_controller.dart';
+import 'package:service_fixing/clients/pages/register/repairshop/repairshop_verify.dart';
 
 import '../../../../constants.dart';
+import '../../../models/repairshop_registerModel.dart';
 
 class RepairshopForm extends StatefulWidget {
   const RepairshopForm({super.key});
@@ -15,6 +18,12 @@ class RepairshopForm extends StatefulWidget {
 }
 
 class _RepairshopFormState extends State<RepairshopForm> {
+  // controller put data to model using getx
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController villageController = TextEditingController();
+
   String _selectGender = '';
   DateTime? _selectedDate;
 
@@ -33,18 +42,18 @@ class _RepairshopFormState extends State<RepairshopForm> {
   }
 
   // selected province and district
-  List<Map<String, dynamic>> countries = [];
+  List<Map<String, dynamic>> provinces = [];
   List<Map<String, dynamic>> stateMasters = [];
   List<Map<String, dynamic>> states = [];
 
-  String? selectedCountry;
+  String? selectedProvince;
   String? selectedState;
 
   @override
   void initState() {
     super.initState();
 
-    countries = [
+    provinces = [
       {"val": 1, "name": "ແຂວງນະຄອນຫຼວງຈັນ"},
       {"val": 2, "name": "ແຂວງໄຊສົມບູນ"},
     ];
@@ -180,6 +189,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: firstNameController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'ຊື່ຜູ້ໃຊ້',
@@ -207,6 +217,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                 ),
 
                 TextField(
+                  controller: lastNameController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'ນາມສະກຸນ',
@@ -233,6 +244,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                 ),
 
                 TextField(
+                  controller: ageController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'ອາຍຸ',
@@ -348,7 +360,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                     vertical: 4.0,
                   ),
                   child: DropdownButtonFormField<String>(
-                    value: selectedCountry,
+                    value: selectedProvince,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -359,20 +371,20 @@ class _RepairshopFormState extends State<RepairshopForm> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    items: countries.map((country) {
+                    items: provinces.map((provinces) {
                       return DropdownMenuItem<String>(
-                        value: country['name'],
-                        child: Text(country['name']),
+                        value: provinces['name'],
+                        child: Text(provinces['name']),
                       );
                     }).toList(),
                     onChanged: (newValue) {
                       setState(() {
-                        selectedCountry = newValue;
+                        selectedProvince = newValue;
                         selectedState = null;
                         states = stateMasters
                             .where((state) =>
                                 state['ParentId'] ==
-                                countries.firstWhere(
+                                provinces.firstWhere(
                                   (country) => country['name'] == newValue,
                                 )['val'])
                             .toList();
@@ -417,6 +429,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                 ),
                 const SizedBox(height: 20.0),
                 TextField(
+                  controller: villageController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'ບ້ານ',
@@ -473,6 +486,43 @@ class _RepairshopFormState extends State<RepairshopForm> {
                       width: 100.0,
                       child: ElevatedButton(
                         onPressed: () {
+                          // Create a Repairshop object with data from UI
+                          var repairshop = Repairshop(
+                            firstName: firstNameController.text,
+                            lastName: lastNameController.text,
+                            age: int.parse(ageController.text),
+                            gender: _selectGender,
+                            birthdate: _selectedDate != null
+                                ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                                : '',
+                            province: selectedProvince ?? '',
+                            district: selectedState ?? '',
+                            village: villageController.text,
+                            profileImage: _imageFile,
+                          );
+                          print('Repairshop Object:');
+                          print('First Name: ${repairshop.firstName}');
+                          print('Last Name: ${repairshop.lastName}');
+                          print('Telephone: ${repairshop.tel}');
+                          print('Password: ${repairshop.password}');
+                          print('Age: ${repairshop.age}');
+                          print('Gender: ${repairshop.gender}');
+                          print('Birthdate: ${repairshop.birthdate}');
+                          print('Village: ${repairshop.village}');
+                          print('District: ${repairshop.district}');
+                          print('Province: ${repairshop.province}');
+                          print(
+                              'Profile Image Path: ${repairshop.profileImage}');
+
+                          // Create an instance of RepairshopController
+                          var repairshopController = RepairshopController();
+
+                          // Register the RepairshopController instance with GetX
+                          Get.put<RepairshopController>(repairshopController);
+
+                          // Send repairshop data to the controller
+                          repairshopController.saveRepairshopData(repairshop);
+
                           Get.toNamed('/repairshopVerify');
                         },
                         style: ElevatedButton.styleFrom(

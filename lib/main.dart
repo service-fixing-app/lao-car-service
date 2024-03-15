@@ -2,17 +2,19 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
+import 'package:service_fixing/clients/controllers/customer/verifieotp_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/pages/login/verify_code.dart';
 import 'package:service_fixing/clients/pages/register/customer/customer_form.dart';
-import 'package:service_fixing/clients/pages/register/customer/customer_verify.dart';
 import 'package:service_fixing/clients/pages/register/repairshop/repairshop_form.dart';
 import 'package:service_fixing/clients/pages/register/repairshop/repairshop_otp.dart';
 import 'package:service_fixing/clients/pages/register/repairshop/repairshop_verify.dart';
 import 'package:service_fixing/clients/pages/register/towingtruck/towingtruck_form.dart';
 import 'package:service_fixing/clients/pages/register/towingtruck/towingtruck_otp.dart';
 import 'package:service_fixing/clients/pages/register/towingtruck/towingtruck_verify.dart';
+import 'clients/controllers/repairshop/repairshopRegister_controller.dart';
 import 'clients/pages/bottom/bottom_navigation.dart';
 import 'clients/pages/home_page.dart';
 import 'clients/pages/map/map_page.dart';
@@ -23,6 +25,9 @@ import 'clients/pages/map/map_page.dart';
 //   );
 // }
 void main() async {
+  Get.put(OtpController());
+  Get.put(RepairshopController());
+  Get.put(CustomerRegisterController());
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
@@ -77,11 +82,6 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/customerForm',
           page: () => const CustomerForm(),
-          transition: Transition.rightToLeft,
-        ),
-        GetPage(
-          name: '/customerVerify',
-          page: () => const CustomerVerify(),
           transition: Transition.rightToLeft,
         ),
         GetPage(

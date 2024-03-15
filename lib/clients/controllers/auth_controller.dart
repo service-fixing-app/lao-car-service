@@ -18,8 +18,7 @@ class AuthController extends GetxController {
       final response = await http.post(
         Uri.parse('http://10.0.2.2:5000/api/customer/login'),
         headers: <String, String>{'Content-Type': 'application/json'},
-        body:
-            jsonEncode(<String, String>{'tel': tel, 'password': password}),
+        body: jsonEncode(<String, String>{'tel': tel, 'password': password}),
       );
 
       //print(response.statusCode);

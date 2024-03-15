@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants.dart';
+import '../../../controllers/repairshop/repairshopRegister_controller.dart';
+import '../../../models/repairshop_registerModel.dart';
 
 class RepairshopVerify extends StatefulWidget {
   const RepairshopVerify({super.key});
@@ -12,6 +14,7 @@ class RepairshopVerify extends StatefulWidget {
 }
 
 class _RepairshopVerifyState extends State<RepairshopVerify> {
+  TextEditingController telController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +74,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                 ),
               ),
               child: TextField(
+                controller: telController,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   prefixText: '+856 20',
@@ -89,7 +93,22 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed('/repairshop_otp');
+                  var repairshop = Repairshop(tel: telController.text);
+                  print('Repairshop Object in tell page:');
+                  print('First Name: ${repairshop.firstName}');
+                  print('Last Name: ${repairshop.lastName}');
+                  print('Telephone: ${repairshop.tel}');
+                  print('Password: ${repairshop.password}');
+                  print('Age: ${repairshop.age}');
+                  print('Gender: ${repairshop.gender}');
+                  print('Birthdate: ${repairshop.birthdate}');
+                  print('Village: ${repairshop.village}');
+                  print('District: ${repairshop.district}');
+                  print('Province: ${repairshop.province}');
+                  print('Profile Image Path: ${repairshop.profileImage}');
+                  // Send repairshop data to the controller
+                  Get.find<RepairshopController>()
+                      .saveRepairshopData(repairshop);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,

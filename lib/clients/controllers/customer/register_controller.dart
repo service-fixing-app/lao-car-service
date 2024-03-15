@@ -1,47 +1,100 @@
-import 'dart:convert';
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class RegisterController extends GetxController {
+class Customer {
+  final String firstName;
+  final String lastName;
+  final String tel;
+  final String password;
+  final String age;
+  final String gender;
+  final String birthdate;
+  final String village;
+  final String district;
+  final String province;
+  final File profileImage;
+
+  Customer({
+    required this.firstName,
+    required this.lastName,
+    required this.tel,
+    required this.password,
+    required this.age,
+    required this.gender,
+    required this.birthdate,
+    required this.village,
+    required this.district,
+    required this.province,
+    required this.profileImage,
+  });
+
+  Future<http.StreamedResponse> uploadProfileImage(String url) async {
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.fields['first_name'] = firstName;
+    request.fields['last_name'] = lastName;
+    request.fields['tel'] = tel;
+    request.fields['password'] = password;
+    request.fields['age'] = age;
+    request.fields['gender'] = gender;
+    request.fields['birthdate'] = birthdate;
+    request.fields['village'] = village;
+    request.fields['district'] = district;
+    request.fields['province'] = province;
+
+    // Attach the image file
+    var imageFile = await http.MultipartFile.fromPath(
+      'profile_image',
+      profileImage.path,
+    );
+    request.files.add(imageFile);
+
+    var response = await request.send();
+    return response;
+  }
+}
+
+class CustomerRegisterController extends GetxController {
   var isLoading = false.obs;
   var isSuccess = false.obs;
 
-  Future<void> signup(String fullname, String email, String password) async {
+  Future<void> customerRegistrationData(Customer customer) async {
     try {
       isLoading.value = true;
 
-      final response = await http.post(
-        Uri.parse('http://10.0.2.2:5000/api/customer/addCustomer'),
-        headers: <String, String>{'Content-Type': 'application/json'},
-        body: jsonEncode(<String, String>{
-          'fullname': fullname,
-          'email': email,
-          'password': password,
-        }),
-      );
+      var response = await customer
+          .uploadProfileImage('http://10.0.2.2:5000/api/customer/addCustomer');
 
-      //print(response.statusCode);
+      print(response.statusCode);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         // Registration successful
         isSuccess.value = true;
-        //Get.to(() => const LoginPage());
+        // Navigate to success page or perform other actions
       } else {
         // Registration failed
         isSuccess.value = false;
         print("Error: ${response.statusCode}");
-        //Get.to(() => const LoginPage());
+        if (response.statusCode == 400) {
+          // Handle validation errors
+          print('Validation error: ${await response.stream.bytesToString()}');
+          // Display validation errors to the user or perform other actions
+        } else {
+          // Handle other errors (e.g., server errors)
+          print('Server error');
+          // Display a generic error message to the user or perform other actions
+        }
       }
     } catch (error) {
       // Handle network errors or exceptions
-      //print("Error: $error");
       isSuccess.value = false;
+      print("Error: $error");
     } finally {
       isLoading.value = false;
     }
   }
 
-  // Reset the state when leaving the page
   @override
   void onClose() {
     isLoading.close();
