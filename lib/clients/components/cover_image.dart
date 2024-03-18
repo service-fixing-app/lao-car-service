@@ -13,7 +13,7 @@ class CoverImage extends StatelessWidget {
       width: double.infinity,
       height: coverHeight,
       child: Image.asset(
-        'assets/images/service-car.jpg',
+        'assets/images/shopcenter.png',
         fit: BoxFit.cover,
       ),
     );

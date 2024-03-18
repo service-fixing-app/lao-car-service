@@ -9,6 +9,7 @@ class FindMap extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
       child: Container(
+        height: 60.0,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -20,7 +21,7 @@ class FindMap extends StatelessWidget {
               offset: const Offset(0, 2),
             ),
           ],
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
         child: Row(

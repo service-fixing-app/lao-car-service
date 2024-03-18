@@ -485,7 +485,7 @@ class _CustomerFormState extends State<CustomerForm> {
                   children: [
                     SizedBox(
                       height: 50.0,
-                      width: 100.0,
+                      width: 180.0,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -511,7 +511,7 @@ class _CustomerFormState extends State<CustomerForm> {
                     ),
                     SizedBox(
                       height: 50.0,
-                      width: 100.0,
+                      width: 190.0,
                       child: ElevatedButton(
                         onPressed: () {
                           // Call the method to update registration data
@@ -552,7 +552,7 @@ class _CustomerFormState extends State<CustomerForm> {
                               province: selectedProvince ?? '',
                               district: selectedState ?? '',
                               village: villageController.text,
-                              profileImage: _imageFile,
+                              profileImage: _imageFile!,
                               tel: '',
                               isVerified: false,
                             ),

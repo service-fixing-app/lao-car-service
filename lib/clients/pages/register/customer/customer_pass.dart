@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
-
 import '../../../../constants.dart';
 
 class CustomerPass extends StatefulWidget {

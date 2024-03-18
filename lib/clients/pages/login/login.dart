@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../constants.dart';
-import '../../controllers/auth_controller.dart';
+import '../../controllers/login/auth_controller.dart';
 import '../register/register.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // define all varrible
-  final AuthController authController = AuthController();
+  final AuthController authController =Get.put(AuthController());
   final TextEditingController telController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _hidePassword = true;

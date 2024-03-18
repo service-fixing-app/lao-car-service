@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
 import 'package:service_fixing/clients/controllers/customer/verifieotp_controller.dart';
+import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/pages/login/verify_code.dart';
@@ -25,6 +26,7 @@ import 'clients/pages/map/map_page.dart';
 //   );
 // }
 void main() async {
+  Get.put(AuthController());
   Get.put(OtpController());
   Get.put(RepairshopController());
   Get.put(CustomerRegisterController());
@@ -121,6 +123,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       initialRoute: '/',
+      // home: const CustomBottomBar(),
     );
   }
 }

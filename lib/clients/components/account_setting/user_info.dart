@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/auth_controller.dart';
+import '../../controllers/login/auth_controller.dart';
 import '../../pages/register.dart';
 
 class BuildField extends StatelessWidget {
