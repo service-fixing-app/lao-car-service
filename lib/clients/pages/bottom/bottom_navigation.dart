@@ -30,8 +30,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         controller: _pageController,
         children: [
           const HomePage(),
-          Container(color: Colors.red),
-          Container(color: Colors.red),
+          Container(color: Colors.grey.shade200),
+          Container(color: Colors.grey.shade200),
           AccountSetting(),
         ],
         onPageChanged: (index) {

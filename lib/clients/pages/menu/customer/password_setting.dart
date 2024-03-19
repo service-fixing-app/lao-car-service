@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/constants.dart';
 
 class PasswordSetting extends StatelessWidget {
@@ -6,6 +8,8 @@ class PasswordSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -34,6 +38,9 @@ class PasswordSetting extends StatelessWidget {
               // Text Feild register
               const SizedBox(height: 20.0),
               TextField(
+                controller: TextEditingController(
+                  text: '+856 ${authController.userData['tel']}',
+                ),
                 decoration: InputDecoration(
                   labelText: 'ເບີໂທ',
                   labelStyle: const TextStyle(
@@ -53,6 +60,9 @@ class PasswordSetting extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               TextField(
+                controller: TextEditingController(
+                  text: '${authController.userData['password']}',
+                ),
                 decoration: InputDecoration(
                   labelText: 'ລະຫັດຜ່ານ',
                   labelStyle: const TextStyle(

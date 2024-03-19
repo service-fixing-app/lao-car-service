@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/constants.dart';
 
 class InformationSetting extends StatelessWidget {
@@ -6,6 +8,7 @@ class InformationSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -33,14 +36,13 @@ class InformationSetting extends StatelessWidget {
               Center(
                 child: Stack(
                   children: [
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
                           radius: 60,
-                          backgroundImage: AssetImage(
-                            'assets/images/user_profile.gif',
-                          ),
+                          backgroundImage: NetworkImage(
+                              '${authController.userData['profile_image']}'),
                         ),
                       ],
                     ),
@@ -89,6 +91,9 @@ class InformationSetting extends StatelessWidget {
                 height: 20.0,
               ),
               TextField(
+                controller: TextEditingController(
+                  text: '${authController.userData['first_name']}',
+                ),
                 decoration: InputDecoration(
                   labelText: 'ຊື່ຜູ້ໃຊ້',
                   labelStyle: const TextStyle(
@@ -108,6 +113,9 @@ class InformationSetting extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               TextField(
+                controller: TextEditingController(
+                  text: '${authController.userData['last_name']}',
+                ),
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: 'ນາມສະກຸນ',
@@ -128,6 +136,9 @@ class InformationSetting extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               TextField(
+                controller: TextEditingController(
+                  text: '${authController.userData['age']}',
+                ),
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: 'ອາຍຸ',
@@ -149,6 +160,9 @@ class InformationSetting extends StatelessWidget {
               const SizedBox(height: 20.0),
               //gender
               TextField(
+                controller: TextEditingController(
+                  text: '${authController.userData['gender']}',
+                ),
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: 'ເພດ',
@@ -170,6 +184,9 @@ class InformationSetting extends StatelessWidget {
               // birth date
               const SizedBox(height: 20.0),
               TextField(
+                controller: TextEditingController(
+                  text: '${authController.userData['village']}',
+                ),
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: 'ບ້ານ',
@@ -190,6 +207,9 @@ class InformationSetting extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               TextField(
+                controller: TextEditingController(
+                  text: '${authController.userData['district']}',
+                ),
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: 'ເມືອງ',
@@ -210,6 +230,9 @@ class InformationSetting extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               TextField(
+                controller: TextEditingController(
+                  text: '${authController.userData['province']}',
+                ),
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: 'ແຂວງ',

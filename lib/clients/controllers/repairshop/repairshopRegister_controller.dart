@@ -1,52 +1,108 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../models/repairshop_registerModel.dart';
+class Repairshop {
+  final String shopName;
+  final String shopownerName;
+  final String tel;
+  final String password;
+  final String age;
+  final String gender;
+  final String birthdate;
+  final String village;
+  final String district;
+  final String province;
+  final File? profileImage;
 
-class RepairshopController extends GetxController {
+  Repairshop({
+    required this.shopName,
+    required this.shopownerName,
+    required this.tel,
+    required this.password,
+    required this.age,
+    required this.gender,
+    required this.birthdate,
+    required this.village,
+    required this.district,
+    required this.province,
+    required this.profileImage,
+  });
+
+  Future<String?> uploadProfileImageToFirebaseStorage() async {
+    try {
+      if (profileImage == null) return null;
+
+      // Get image name
+      String imageName = profileImage!.path.split('/').last;
+
+      // Upload image to Firebase Storage
+      Reference ref = FirebaseStorage.instance.ref().child('Images/$imageName');
+      await ref.putFile(File(profileImage!.path));
+
+      // Get download URL of the uploaded image
+      String imageUrl = await ref.getDownloadURL();
+      return imageUrl;
+    } catch (e) {
+      print('Error uploading image to Firebase Storage: $e');
+      return null;
+    }
+  }
+}
+
+class RepairshopRegisterController extends GetxController {
   var isLoading = false.obs;
   var isSuccess = false.obs;
 
-  void saveRepairshopData(Repairshop repairshop) async {
+  Future<void> repairshopRegistrationData(Repairshop shop) async {
     try {
       isLoading.value = true;
 
-      // Your API endpoint for saving repairshop data
-      var apiUrl = 'https://example.com/save-repairshop-data';
+      // Upload profile image to Firebase Storage and get image URL
+      String? imageUrl = await shop.uploadProfileImageToFirebaseStorage();
 
-      // Prepare the request body
-      var requestBody = {
-        'first_name': repairshop.firstName,
-        'last_name': repairshop.lastName,
-        'tel': repairshop.tel,
-        'password': repairshop.password,
-        'age': repairshop.age.toString(),
-        'gender': repairshop.gender,
-        'birthdate': repairshop.birthdate,
-        'village': repairshop.village,
-        'district': repairshop.district,
-        'province': repairshop.province,
-      };
+      // Send shop data along with image URL to database
+      if (imageUrl != null) {
+        var response = await http.post(
+          Uri.parse('http://10.0.2.2:5000/api/repairshop/addRepairshop'),
+          body: {
+            'shop_name': shop.shopName,
+            'management_name': shop.shopownerName,
+            'tel': shop.tel,
+            'password': shop.password,
+            'age': shop.age,
+            'gender': shop.gender,
+            'birthdate': shop.birthdate,
+            'village': shop.village,
+            'district': shop.district,
+            'province': shop.province,
+            'profile_image': imageUrl, // Send the image URL to the database
+          },
+        );
 
-      print('from controller ${requestBody}');
-
-      // Send the request
-      // var response = await http.post(
-      //   Uri.parse(apiUrl),
-      //   body: requestBody,
-      // );
-
-      // // Handle response
-      // if (response.statusCode == 200) {
-      //   // Registration successful
-      //   isSuccess.value = true;
-      // } else {
-      //   // Registration failed
-      //   isSuccess.value = false;
-      //   print("Error: ${response.statusCode}");
-      //   // Handle errors accordingly
-      // }
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          // Registration successful
+          isSuccess.value = true;
+          // Navigate to success page or perform other actions
+        } else {
+          // Registration failed
+          isSuccess.value = false;
+          print("Error: ${response.statusCode}");
+          if (response.statusCode == 400) {
+            // Handle validation errors
+            print('Validation error: ${response.body}');
+            // Display validation errors to the user or perform other actions
+          } else {
+            // Handle other errors (e.g., server errors)
+            print('Server error');
+            // Display a generic error message to the user or perform other actions
+          }
+        }
+      } else {
+        print('Error: Image upload failed');
+        isSuccess.value = false;
+      }
     } catch (error) {
       // Handle network errors or exceptions
       isSuccess.value = false;
@@ -54,5 +110,12 @@ class RepairshopController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  @override
+  void onClose() {
+    isLoading.close();
+    isSuccess.close();
+    super.onClose();
   }
 }

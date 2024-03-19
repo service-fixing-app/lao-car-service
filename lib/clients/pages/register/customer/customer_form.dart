@@ -539,7 +539,7 @@ class _CustomerFormState extends State<CustomerForm> {
                           // String profileImage =
                           //     _imageFile != null ? fileName : '';
                           // Navigate to the next page
-                          print('image path : ${_imageFile}');
+                          //print('image path : ${_imageFile}');
                           Get.to(
                             CustomerVerify(
                               firstName: firstNameController.text,

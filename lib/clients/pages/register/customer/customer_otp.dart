@@ -4,9 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/customer/verifieotp_controller.dart';
-import 'package:service_fixing/clients/pages/home_page.dart';
-import 'package:service_fixing/clients/pages/register/customer/customer_verify.dart';
-
 import '../../../../constants.dart';
 import '../../../components/registers/customer_otp.dart';
 

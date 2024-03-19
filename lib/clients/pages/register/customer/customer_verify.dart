@@ -395,177 +395,107 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                 ),
               ),
               const SizedBox(height: 30.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: 50.0,
-                    width: 180.0,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        elevation: 3.0,
-                      ),
-                      child: const Text(
-                        'ຍົກເລີກ',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10.0,
-                  ),
-                  SizedBox(
-                    height: 50.0,
-                    width: 190.0,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        print('Tel: ${otpController.tel}');
-                        print('Is Verified: ${otpController.isVerified.value}');
-                        if (otpController.isVerified.value == true) {
-                          // logic go to next page
-                          final profileImage = widget.profileImage;
-                          Get.to(
-                            CustomerPass(
-                              firstName: widget.firstName,
-                              lastName: widget.lastName,
-                              tel: _phoneNumberController.text,
-                              age: widget.age,
-                              gender: widget.gender,
-                              birthdate: widget.birthdate,
-                              province: widget.province,
-                              district: widget.district,
-                              village: widget.village,
-                              profileImage: profileImage,
-                            ),
-                          );
-                        } else {
-                          // messege error
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Error'),
-                                content:
-                                    Text('Please verify your phone number.'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                        // final profileImage = widget.profileImage;
-                        // Get.to(
-                        //   CustomerPass(
-                        //     firstName: widget.firstName,
-                        //     lastName: widget.lastName,
-                        //     tel: _phoneNumberController.text,
-                        //     age: widget.age,
-                        //     gender: widget.gender,
-                        //     birthdate: widget.birthdate,
-                        //     province: widget.province,
-                        //     district: widget.district,
-                        //     village: widget.village,
-                        //     profileImage: profileImage,
-                        //   ),
-                        // );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        elevation: 3.0,
-                      ),
-                      child: const Text(
-                        'ຕໍ່ໄປ',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'phetsarath_ot',
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     SizedBox(
+              //       height: 50.0,
+              //       width: 180.0,
+              //       child: ElevatedButton(
+              //         onPressed: () {
+              //           Navigator.of(context).pop();
+              //         },
+              //         style: ElevatedButton.styleFrom(
+              //           backgroundColor: Colors.red,
+              //           shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(10.0),
+              //           ),
+              //           elevation: 3.0,
+              //         ),
+              //         child: const Text(
+              //           'ຍົກເລີກ',
+              //           style: TextStyle(
+              //             fontSize: 18,
+              //             fontWeight: FontWeight.w700,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 10.0,
+              //     ),
+              //     SizedBox(
+              //       height: 50.0,
+              //       width: 190.0,
+              //       child: ElevatedButton(
+              //         onPressed: () {
+              //           print('Tel: ${otpController.tel}');
+              //           print('Is Verified: ${otpController.isVerified.value}');
+              //           if (otpController.isVerified.value == true) {
+              //             // logic go to next page
+              //             final profileImage = widget.profileImage;
+              //             Get.to(
+              //               CustomerPass(
+              //                 firstName: widget.firstName,
+              //                 lastName: widget.lastName,
+              //                 tel: _phoneNumberController.text,
+              //                 age: widget.age,
+              //                 gender: widget.gender,
+              //                 birthdate: widget.birthdate,
+              //                 province: widget.province,
+              //                 district: widget.district,
+              //                 village: widget.village,
+              //                 profileImage: profileImage,
+              //               ),
+              //             );
+              //           } else {
+              //             // messege error
+              //             showDialog(
+              //               context: context,
+              //               builder: (BuildContext context) {
+              //                 return AlertDialog(
+              //                   title: Text('Error'),
+              //                   content:
+              //                       Text('Please verify your phone number.'),
+              //                   actions: <Widget>[
+              //                     TextButton(
+              //                       onPressed: () {
+              //                         Navigator.of(context).pop();
+              //                       },
+              //                       child: Text('OK'),
+              //                     ),
+              //                   ],
+              //                 );
+              //               },
+              //             );
+              //           }
+              //         },
+              //         style: ElevatedButton.styleFrom(
+              //           backgroundColor: Colors.blue,
+              //           shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(10.0),
+              //           ),
+              //           elevation: 3.0,
+              //         ),
+              //         child: const Text(
+              //           'ຕໍ່ໄປ',
+              //           style: TextStyle(
+              //             fontSize: 18,
+              //             fontWeight: FontWeight.w700,
+              //             fontFamily: 'phetsarath_ot',
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 15.0),
               SizedBox(
                 height: 50.0,
                 width: double.infinity,
                 child: ElevatedButton(
-                  // onPressed: () async {
-                  //   if (passwordController.text != repasswordController.text) {
-                  //     // Passwords do not match, show error message
-                  //     showDialog(
-                  //       context: context,
-                  //       builder: (BuildContext context) {
-                  //         return AlertDialog(
-                  //           title: const Text('Error'),
-                  //           content: const Text('ລະຫັດຜ່ານບໍ່ຄືກັນ '),
-                  //           actions: <Widget>[
-                  //             TextButton(
-                  //               onPressed: () {
-                  //                 Navigator.of(context).pop();
-                  //               },
-                  //               child: const Text('OK'),
-                  //             ),
-                  //           ],
-                  //         );
-                  //       },
-                  //     );
-                  //     return; // Do not proceed further
-                  //   } else {
-                  //     final customer = Customer(
-                  //       firstName: widget.firstName,
-                  //       lastName: widget.lastName,
-                  //       tel: widget.tel,
-                  //       password: passwordController.text,
-                  //       age: widget.age,
-                  //       gender: widget.gender,
-                  //       birthdate: widget.birthdate,
-                  //       village: widget.village,
-                  //       district: widget.district,
-                  //       province: widget.province,
-                  //       profileImage: widget.profileImage!,
-                  //     );
-
-                  //     try {
-                  //       await customerRegisterController
-                  //           .customerRegistrationData(customer);
-                  //       if (customerRegisterController.isSuccess.value) {
-                  //         // Registration successful
-                  //         // Navigate to success page or perform other actions
-                  //         print('success added');
-                  //         Get.to(const LoginPage());
-                  //       } else {
-                  //         // Registration failed
-                  //         // Display error message to the user or perform other actions
-                  //         print('added error');
-                  //       }
-                  //     } catch (error) {
-                  //       // Handle error
-                  //     }
-                  //   }
-                  // },
-                  // Modify the onPressed callback of the ElevatedButton
                   onPressed: () async {
-                    print(widget.profileImage);
+                    //print(widget.profileImage);
                     if (passwordController.text != repasswordController.text) {
                       // Passwords do not match, show error message
                       showDialog(
@@ -628,7 +558,6 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                       }
                     }
                   },
-
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
                     shape: RoundedRectangleBorder(

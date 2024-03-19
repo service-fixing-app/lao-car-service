@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
 import 'package:service_fixing/clients/controllers/customer/verifieotp_controller.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
+import 'package:service_fixing/clients/controllers/repairshop/verifieotp_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/pages/login/verify_code.dart';
@@ -28,8 +28,9 @@ import 'clients/pages/map/map_page.dart';
 void main() async {
   Get.put(AuthController());
   Get.put(OtpController());
-  Get.put(RepairshopController());
+  Get.put(OtpRepairshopController());
   Get.put(CustomerRegisterController());
+  Get.put(RepairshopRegisterController());
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
@@ -43,7 +44,7 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: MyApp(),
   ));
 }
@@ -63,17 +64,17 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/',
-          page: () => LoginPage(),
+          page: () => const LoginPage(),
           transition: Transition.fadeIn,
         ),
         GetPage(
           name: '/HomePage',
-          page: () => HomePage(),
+          page: () => const HomePage(),
           transition: Transition.fadeIn,
         ),
         GetPage(
           name: '/BottomBar',
-          page: () => CustomBottomBar(),
+          page: () => const CustomBottomBar(),
           transition: Transition.fadeIn,
         ),
         GetPage(
@@ -91,16 +92,16 @@ class MyApp extends StatelessWidget {
           page: () => const RepairshopForm(),
           transition: Transition.rightToLeft,
         ),
-        GetPage(
-          name: '/repairshopVerify',
-          page: () => const RepairshopVerify(),
-          transition: Transition.rightToLeft,
-        ),
-        GetPage(
-          name: '/repairshop_otp',
-          page: () => const RepairshopOtp(),
-          transition: Transition.rightToLeft,
-        ),
+        // GetPage(
+        //   name: '/repairshopVerify',
+        //   page: () =>  RepairshopVerify(),
+        //   transition: Transition.rightToLeft,
+        // ),
+        // GetPage(
+        //   name: '/repairshop_otp',
+        //   page: () =>  RepairshopOtp(),
+        //   transition: Transition.rightToLeft,
+        // ),
         GetPage(
           name: '/towingtruckForm',
           page: () => const TowingtruckForm(),
@@ -118,7 +119,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/Map',
-          page: () => MapPage(),
+          page: () => const MapPage(),
           transition: Transition.rightToLeft,
         ),
       ],

@@ -24,11 +24,11 @@ class BodySection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Shop for',
+                      'Shop For You',
                       style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.black54),
                     ),
                     Text(
                       'Show all',

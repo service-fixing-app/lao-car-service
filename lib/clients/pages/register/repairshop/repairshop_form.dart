@@ -19,8 +19,8 @@ class RepairshopForm extends StatefulWidget {
 
 class _RepairshopFormState extends State<RepairshopForm> {
   // controller put data to model using getx
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+  TextEditingController shopNameController = TextEditingController();
+  TextEditingController shopOwnerNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController villageController = TextEditingController();
 
@@ -88,7 +88,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'ຟອມລົງທະບຽນລູກຄ້າ',
+          'ຟອມລົງທະບຽນຮ້ານສ້ອມແປງ',
           style: TextStyle(
             fontFamily: 'phetsarath_ot',
           ),
@@ -189,10 +189,10 @@ class _RepairshopFormState extends State<RepairshopForm> {
                   height: 20.0,
                 ),
                 TextField(
-                  controller: firstNameController,
+                  controller: shopNameController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                    labelText: 'ຊື່ຜູ້ໃຊ້',
+                    labelText: 'ຊື່ຮ້ານສ້ອມແປງ',
                     labelStyle: const TextStyle(
                       fontSize: 18,
                       fontFamily: 'phetsarath_ot',
@@ -217,10 +217,10 @@ class _RepairshopFormState extends State<RepairshopForm> {
                 ),
 
                 TextField(
-                  controller: lastNameController,
+                  controller: shopOwnerNameController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                    labelText: 'ນາມສະກຸນ',
+                    labelText: 'ຊື່ ແລະນາມສະກຸນເຈົ້າຂອງຮ້ານ',
                     labelStyle: const TextStyle(
                       fontSize: 18,
                       fontFamily: 'phetsarath_ot',
@@ -239,10 +239,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                     LengthLimitingTextInputFormatter(50),
                   ],
                 ),
-                const SizedBox(
-                  height: 25.0,
-                ),
-
+                const SizedBox(height: 20.0),
                 TextField(
                   controller: ageController,
                   keyboardType: TextInputType.name,
@@ -452,12 +449,16 @@ class _RepairshopFormState extends State<RepairshopForm> {
                   ],
                 ),
                 const SizedBox(height: 20.0),
+                // document verify
+                const Text('Document verify'),
+                const SizedBox(height: 20.0),
                 // button data
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
                       height: 50.0,
-                      width: 100.0,
+                      width: 180.0,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -470,7 +471,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                           elevation: 3.0,
                         ),
                         child: const Text(
-                          'canel',
+                          'ຍົກເລີກ',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -483,47 +484,26 @@ class _RepairshopFormState extends State<RepairshopForm> {
                     ),
                     SizedBox(
                       height: 50.0,
-                      width: 100.0,
+                      width: 190.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Create a Repairshop object with data from UI
-                          var repairshop = Repairshop(
-                            firstName: firstNameController.text,
-                            lastName: lastNameController.text,
-                            age: int.parse(ageController.text),
-                            gender: _selectGender,
-                            birthdate: _selectedDate != null
-                                ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                                : '',
-                            province: selectedProvince ?? '',
-                            district: selectedState ?? '',
-                            village: villageController.text,
-                            profileImage: _imageFile,
+                          Get.to(
+                            RepairshopVerify(
+                              shopName: shopNameController.text,
+                              shopownerName: shopOwnerNameController.text,
+                              age: ageController.text,
+                              gender: _selectGender,
+                              birthdate: _selectedDate != null
+                                  ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                                  : '',
+                              province: selectedProvince ?? '',
+                              district: selectedState ?? '',
+                              village: villageController.text,
+                              profileImage: _imageFile!,
+                              tel: '',
+                              isVerified: false,
+                            ),
                           );
-                          print('Repairshop Object:');
-                          print('First Name: ${repairshop.firstName}');
-                          print('Last Name: ${repairshop.lastName}');
-                          print('Telephone: ${repairshop.tel}');
-                          print('Password: ${repairshop.password}');
-                          print('Age: ${repairshop.age}');
-                          print('Gender: ${repairshop.gender}');
-                          print('Birthdate: ${repairshop.birthdate}');
-                          print('Village: ${repairshop.village}');
-                          print('District: ${repairshop.district}');
-                          print('Province: ${repairshop.province}');
-                          print(
-                              'Profile Image Path: ${repairshop.profileImage}');
-
-                          // Create an instance of RepairshopController
-                          var repairshopController = RepairshopController();
-
-                          // Register the RepairshopController instance with GetX
-                          Get.put<RepairshopController>(repairshopController);
-
-                          // Send repairshop data to the controller
-                          repairshopController.saveRepairshopData(repairshop);
-
-                          Get.toNamed('/repairshopVerify');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
@@ -533,10 +513,11 @@ class _RepairshopFormState extends State<RepairshopForm> {
                           elevation: 3.0,
                         ),
                         child: const Text(
-                          'submit',
+                          'ຕໍ່ໄປ',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
+                            fontFamily: 'phetsarath_ot',
                           ),
                         ),
                       ),

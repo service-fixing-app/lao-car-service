@@ -57,8 +57,6 @@ class AccountSetting extends StatelessWidget {
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
                               children: [
-                                Text(
-                                    'First Name: ${authController.userData['first_name']} '),
                                 _buildSettingRow(
                                   icon: Icons.person,
                                   text: 'ຂໍ້ມູນພື້ນຖານ',
@@ -73,12 +71,50 @@ class AccountSetting extends StatelessWidget {
                                     Get.to(const PasswordSetting());
                                   },
                                 ),
-                                _buildSettingRow(
-                                  icon: Icons.contact_phone_rounded,
-                                  text: 'ຂໍ້ມູນການຕິດຕໍ່',
-                                  onTap: () {
-                                    Get.to(const ContactSetting());
-                                  },
+                                // _buildSettingRow(
+                                //   icon: Icons.contact_phone_rounded,
+                                //   text: 'ຂໍ້ມູນການຕິດຕໍ່',
+                                //   onTap: () {
+                                //     Get.to(const ContactSetting());
+                                //   },
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.admin_panel_settings_rounded,
+                                  color: primaryColor,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  'Admin  02077665494',
+                                  style: TextStyle(
+                                    color: primaryColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
@@ -145,11 +181,10 @@ class AccountSetting extends StatelessWidget {
     final AuthController authController = Get.find();
     return Row(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 60,
-          backgroundImage: AssetImage(
-            'assets/images/user_profile.gif',
-          ),
+          backgroundImage:
+              NetworkImage('${authController.userData['profile_image']}'),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,12 +236,12 @@ class AccountSetting extends StatelessWidget {
                   color: Colors.black54,
                   size: 30,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10.0,
                 ),
                 Text(
                   text,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'phetsarath_ot',
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
