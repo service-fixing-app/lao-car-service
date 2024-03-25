@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
-import 'package:service_fixing/clients/pages/menu/customer/contact_setting.dart';
+import 'package:service_fixing/clients/controllers/logout/logout.dart';
 import 'package:service_fixing/clients/pages/menu/customer/information_setting.dart';
 import 'package:service_fixing/clients/pages/menu/customer/password_setting.dart';
 import 'package:service_fixing/constants.dart';
@@ -13,6 +13,7 @@ class AccountSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final LogoutController logoutController = LogoutController();
     final AuthController authController = Get.find();
 
     return Scaffold(
@@ -69,6 +70,14 @@ class AccountSetting extends StatelessWidget {
                                   text: 'ຂໍ້ມູນລະຫັດຜ່ານ ແລະ ເບີຕິດຕໍ່',
                                   onTap: () {
                                     Get.to(const PasswordSetting());
+                                  },
+                                ),
+                                _buildLogout(
+                                  icon: Icons.logout,
+                                  text: 'ອອກຈາກລະບົບ',
+                                  onTap: () async {
+                                    // logout logic
+                                    await logoutController.logout();
                                   },
                                 ),
                                 // _buildSettingRow(
@@ -254,6 +263,45 @@ class AccountSetting extends StatelessWidget {
           const Icon(
             Icons.arrow_forward_ios_rounded,
             color: Colors.black54,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLogout({
+    required IconData icon,
+    required String text,
+    required void Function() onTap,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          InkWell(
+            onTap: onTap,
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  color: Colors.black54,
+                  size: 30,
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text(
+                  text,
+                  style: const TextStyle(
+                    fontFamily: 'phetsarath_ot',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

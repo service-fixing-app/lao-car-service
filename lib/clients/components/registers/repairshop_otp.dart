@@ -7,7 +7,6 @@ class VerifyOtpCode extends StatelessWidget {
   VerifyOtpCode({
     super.key,
     required this.controller,
-
   });
 
   @override
@@ -16,12 +15,18 @@ class VerifyOtpCode extends StatelessWidget {
       height: 50,
       width: 50,
       decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey,
-            width: 2.0,
-          ),
-          borderRadius: BorderRadius.circular(10.0)),
+        border: Border.all(
+          color: Colors.grey,
+          width: 2.0,
+        ),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: TextField(
+        onChanged: (value) {
+          if (value.length == 1) {
+            FocusScope.of(context).nextFocus();
+          }
+        },
         controller: controller,
         decoration: const InputDecoration(
           border: InputBorder.none,

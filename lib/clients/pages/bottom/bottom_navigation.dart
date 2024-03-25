@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
-import 'package:get/get.dart';
 import 'package:service_fixing/clients/pages/home_page.dart';
 import 'package:service_fixing/clients/pages/menu/customer/account_setting.dart';
-
-import '../../controllers/login/auth_controller.dart';
+import 'package:service_fixing/clients/pages/notifications/customer_notifications.dart';
 
 class CustomBottomBar extends StatefulWidget {
   const CustomBottomBar({Key? key}) : super(key: key);
@@ -31,8 +29,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         children: [
           const HomePage(),
           Container(color: Colors.grey.shade200),
-          Container(color: Colors.grey.shade200),
-          AccountSetting(),
+          const CustomerNotifications(),
+          const AccountSetting(),
         ],
         onPageChanged: (index) {
           setState(() => _currentPage = index);

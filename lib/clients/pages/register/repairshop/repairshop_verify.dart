@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:service_fixing/clients/controllers/repairshop/repairshopRegister_controller.dart';
 import 'package:service_fixing/clients/controllers/repairshop/verifieotp_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
@@ -20,7 +19,9 @@ class RepairshopVerify extends StatefulWidget {
   String province;
   String district;
   String village;
+  String typeService;
   File? profileImage;
+  File? documentImage;
   String tel;
   bool isVerified;
 
@@ -33,7 +34,9 @@ class RepairshopVerify extends StatefulWidget {
     required this.province,
     required this.district,
     required this.village,
+    required this.typeService,
     required this.profileImage,
+    required this.documentImage,
     required this.tel,
     required this.isVerified,
   });
@@ -74,7 +77,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
         ),
       ),
@@ -122,7 +125,11 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                     ),
                     child: Obx(
                       () => TextField(
-                        controller: _phoneNumberController,
+                        // controller: _phoneNumberController,
+                        controller: otpController.tel.value.isNotEmpty
+                            ? TextEditingController(
+                                text: otpController.tel.value)
+                            : _phoneNumberController,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           prefixText: _countryCode,
@@ -146,7 +153,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                     width: 6.0,
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: 52.0,
                     width: 100.0,
                     child: ElevatedButton(
                       onPressed: () async {
@@ -190,7 +197,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(6.0),
                         ),
                         elevation: 3.0,
                       ),
@@ -359,12 +366,20 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                       );
                       return; // Do not proceed further
                     } else {
-                      if (widget.profileImage == null) {
-                        // Handle the case where the image file does not exist
-                        print('Image file does not exist.');
-                        print(widget.profileImage);
-                        return;
-                      }
+                      // if (widget.profileImage == null ||
+                      //     widget.profileImage!.existsSync()) {
+                      //   // Handle the case where the image file does not exist
+                      //   print('profile image does not exist.');
+                      //   print(widget.profileImage);
+                      //   return;
+                      // }
+                      // if (widget.documentImage == null ||
+                      //     widget.documentImage!.existsSync()) {
+                      //   // Handle the case where the image file does not exist
+                      //   print('document image does not exist.');
+                      //   print(widget.profileImage);
+                      //   return;
+                      // }
 
                       // Proceed with sending image data and other form data to the API
                       final customer = Repairshop(
@@ -378,7 +393,9 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                         village: widget.village,
                         district: widget.district,
                         province: widget.province,
+                        typeService: widget.typeService,
                         profileImage: widget.profileImage!,
+                        documentImage: widget.documentImage!,
                       );
 
                       try {

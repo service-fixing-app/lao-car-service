@@ -5,16 +5,13 @@ import 'package:service_fixing/clients/controllers/customer/register_controller.
 import 'package:service_fixing/clients/controllers/customer/verifieotp_controller.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/repairshop/verifieotp_controller.dart';
+import 'package:service_fixing/clients/controllers/towingcarshop/towingcarshopVerifieOtp_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/pages/login/verify_code.dart';
 import 'package:service_fixing/clients/pages/register/customer/customer_form.dart';
 import 'package:service_fixing/clients/pages/register/repairshop/repairshop_form.dart';
-import 'package:service_fixing/clients/pages/register/repairshop/repairshop_otp.dart';
-import 'package:service_fixing/clients/pages/register/repairshop/repairshop_verify.dart';
-import 'package:service_fixing/clients/pages/register/towingtruck/towingtruck_form.dart';
-import 'package:service_fixing/clients/pages/register/towingtruck/towingtruck_otp.dart';
-import 'package:service_fixing/clients/pages/register/towingtruck/towingtruck_verify.dart';
+import 'package:service_fixing/clients/pages/register/towingcarshop/towingcarshop_form.dart';
 import 'clients/controllers/repairshop/repairshopRegister_controller.dart';
 import 'clients/pages/bottom/bottom_navigation.dart';
 import 'clients/pages/home_page.dart';
@@ -30,6 +27,7 @@ void main() async {
   Get.put(OtpController());
   Get.put(OtpRepairshopController());
   Get.put(CustomerRegisterController());
+  Get.put(OtpTowingcarshopController());
   Get.put(RepairshopRegisterController());
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isAndroid) {
@@ -104,19 +102,19 @@ class MyApp extends StatelessWidget {
         // ),
         GetPage(
           name: '/towingtruckForm',
-          page: () => const TowingtruckForm(),
+          page: () => const TowingcarshopForm(),
           transition: Transition.rightToLeft,
         ),
-        GetPage(
-          name: '/towingtruckVerify',
-          page: () => const TowingtruckVerify(),
-          transition: Transition.rightToLeft,
-        ),
-        GetPage(
-          name: '/towingtruck_otp',
-          page: () => const TowingtruckOtp(),
-          transition: Transition.rightToLeft,
-        ),
+        // GetPage(
+        //   name: '/towingtruckVerify',
+        //   page: () => const TowingtruckVerify(),
+        //   transition: Transition.rightToLeft,
+        // ),
+        // GetPage(
+        //   name: '/towingtruck_otp',
+        //   page: () => const TowingtruckOtp(),
+        //   transition: Transition.rightToLeft,
+        // ),
         GetPage(
           name: '/Map',
           page: () => const MapPage(),

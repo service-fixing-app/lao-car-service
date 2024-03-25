@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:service_fixing/clients/controllers/repairshop/repairshopRegister_controller.dart';
 import 'package:service_fixing/clients/pages/register/repairshop/repairshop_verify.dart';
-
 import '../../../../constants.dart';
-import '../../../models/repairshop_registerModel.dart';
 
 class RepairshopForm extends StatefulWidget {
   const RepairshopForm({super.key});
@@ -23,6 +20,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
   TextEditingController shopOwnerNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController villageController = TextEditingController();
+  TextEditingController typeServiceController = TextEditingController();
 
   String _selectGender = '';
   DateTime? _selectedDate;
@@ -79,6 +77,21 @@ class _RepairshopFormState extends State<RepairshopForm> {
         _imageFile = File(pickedFile.path);
       } else {
         print('No image selected.');
+      }
+    });
+  }
+
+  // upload ducoment image
+  File? _documentImageFile;
+
+  Future<void> _getDocumentImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+
+    setState(() {
+      if (pickedFile != null) {
+        _documentImageFile = File(pickedFile.path);
+      } else {
+        print('No document image selected.');
       }
     });
   }
@@ -146,8 +159,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                                         ListTile(
                                           leading:
                                               const Icon(Icons.photo_library),
-                                          title:
-                                              const Text('Pick from Gallery'),
+                                          title: const Text('ຮູບພາບ'),
                                           onTap: () {
                                             Navigator.of(context).pop();
                                             _getImage(ImageSource.gallery);
@@ -155,7 +167,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                                         ),
                                         ListTile(
                                           leading: const Icon(Icons.camera_alt),
-                                          title: const Text('Take a Photo'),
+                                          title: const Text('ຖ່າຍຮູບ'),
                                           onTap: () {
                                             Navigator.of(context).pop();
                                             _getImage(ImageSource.camera);
@@ -449,8 +461,105 @@ class _RepairshopFormState extends State<RepairshopForm> {
                   ],
                 ),
                 const SizedBox(height: 20.0),
+                // type off serivce
+                TextField(
+                  controller: typeServiceController,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: 'ປະເພດບໍລິການສ້ອມແປງ',
+                    labelStyle: const TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'phetsarath_ot',
+                      fontWeight: FontWeight.w500,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(width: 2.0),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 18.0,
+                    ),
+                  ),
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(50),
+                  ],
+                ),
+                const SizedBox(height: 20.0),
                 // document verify
-                const Text('Document verify'),
+                const Text(
+                  'ຮູບພາບເອກະສານຢັ້ງຢືນການເປີດຮ້ານສ້ອມແປງ',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'phetsarath_ot',
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SafeArea(
+                          child: Wrap(
+                            children: [
+                              ListTile(
+                                leading: const Icon(Icons.photo_library),
+                                title: const Text('ຮູບພາບ'),
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  _getDocumentImage(ImageSource.gallery);
+                                },
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.camera_alt),
+                                title: const Text('ຖ່າຍຮູບ'),
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  _getDocumentImage(ImageSource.camera);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black45),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: _documentImageFile != null
+                        ? Image.file(
+                            _documentImageFile!,
+                            fit: BoxFit.cover,
+                          )
+                        : const Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.upload,
+                                  size: 50,
+                                  color: Colors.blue,
+                                ),
+                                Text(
+                                  'ອັບໂລບຮູບພາບ',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'phetsarath_ot',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                  ),
+                ),
                 const SizedBox(height: 20.0),
                 // button data
                 Row(
@@ -487,23 +596,66 @@ class _RepairshopFormState extends State<RepairshopForm> {
                       width: 190.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(
-                            RepairshopVerify(
-                              shopName: shopNameController.text,
-                              shopownerName: shopOwnerNameController.text,
-                              age: ageController.text,
-                              gender: _selectGender,
-                              birthdate: _selectedDate != null
-                                  ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                                  : '',
-                              province: selectedProvince ?? '',
-                              district: selectedState ?? '',
-                              village: villageController.text,
-                              profileImage: _imageFile!,
-                              tel: '',
-                              isVerified: false,
-                            ),
-                          );
+                          if (_imageFile == null) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  // title: const Text('warning'),
+                                  content:
+                                      const Text('ກະລຸນາອັບໂລດຮູບ profile'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else if (_documentImageFile == null) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  // title: const Text('warning'),
+                                  content: const Text(
+                                      'ກະລຸນາອັບໂລດຮູບເອກະສານການເປີດຮ້ານ'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            // If both images are present, navigate to the next screen
+                            Get.to(
+                              RepairshopVerify(
+                                shopName: shopNameController.text,
+                                shopownerName: shopOwnerNameController.text,
+                                age: ageController.text,
+                                gender: _selectGender,
+                                birthdate: _selectedDate != null
+                                    ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                                    : '',
+                                province: selectedProvince ?? '',
+                                district: selectedState ?? '',
+                                village: villageController.text,
+                                typeService: typeServiceController.text,
+                                profileImage: _imageFile!,
+                                documentImage: _documentImageFile!,
+                                tel: '',
+                                isVerified: false,
+                              ),
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
@@ -522,6 +674,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                         ),
                       ),
                     ),
+                    
                   ],
                 ),
               ],

@@ -14,8 +14,9 @@ class Repairshop {
   final String village;
   final String district;
   final String province;
+  final String typeService;
   final File? profileImage;
-
+  final File? documentImage;
   Repairshop({
     required this.shopName,
     required this.shopownerName,
@@ -27,7 +28,9 @@ class Repairshop {
     required this.village,
     required this.district,
     required this.province,
+    required this.typeService,
     required this.profileImage,
+    required this.documentImage,
   });
 
   Future<String?> uploadProfileImageToFirebaseStorage() async {
@@ -49,6 +52,27 @@ class Repairshop {
       return null;
     }
   }
+
+  Future<String?> uploadDocumentImageToFirebaseStorage() async {
+    try {
+      if (documentImage == null) return null;
+
+      // Get image name
+      String imageName = documentImage!.path.split('/').last;
+
+      // Upload image to Firebase Storage
+      Reference ref =
+          FirebaseStorage.instance.ref().child('Documents/$imageName');
+      await ref.putFile(File(documentImage!.path));
+
+      // Get download URL of the uploaded image
+      String imageUrl = await ref.getDownloadURL();
+      return imageUrl;
+    } catch (e) {
+      print('Error uploading document image to Firebase Storage: $e');
+      return null;
+    }
+  }
 }
 
 class RepairshopRegisterController extends GetxController {
@@ -61,6 +85,10 @@ class RepairshopRegisterController extends GetxController {
 
       // Upload profile image to Firebase Storage and get image URL
       String? imageUrl = await shop.uploadProfileImageToFirebaseStorage();
+
+      // Upload document image to Firebase Storage and get image URL
+      String? documentImageUrl =
+          await shop.uploadDocumentImageToFirebaseStorage();
 
       // Send shop data along with image URL to database
       if (imageUrl != null) {
@@ -77,7 +105,10 @@ class RepairshopRegisterController extends GetxController {
             'village': shop.village,
             'district': shop.district,
             'province': shop.province,
+            'type_service': shop.typeService,
             'profile_image': imageUrl, // Send the image URL to the database
+            'document_verify':
+                documentImageUrl, // Send the image URL to the database
           },
         );
 
