@@ -30,12 +30,12 @@
 20    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 20-->C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:6:5-80
 20-->C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:6:22-78
-21    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-21-->[:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
-21-->[:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-78
-22    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-22-->[:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-79
-22-->[:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:8:22-76
+21    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+21-->C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:7:5-78
+21-->C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:7:22-76
+22    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+22-->C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:8:5-81
+22-->C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:8:22-78
 23    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 23-->[com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:26:5-79
 23-->[com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:26:22-76

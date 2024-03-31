@@ -513,7 +513,7 @@
     },
     {
       "name": "plugin_platform_interface",
-      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.7",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -632,7 +632,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-03-19T15:21:56.760266Z",
+  "generated": "2024-03-30T20:15:51.235049Z",
   "generator": "pub",
   "generatorVersion": "3.1.0-63.1.beta"
 }

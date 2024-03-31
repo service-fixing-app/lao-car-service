@@ -115,7 +115,7 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                 children: [
                   Container(
                     height: 55.0,
-                    width: 275.0,
+                    width: 224.0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(
@@ -149,7 +149,7 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                     width: 6.0,
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: 55.0,
                     width: 100.0,
                     child: ElevatedButton(
                       onPressed: () async {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:service_fixing/clients/pages/menu/customer/contact_setting.dart';
-import 'package:service_fixing/clients/pages/menu/customer/information_setting.dart';
-import 'package:service_fixing/clients/pages/menu/customer/password_setting.dart';
+import 'package:service_fixing/clients/pages/customer/settings/contact_setting.dart';
+import 'package:service_fixing/clients/pages/customer/settings/information_setting.dart';
+import 'package:service_fixing/clients/pages/customer/settings/password_setting.dart';
 import 'package:service_fixing/constants.dart';
 
 class AccountSetting extends StatelessWidget {

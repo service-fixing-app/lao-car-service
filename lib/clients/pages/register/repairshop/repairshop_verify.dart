@@ -115,7 +115,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                 children: [
                   Container(
                     height: 55.0,
-                    width: 275.0,
+                    width: 224.0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(
@@ -153,7 +153,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                     width: 6.0,
                   ),
                   SizedBox(
-                    height: 52.0,
+                    height: 55.0,
                     width: 100.0,
                     child: ElevatedButton(
                       onPressed: () async {
@@ -197,7 +197,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         elevation: 3.0,
                       ),

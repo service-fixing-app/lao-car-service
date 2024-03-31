@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rolling_bottom_bar/rolling_bottom_bar.dart';
 import 'package:rolling_bottom_bar/rolling_bottom_bar_item.dart';
-import 'package:service_fixing/clients/pages/home_page.dart';
+import 'package:service_fixing/clients/pages/customer/home/home_page.dart';
 import 'package:service_fixing/clients/pages/account_setting.dart';
 
 import 'map.dart';

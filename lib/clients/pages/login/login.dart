@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // define all varrible
-  final AuthController authController =Get.put(AuthController());
+  final AuthController authController = Get.put(AuthController());
   final TextEditingController telController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _hidePassword = true;

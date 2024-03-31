@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:7:5-39:19
+INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:9:5-41:19
 MERGED from [:firebase_auth] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_auth] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_storage] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-13:19
@@ -76,11 +76,11 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\AC
 	android:name
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-40:12
-INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-40:12
-INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-40:12
-INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-40:12
-MERGED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-40:12
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
+INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
+INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
+INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
+MERGED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
 MERGED from [:firebase_auth] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_storage] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_core] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-15:12
@@ -154,15 +154,15 @@ INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\andr
 INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-40:12
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-40:12
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-40:12
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -188,6 +188,18 @@ uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:6:5-80
 	android:name
 		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:6:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:7:5-78
+MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-79
+MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:8:5-81
+MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
+MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
+	android:name
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:8:22-78
 uses-sdk
 INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
@@ -432,14 +444,6 @@ ADDED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_en
 		ADDED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-72
 	android:name
 		ADDED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
-uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
-	android:name
-		ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-78
-uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-79
-	android:name
-		ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:8:22-76
 service#com.lyokone.location.FlutterLocationService
 ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-15:56
 	android:enabled

@@ -22,6 +22,11 @@ class VerifyOtpCode extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(10.0)),
       child: TextField(
+        onChanged: (value) {
+          if (value.length == 1) {
+            FocusScope.of(context).nextFocus();
+          }
+        },
         controller: controller,
         decoration: const InputDecoration(
           border: InputBorder.none,

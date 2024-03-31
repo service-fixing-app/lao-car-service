@@ -565,25 +565,27 @@ class _RepairshopFormState extends State<RepairshopForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SizedBox(
-                      height: 50.0,
-                      width: 180.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                    Expanded(
+                      child: SizedBox(
+                        height: 50.0,
+                        // width: 180.0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            elevation: 3.0,
                           ),
-                          elevation: 3.0,
-                        ),
-                        child: const Text(
-                          'ຍົກເລີກ',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
+                          child: const Text(
+                            'ຍົກເລີກ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ),
@@ -591,90 +593,91 @@ class _RepairshopFormState extends State<RepairshopForm> {
                     const SizedBox(
                       width: 10.0,
                     ),
-                    SizedBox(
-                      height: 50.0,
-                      width: 190.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_imageFile == null) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  // title: const Text('warning'),
-                                  content:
-                                      const Text('ກະລຸນາອັບໂລດຮູບ profile'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          } else if (_documentImageFile == null) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  // title: const Text('warning'),
-                                  content: const Text(
-                                      'ກະລຸນາອັບໂລດຮູບເອກະສານການເປີດຮ້ານ'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          } else {
-                            // If both images are present, navigate to the next screen
-                            Get.to(
-                              RepairshopVerify(
-                                shopName: shopNameController.text,
-                                shopownerName: shopOwnerNameController.text,
-                                age: ageController.text,
-                                gender: _selectGender,
-                                birthdate: _selectedDate != null
-                                    ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                                    : '',
-                                province: selectedProvince ?? '',
-                                district: selectedState ?? '',
-                                village: villageController.text,
-                                typeService: typeServiceController.text,
-                                profileImage: _imageFile!,
-                                documentImage: _documentImageFile!,
-                                tel: '',
-                                isVerified: false,
-                              ),
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                    Expanded(
+                      child: SizedBox(
+                        height: 50.0,
+                        // width: 190.0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_imageFile == null) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    // title: const Text('warning'),
+                                    content:
+                                        const Text('ກະລຸນາອັບໂລດຮູບ profile'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else if (_documentImageFile == null) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    // title: const Text('warning'),
+                                    content: const Text(
+                                        'ກະລຸນາອັບໂລດຮູບເອກະສານການເປີດຮ້ານ'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              // If both images are present, navigate to the next screen
+                              Get.to(
+                                RepairshopVerify(
+                                  shopName: shopNameController.text,
+                                  shopownerName: shopOwnerNameController.text,
+                                  age: ageController.text,
+                                  gender: _selectGender,
+                                  birthdate: _selectedDate != null
+                                      ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                                      : '',
+                                  province: selectedProvince ?? '',
+                                  district: selectedState ?? '',
+                                  village: villageController.text,
+                                  typeService: typeServiceController.text,
+                                  profileImage: _imageFile!,
+                                  documentImage: _documentImageFile!,
+                                  tel: '',
+                                  isVerified: false,
+                                ),
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            elevation: 3.0,
                           ),
-                          elevation: 3.0,
-                        ),
-                        child: const Text(
-                          'ຕໍ່ໄປ',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'phetsarath_ot',
+                          child: const Text(
+                            'ຕໍ່ໄປ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'phetsarath_ot',
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    
                   ],
                 ),
               ],

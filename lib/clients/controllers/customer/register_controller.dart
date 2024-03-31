@@ -182,6 +182,7 @@ class CustomerRegisterController extends GetxController {
             'district': customer.district,
             'province': customer.province,
             'profile_image': imageUrl, // Send the image URL to the database
+            'role': 'customer',
           },
         );
 

@@ -96,7 +96,7 @@ class RepairshopRegisterController extends GetxController {
           Uri.parse('http://10.0.2.2:5000/api/repairshop/addRepairshop'),
           body: {
             'shop_name': shop.shopName,
-            'management_name': shop.shopownerName,
+            'manager_name': shop.shopownerName,
             'tel': shop.tel,
             'password': shop.password,
             'age': shop.age,
@@ -109,6 +109,7 @@ class RepairshopRegisterController extends GetxController {
             'profile_image': imageUrl, // Send the image URL to the database
             'document_verify':
                 documentImageUrl, // Send the image URL to the database
+            'role': 'repairshop',
           },
         );
 

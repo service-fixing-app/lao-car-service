@@ -96,44 +96,44 @@ class _RepairshopOtpState extends State<RepairshopOtp> {
                   height: 20.0,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     VerifyOtpCode(
                       controller: valueBox1,
                     ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
+                    // const SizedBox(
+                    //   width: 5.0,
+                    // ),
                     VerifyOtpCode(
                       controller: valueBox2,
                     ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
+                    // const SizedBox(
+                    //   width: 5.0,
+                    // ),
                     VerifyOtpCode(
                       controller: valueBox3,
                     ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
+                    // const SizedBox(
+                    //   width: 5.0,
+                    // ),
                     VerifyOtpCode(
                       controller: valueBox4,
                     ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
+                    // const SizedBox(
+                    //   width: 5.0,
+                    // ),
                     VerifyOtpCode(
                       controller: valueBox5,
                     ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
+                    // const SizedBox(
+                    //   width: 5.0,
+                    // ),
                     VerifyOtpCode(
                       controller: valueBox6,
                     ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
+                    // const SizedBox(
+                    //   width: 5.0,
+                    // ),
                   ],
                 ),
                 const SizedBox(

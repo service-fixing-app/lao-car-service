@@ -13,8 +13,8 @@ import 'package:service_fixing/clients/pages/register/customer/customer_form.dar
 import 'package:service_fixing/clients/pages/register/repairshop/repairshop_form.dart';
 import 'package:service_fixing/clients/pages/register/towingcarshop/towingcarshop_form.dart';
 import 'clients/controllers/repairshop/repairshopRegister_controller.dart';
-import 'clients/pages/bottom/bottom_navigation.dart';
-import 'clients/pages/home_page.dart';
+import 'clients/pages/customer/bottom/bottom_navigation.dart';
+import 'clients/pages/customer/home/home_page.dart';
 import 'clients/pages/map/map_page.dart';
 
 // void main() {
@@ -42,6 +42,19 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
+  // AwesomeNotifications().initialize(
+  //   null,
+  //   [
+  //     NotificationChannel(
+  //       channelKey: 'basic_channel',
+  //       channelName: 'Basic notifications',
+  //       channelDescription: 'Notification channel for basic notifications',
+  //       defaultColor: const Color(0xFF9D50DD),
+  //       ledColor: Colors.white,
+  //     ),
+  //   ],
+  //   debug: true,
+  // );
   runApp(const MaterialApp(
     home: MyApp(),
   ));
@@ -54,6 +67,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Services Fixing Car',
+
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -90,31 +104,11 @@ class MyApp extends StatelessWidget {
           page: () => const RepairshopForm(),
           transition: Transition.rightToLeft,
         ),
-        // GetPage(
-        //   name: '/repairshopVerify',
-        //   page: () =>  RepairshopVerify(),
-        //   transition: Transition.rightToLeft,
-        // ),
-        // GetPage(
-        //   name: '/repairshop_otp',
-        //   page: () =>  RepairshopOtp(),
-        //   transition: Transition.rightToLeft,
-        // ),
         GetPage(
           name: '/towingtruckForm',
           page: () => const TowingcarshopForm(),
           transition: Transition.rightToLeft,
         ),
-        // GetPage(
-        //   name: '/towingtruckVerify',
-        //   page: () => const TowingtruckVerify(),
-        //   transition: Transition.rightToLeft,
-        // ),
-        // GetPage(
-        //   name: '/towingtruck_otp',
-        //   page: () => const TowingtruckOtp(),
-        //   transition: Transition.rightToLeft,
-        // ),
         GetPage(
           name: '/Map',
           page: () => const MapPage(),
@@ -123,6 +117,7 @@ class MyApp extends StatelessWidget {
       ],
       initialRoute: '/',
       // home: const CustomBottomBar(),
+      // home: const MapPage(),
     );
   }
 }

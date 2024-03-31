@@ -98,8 +98,8 @@ class TowingcarshopRegisterController extends GetxController {
         var response = await http.post(
           Uri.parse('http://10.0.2.2:5000/api/towingtruck/addTowingtruck'),
           body: {
-            'towingTruck_name': towingcarshop.shopName,
-            'shopOwner_name': towingcarshop.shopownerName,
+            'shop_name': towingcarshop.shopName,
+            'manager_name': towingcarshop.shopownerName,
             'tel': towingcarshop.tel,
             'password': towingcarshop.password,
             'age': towingcarshop.age,
@@ -113,6 +113,7 @@ class TowingcarshopRegisterController extends GetxController {
                 profileImageUrl, // Send the profile image URL to the database
             'document_verify':
                 documentImageUrl, // Send the document image URL to the database
+            'role': 'towingshop',
           },
         );
 

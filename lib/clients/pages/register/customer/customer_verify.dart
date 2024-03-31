@@ -117,7 +117,7 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                 children: [
                   Container(
                     height: 55.0,
-                    width: 275.0,
+                    width: 224.0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(
@@ -127,7 +127,10 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                     ),
                     child: Obx(
                       () => TextField(
-                        controller: _phoneNumberController,
+                        controller: otpController.tel.value.isNotEmpty
+                            ? TextEditingController(
+                                text: otpController.tel.value)
+                            : _phoneNumberController,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           prefixText: _countryCode,
@@ -151,7 +154,7 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                     width: 6.0,
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: 55.0,
                     width: 100.0,
                     child: ElevatedButton(
                       onPressed: () async {
@@ -195,7 +198,7 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         elevation: 3.0,
                       ),
