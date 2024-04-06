@@ -18,10 +18,18 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController telController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _hidePassword = true;
-  void _handleLogin() {
+  bool _isLoading = false;
+
+  void _handleLogin() async {
+    setState(() {
+      _isLoading = true;
+    });
     final tel = telController.text;
     final password = passwordController.text;
-    authController.login(tel, password);
+    await authController.login(tel, password);
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -163,14 +171,27 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           elevation: 3.0,
                         ),
-                        child: const Text(
-                          'ເຂົ້າສູ່ລະບົບ',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'phetsarath_ot',
-                          ),
-                        ),
+                        child: _isLoading
+                            ? const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Loading...',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  SizedBox(width: 5),
+                                  CircularProgressIndicator(
+                                      color: Colors.white),
+                                ],
+                              ) // Show loading indicator if _isLoading is true
+                            : const Text(
+                                'ເຂົ້າສູ່ລະບົບ',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'phetsarath_ot',
+                                ),
+                              ),
                       ),
                     ),
                     const SizedBox(height: 30.0),

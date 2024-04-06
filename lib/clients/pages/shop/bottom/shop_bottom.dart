@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
-import 'package:service_fixing/clients/pages/history/history.dart';
+import 'package:service_fixing/clients/pages/shop/history/history.dart';
 import 'package:service_fixing/clients/pages/shop/home/shop_homepage.dart';
 import 'package:service_fixing/clients/pages/notifications/customer_notifications.dart';
 import 'package:service_fixing/clients/pages/shop/settings/account_setting.dart';
@@ -23,7 +23,7 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
         controller: _pageController,
         children: [
           const ShopHomePage(),
-          const HistoryPages(),
+          HistoryPage(),
           const CustomerNotifications(),
           const AccountSetting(),
         ],
@@ -41,13 +41,13 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
         items: <BottomBarItem>[
           BottomBarItem(
             icon: const Icon(Icons.home),
-            title: const Text('Home'),
+            title: const Text('ສ້ອມແປງ'),
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,
           ),
           BottomBarItem(
             icon: const Icon(Icons.history),
-            title: const Text('History'),
+            title: const Text('ປະຫັວດ'),
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,
           ),
@@ -59,7 +59,7 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
           ),
           BottomBarItem(
             icon: const Icon(Icons.person),
-            title: const Text('Account'),
+            title: const Text('ບັນຊີຂອງທ່ານ'),
             backgroundColorOpacity: 0.1,
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,

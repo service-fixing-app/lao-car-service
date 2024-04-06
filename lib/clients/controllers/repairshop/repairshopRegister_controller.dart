@@ -93,7 +93,7 @@ class RepairshopRegisterController extends GetxController {
       // Send shop data along with image URL to database
       if (imageUrl != null) {
         var response = await http.post(
-          Uri.parse('http://10.0.2.2:5000/api/repairshop/addRepairshop'),
+          Uri.parse('http://192.168.43.127:5000/api/repairshop/addRepairshop'),
           body: {
             'shop_name': shop.shopName,
             'manager_name': shop.shopownerName,

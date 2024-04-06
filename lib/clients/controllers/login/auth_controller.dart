@@ -10,12 +10,17 @@ class AuthController extends GetxController {
   var isLoading = false.obs;
   var userData = {}.obs;
 
+  // api for virtual emulator
+  // String url = "http://10.0.2.2:5000/api/login/loginUser";
+  // real android device
+  String urlLogin = "http://192.168.43.127:5000/api/login/loginUser";
+
   Future<void> login(String tel, String password) async {
     try {
       isLoading(true);
       await Future.delayed(const Duration(seconds: 2));
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:5000/api/login/loginUser'),
+        Uri.parse(urlLogin),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: jsonEncode(<String, String>{'tel': tel, 'password': password}),
       );
@@ -29,7 +34,7 @@ class AuthController extends GetxController {
         final userRole = customerData['role'];
         print("userId: ${userId}");
         isAuthenticated.value = true;
-        await fetchUserData(userId, userRole); // Pass userRole here
+        await fetchUserData(); // Pass userRole here
       } else {
         isAuthenticated.value = false;
         // Error handling
@@ -39,18 +44,45 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> fetchUserData(int userId, String userRole) async {
+  // Future<void> fetchUserData(int userId, String userRole) async {
+  //   // String urlById = 'http://192.168.43.127:5000/api/login/getUserById/$userId';
+  //   try {
+  //     // final response = await http.get(
+  //     //   Uri.parse('http://192.168.43.127:5000/api/login/getUserById/$userId'),
+  //     //   headers: <String, String>{'Authorization': 'Bearer ${token.value}'},
+  //     // );
+  //     final response = await http.get(
+  //       Uri.parse(
+  //           'http://192.168.43.127:5000/api/login/getUserByToken/${token.value}'),
+  //       // Send token in the URL as a parameter
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       final responseData = json.decode(response.body);
+  //       //print("data from get: $responseData");
+  //       showCustomerData(responseData);
+  //       navigateToRolePage(userRole);
+  //     } else {
+  //       // Error handling
+  //       print("Failed to fetch user data: ${response.statusCode}");
+  //     }
+  //   } catch (e) {
+  //     // Error handling
+  //     print("Error fetching user data: $e");
+  //   }
+  // }
+  Future<void> fetchUserData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:5000/api/login/getUserById/$userId'),
-        headers: <String, String>{'Authorization': 'Bearer ${token.value}'},
+        Uri.parse(
+            'http://192.168.43.127:5000/api/login/getUserByToken/${token.value}'),
+        // Send token in the URL as a parameter
       );
 
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
-        print("data from get: $responseData");
         showCustomerData(responseData);
-        navigateToRolePage(userRole); // Call navigateToRolePage here
+        navigateToRolePage(responseData['user']['role']);
       } else {
         // Error handling
         print("Failed to fetch user data: ${response.statusCode}");

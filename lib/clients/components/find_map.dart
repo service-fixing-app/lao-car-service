@@ -35,7 +35,7 @@ class FindMap extends StatelessWidget {
                   height: 30,
                 ),
                 const Text(
-                  'Where are your location?',
+                  'How can i help you?',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.grey,
@@ -46,7 +46,7 @@ class FindMap extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 229, 228, 228),
+                color: const Color.fromARGB(255, 229, 228, 228),
                 borderRadius: BorderRadius.circular(50),
               ),
               child: InkWell(

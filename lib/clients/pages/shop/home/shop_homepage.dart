@@ -19,7 +19,7 @@ class _ShopHomePageState extends State<ShopHomePage> {
   @override
   Widget build(BuildContext context) {
     final userData = authController.userData['user'];
-    print('User Data: ${authController.userData}');
+    // print('User Data: ${authController.userData}');
     return Scaffold(
       backgroundColor: bgColor,
       body: Column(

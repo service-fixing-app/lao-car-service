@@ -80,6 +80,12 @@ class TowingcarshopRegisterController extends GetxController {
   var isLoading = false.obs;
   var isSuccess = false.obs;
 
+  // api for virtual emulator
+  // String url = "http://10.0.2.2:500/api/towingtruck/addTowingtruck";
+  // real android device
+  String urlRegister =
+      "http://192.168.43.127:5000/api/towingtruck/addTowingtruck";
+
   Future<void> towingcarshopRegistrationData(
       Towingcarshop towingcarshop) async {
     try {
@@ -96,7 +102,7 @@ class TowingcarshopRegisterController extends GetxController {
       // Send shop data along with image URLs to database
       if (profileImageUrl != null && documentImageUrl != null) {
         var response = await http.post(
-          Uri.parse('http://10.0.2.2:5000/api/towingtruck/addTowingtruck'),
+          Uri.parse(urlRegister),
           body: {
             'shop_name': towingcarshop.shopName,
             'manager_name': towingcarshop.shopownerName,
