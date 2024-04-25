@@ -193,8 +193,7 @@ class AccountSetting extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 60,
-          backgroundImage:
-              NetworkImage('${userData['profile_image']}'),
+          backgroundImage: NetworkImage('${userData['profile_image']}'),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

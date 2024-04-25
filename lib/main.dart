@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
 import 'package:service_fixing/clients/controllers/customer/verifieotp_controller.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/repairshop/verifieotp_controller.dart';
+import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
 import 'package:service_fixing/clients/controllers/towingcarshop/towingcarshopVerifieOtp_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
 import 'package:get/get.dart';
@@ -29,7 +32,9 @@ void main() async {
   Get.put(CustomerRegisterController());
   Get.put(OtpTowingcarshopController());
   Get.put(RepairshopRegisterController());
+  Get.put(OpenshopController());
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -42,19 +47,12 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-  // AwesomeNotifications().initialize(
-  //   null,
-  //   [
-  //     NotificationChannel(
-  //       channelKey: 'basic_channel',
-  //       channelName: 'Basic notifications',
-  //       channelDescription: 'Notification channel for basic notifications',
-  //       defaultColor: const Color(0xFF9D50DD),
-  //       ledColor: Colors.white,
-  //     ),
-  //   ],
-  //   debug: true,
-  // );
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+  OneSignal.shared.setAppId("60583f59-bff2-470f-992f-ea80cff08875");
+  OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+    print("Accepted Permission : $accepted");
+  });
+
   runApp(const MaterialApp(
     home: MyApp(),
   ));

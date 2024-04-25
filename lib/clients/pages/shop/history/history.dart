@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
 import 'package:service_fixing/constants.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
+  @override
+  _HistoryPageState createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
   final HistoryController historyController = Get.put(HistoryController());
 
   // Function to format the date string
@@ -13,14 +19,19 @@ class HistoryPage extends StatelessWidget {
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }
 
-  // Future<void> showNotifications() async {
-  //   await OneSignal.shared.setAppId("");
-  //   await OneSignal.shared.getDeviceState.then(
-  //     (value) => {
-  //       print(value!.receiver_tel),
-  //     }
-  //   )
-  // }
+  void initNotification() async {
+    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+    OneSignal.shared.setAppId("60583f59-bff2-470f-992f-ea80cff08875");
+    OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+      print("Accepted Permission : $accepted");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initNotification();
+  }
 
   @override
   Widget build(BuildContext context) {

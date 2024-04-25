@@ -4,6 +4,7 @@ import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/logout/logout.dart';
 import 'package:service_fixing/clients/pages/shop/settings/information_setting.dart';
 import 'package:service_fixing/clients/pages/shop/settings/password_setting.dart';
+import 'package:service_fixing/clients/pages/shop/settings/statusShop_setting.dart';
 import 'package:service_fixing/constants.dart';
 
 class AccountSetting extends StatelessWidget {
@@ -72,6 +73,13 @@ class AccountSetting extends StatelessWidget {
                                     Get.to(const PasswordSetting());
                                   },
                                 ),
+                                _buildSettingRow(
+                                  icon: Icons.settings,
+                                  text: 'ຕັ້ງຄ່າສະຖານະຂອງຮ້ານ',
+                                  onTap: () {
+                                    Get.to(StatuSettings());
+                                  },
+                                ),
                                 _buildLogout(
                                   icon: Icons.logout,
                                   text: 'ອອກຈາກລະບົບ',
@@ -84,9 +92,9 @@ class AccountSetting extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
+                        // const SizedBox(
+                        //   height: 20.0,
+                        // ),
                         Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -245,9 +253,9 @@ class AccountSetting extends StatelessWidget {
                   text,
                   style: const TextStyle(
                     fontFamily: 'phetsarath_ot',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black54,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
               ],
@@ -288,9 +296,9 @@ class AccountSetting extends StatelessWidget {
                   text,
                   style: const TextStyle(
                     fontFamily: 'phetsarath_ot',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black54,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
               ],

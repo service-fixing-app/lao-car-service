@@ -4,8 +4,10 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
 import 'package:service_fixing/clients/pages/map/consts.dart';
-import 'package:service_fixing/clients/pages/services/service_repair.dart';
+import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
+import 'package:service_fixing/constants.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  final OpenshopController openshopController = Get.find();
   Location _locationController = Location();
 
   final Completer<GoogleMapController> _mapController =
@@ -115,12 +118,27 @@ class _MapPageState extends State<MapPage> {
               const SizedBox(
                 height: 10.0,
               ),
-              Text(
-                markerName,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    markerName,
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Obx(() {
+                    final isOpen = openshopController.isOpen.value;
+                    return Switch(
+                      value: isOpen,
+                      onChanged: (value) {
+                        openshopController.isOpen.value = value;
+                      },
+                      activeColor: primaryColor,
+                    );
+                  }),
+                ],
               ),
               Text(
                 score,

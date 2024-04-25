@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.service_fixing.app-mergeDebugResources-46:/values-sk/values-sk.xml",
+            "outputFile": "com.example.service_fixing.app-mergeDebugResources-40:/values-sk/values-sk.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ACER\\.gradle\\caches\\transforms-3\\69e25726befd18553dd22c5f585842b2\\transformed\\jetified-play-services-base-18.1.0\\res\\values-sk\\values.xml",

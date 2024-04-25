@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.service_fixing.app-mergeDebugResources-46:/values-sw/values-sw.xml",
+            "outputFile": "com.example.service_fixing.app-mergeDebugResources-40:/values-sw/values-sw.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ACER\\.gradle\\caches\\transforms-3\\32abe5608abeb7cb7e60dfdea09d5541\\transformed\\browser-1.4.0\\res\\values-sw\\values-sw.xml",

@@ -181,9 +181,10 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   SizedBox(width: 5),
                                   CircularProgressIndicator(
-                                      color: Colors.white),
+                                    color: Colors.white,
+                                  ),
                                 ],
-                              ) // Show loading indicator if _isLoading is true
+                              )
                             : const Text(
                                 'ເຂົ້າສູ່ລະບົບ',
                                 style: TextStyle(

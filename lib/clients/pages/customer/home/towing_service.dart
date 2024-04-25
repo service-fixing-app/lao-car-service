@@ -39,7 +39,7 @@ class _TowingServiceState extends State<TowingService> {
                 left: 10,
                 right: 0,
                 child: Text(
-                  'ຍິນດີຕ້ອນຮັບ Towing, ${userData['first_name']}',
+                  'ຍິນດີຕ້ອນຮັບ, ${userData['first_name']}',
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'phetsarath_ot',

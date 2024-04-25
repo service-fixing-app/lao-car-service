@@ -24,7 +24,7 @@ class RepairshopSection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'ຮ້ານແກ່ລົດທີ່ຍອດນິຍົນໃຊ້ບໍລິການ',
+                      '10 ຮ້ານສ້ອມແປງລົດທີ່ຍອດນິຍົນໃຊ້ບໍລິການ',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
+import 'package:service_fixing/clients/pages/customer/history/history.dart';
 import 'package:service_fixing/clients/pages/customer/home/repair_service.dart';
 import 'package:service_fixing/clients/pages/customer/home/towing_service.dart';
-import 'package:service_fixing/clients/pages/shop/history/history.dart';
-import 'package:service_fixing/clients/pages/customer/home/home_page.dart';
 import 'package:service_fixing/clients/pages/customer/settings/account_setting.dart';
-import 'package:service_fixing/clients/pages/notifications/customer_notifications.dart';
 
 class CustomBottomBar extends StatefulWidget {
   const CustomBottomBar({Key? key}) : super(key: key);
@@ -23,11 +21,11 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: const [
-          RepairService(),
-          TowingService(),
-          CustomerNotifications(),
-          AccountSetting(),
+        children:  [
+          const RepairService(),
+          const TowingService(),
+          CustomerHistory(),
+          const AccountSetting(),
         ],
         onPageChanged: (index) {
           setState(() => _currentPage = index);
