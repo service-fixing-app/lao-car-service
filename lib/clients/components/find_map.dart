@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FindMap extends StatelessWidget {
+class FindMap extends StatefulWidget {
   const FindMap({Key? key}) : super(key: key);
 
+  @override
+  State<FindMap> createState() => _FindMapState();
+}
+
+class _FindMapState extends State<FindMap> {
+  bool isHovered = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +41,7 @@ class FindMap extends StatelessWidget {
                   height: 30,
                 ),
                 const Text(
-                  'How can i help you?',
+                  'ຊອກຫາຮ້ານໃຫ້ບໍລິການ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.grey,
@@ -44,41 +50,94 @@ class FindMap extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 229, 228, 228),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(10),
-                onTap: () {
-                  Get.toNamed('/Map');
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/location-pin.png',
-                        width: 16,
-                        height: 16,
-                        color: Colors.black54,
-                      ),
-                      const SizedBox(
-                        width: 5.0,
-                      ),
-                      const Text(
-                        'Map',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
+            // Container(
+            //   decoration: BoxDecoration(
+            //     color: const Color.fromARGB(255, 229, 228, 228),
+            //     borderRadius: BorderRadius.circular(50),
+            //   ),
+            //   child: InkWell(
+            //     borderRadius: BorderRadius.circular(10),
+            //     onTap: () {
+            //       Get.toNamed('/Map');
+            //     },
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Row(
+            //         children: [
+            //           Image.asset(
+            //             'assets/images/location-pin.png',
+            //             width: 16,
+            //             height: 16,
+            //             color: Colors.black54,
+            //           ),
+            //           const SizedBox(
+            //             width: 5.0,
+            //           ),
+            //           const Text(
+            //             'ແຜນທີ່',
+            //             style: TextStyle(
+            //               color: Colors.black,
+            //               fontSize: 14,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // )
+            MouseRegion(
+              onHover: (event) {
+                // Set border color when hovered
+                setState(() {
+                  isHovered = true;
+                });
+              },
+              onExit: (event) {
+                // Reset border color when not hovered
+                setState(() {
+                  isHovered = false;
+                });
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 229, 228, 228),
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: isHovered ? Colors.blue : Colors.transparent,
+                    width: 2,
+                  ),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () {
+                    Get.toNamed('/Map');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/location-pin.png',
+                          width: 16,
+                          height: 16,
+                          color: Colors.black54,
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 5.0,
+                        ),
+                        const Text(
+                          'ແຜນທີ່',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

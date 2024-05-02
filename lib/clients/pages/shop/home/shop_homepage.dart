@@ -15,11 +15,13 @@ class ShopHomePage extends StatefulWidget {
 
 class _ShopHomePageState extends State<ShopHomePage> {
   final AuthController authController = Get.find();
+  // final HistoryController historyController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     final userData = authController.userData['user'];
     // print('User Data: ${authController.userData}');
+    int newMessageCount = 11;
     return Scaffold(
       backgroundColor: bgColor,
       body: Column(
@@ -72,6 +74,46 @@ class _ShopHomePageState extends State<ShopHomePage> {
                   ),
                 ),
               ),
+              Positioned(
+                top: 50,
+                left: 285,
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              const Positioned(
+                top: 56,
+                left: 290,
+                child: Icon(
+                  Icons.notifications_active,
+                  color: Colors.grey,
+                ),
+              ),
+              if (newMessageCount > 0)
+                Positioned(
+                  top: 45,
+                  left: 310,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      newMessageCount.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
           const SizedBox(

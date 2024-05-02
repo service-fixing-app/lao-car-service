@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
-import 'package:service_fixing/clients/pages/customer/history/history.dart';
+import 'package:service_fixing/clients/pages/customer/history/customer_history.dart';
 import 'package:service_fixing/clients/pages/customer/home/repair_service.dart';
 import 'package:service_fixing/clients/pages/customer/home/towing_service.dart';
 import 'package:service_fixing/clients/pages/customer/settings/account_setting.dart';
@@ -21,7 +21,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children:  [
+        children: [
           const RepairService(),
           const TowingService(),
           CustomerHistory(),
@@ -52,7 +52,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             activeTitleColor: Colors.blue.shade600,
           ),
           BottomBarItem(
-            icon: const Icon(Icons.history),
+            icon: const Icon(Icons.chat),
             title: const Text('ປະຫັວດ'),
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,

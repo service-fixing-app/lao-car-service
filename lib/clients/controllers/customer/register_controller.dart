@@ -169,7 +169,7 @@ class CustomerRegisterController extends GetxController {
       // Send shop data along with image URL to database
       if (imageUrl != null) {
         var response = await http.post(
-          Uri.parse('http://10.0.2.2:5000/api/customer/addCustomer'),
+          Uri.parse('http://192.168.43.127:5000/api/customer/addCustomer'),
           body: {
             'first_name': customer.firstName,
             'last_name': customer.lastName,
@@ -195,13 +195,9 @@ class CustomerRegisterController extends GetxController {
           isSuccess.value = false;
           print("Error: ${response.statusCode}");
           if (response.statusCode == 400) {
-            // Handle validation errors
             print('Validation error: ${response.body}');
-            // Display validation errors to the user or perform other actions
           } else {
-            // Handle other errors (e.g., server errors)
             print('Server error');
-            // Display a generic error message to the user or perform other actions
           }
         }
       } else {

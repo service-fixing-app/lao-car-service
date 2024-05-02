@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:service_fixing/clients/controllers/shop/getShopLocation_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
-import 'package:service_fixing/clients/pages/map/consts.dart';
 import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
 import 'package:service_fixing/constants.dart';
 
@@ -18,22 +17,27 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   final OpenshopController openshopController = Get.find();
-  Location _locationController = Location();
+  final GetShopLocationController getShopLocationController = Get.put(
+    GetShopLocationController(),
+  );
+  Location locationController = Location();
 
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
-  static const LatLng _firstLocation = LatLng(17.9667, 102.6000);
-  static const LatLng _secondLocation =
-      LatLng(17.99795372766358, 102.64246981590986);
+  // Example location
+  // static const LatLng _secondLocation = LatLng(
+  //   18.00458164001826,
+  //   102.6370970159769,
+  // );
 
-  LatLng? _currentPosition = null;
+  LatLng? _currentPosition;
 
   //Get the current location of the user
   Future<void> _getLocation() async {
     try {
-      bool serviceEnabled = await _locationController.serviceEnabled();
+      bool serviceEnabled = await locationController.serviceEnabled();
       if (!serviceEnabled) {
-        serviceEnabled = await _locationController.requestService();
+        serviceEnabled = await locationController.requestService();
         if (!serviceEnabled) {
           // Location services are still disabled, handle this case
           return;
@@ -41,22 +45,22 @@ class _MapPageState extends State<MapPage> {
       }
 
       PermissionStatus permissionStatus =
-          await _locationController.hasPermission();
+          await locationController.hasPermission();
       if (permissionStatus == PermissionStatus.denied) {
-        permissionStatus = await _locationController.requestPermission();
+        permissionStatus = await locationController.requestPermission();
         if (permissionStatus != PermissionStatus.granted) {
           // Location permission is denied, handle this case
           return;
         }
       }
 
-      LocationData locationData = await _locationController.getLocation();
+      LocationData locationData = await locationController.getLocation();
       setState(() {
         _currentPosition =
             LatLng(locationData.latitude!, locationData.longitude!);
       });
     } catch (e) {
-      print("Error getting location: $e");
+      // print("Error getting location: $e");
     }
   }
 
@@ -64,30 +68,6 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
     _getLocation();
-    // getPolylines();
-  }
-  // get polylines
-
-  List<LatLng> polylineCoordinates = [];
-  void getPolylines() async {
-    PolylinePoints polylinePoints = PolylinePoints();
-    PolylineResult polylineResult =
-        await polylinePoints.getRouteBetweenCoordinates(
-      googleApiKey,
-      PointLatLng(_firstLocation.latitude, _firstLocation.longitude),
-      PointLatLng(
-        _secondLocation.latitude,
-        _secondLocation.longitude,
-      ),
-    );
-    if (polylineResult.points.isNotEmpty) {
-      polylineResult.points.forEach(
-        (PointLatLng points) => polylineCoordinates.add(
-          LatLng(points.latitude, points.longitude),
-        ),
-      );
-    }
-    setState(() {});
   }
 
   // Function to show bottom sheet
@@ -274,7 +254,7 @@ class _MapPageState extends State<MapPage> {
                       _mapController.complete(controller),
                   initialCameraPosition: CameraPosition(
                     target: _currentPosition!,
-                    zoom: 13,
+                    zoom: 14,
                   ),
                   mapType: MapType.hybrid,
                   markers: {
@@ -286,65 +266,101 @@ class _MapPageState extends State<MapPage> {
                         title: "ທີ່ຢູ່ຂອງທ່ານ",
                       ),
                     ),
-                    Marker(
-                      markerId: const MarkerId("_destinationLocation"),
-                      draggable: true,
-                      onDragEnd: (LatLng newPosition) {
-                        // Print the new position
-                        print('New position: $newPosition');
-                      },
-                      icon: BitmapDescriptor.defaultMarkerWithHue(
-                          BitmapDescriptor.hueAzure),
-                      position: _secondLocation,
-                      // infoWindow: InfoWindow(
-                      //   title: 'ຮ້ານສ້ອມແປງລົດຈັກ',
-                      //   snippet:
-                      //       'Latitude: ${_secondLocation.latitude}, Longitude: ${_secondLocation.longitude}',
-                      // ),
-                      onTap: () {
-                        _showBottomSheet(
-                          context,
-                          'ຮ້ານສ້ອມແປງລົດຈັກ',
-                          'ຄະແນນ : 100',
-                          'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
-                        ); // Pass marker name or other relevant data
-                      },
-                    ),
+                    // loop maker in here
+                    for (var shopLocation
+                        in getShopLocationController.shopLocations)
+                      Marker(
+                        markerId: MarkerId(
+                          "${shopLocation.latitude}-${shopLocation.longitude}",
+                        ),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(
+                            BitmapDescriptor.hueAzure),
+                        position: LatLng(
+                          shopLocation.latitude,
+                          shopLocation.longitude,
+                        ),
+                        onTap: () {
+                          // Handle marker tap event
+                          _showBottomSheet(
+                            context,
+                            'ຮ້ານສ້ອມແປງລົດຈັກ',
+                            'ຄະແນນ : 100',
+                            'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
+                          );
+                        },
+                      ),
+                    // Example location
+                    // Marker(
+                    //   markerId: const MarkerId("_destinationLocation"),
+                    //   draggable: true,
+                    //   onDragEnd: (LatLng newPosition) {
+                    //   },
+                    //   icon: BitmapDescriptor.defaultMarkerWithHue(
+                    //       BitmapDescriptor.hueAzure),
+                    //   position: _secondLocation,
+                    //   onTap: () {
+                    //     _showBottomSheet(
+                    //       context,
+                    //       'ຮ້ານສ້ອມແປງລົດຈັກ',
+                    //       'ຄະແນນ : 100',
+                    //       'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
+                    //     ); // Pass marker name or other relevant data
+                    //   },
+                    // ),
                   },
-                  polylines: {
-                    Polyline(
-                      polylineId: const PolylineId("route"),
-                      color: Colors.blue,
-                      // points: [
-                      //   _currentPosition!,
-                      //   _secondLocation,
-                      // ],
-                      points: polylineCoordinates,
-                      width: 6,
-                    ),
-                  },
+                  // polylines: {
+                  //   Polyline(
+                  //     polylineId: const PolylineId("route"),
+                  //     color: Colors.blue,
+                  //     // points: [
+                  //     //   _currentPosition!,
+                  //     //   _secondLocation,
+                  //     // ],
+                  //     points: polylineCoordinates,
+                  //     width: 6,
+                  //   ),
+                  // },
                 ),
           Positioned(
             left: 30,
             top: 50,
-            child: InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: const Icon(
-                Icons.arrow_back_rounded,
-                size: 35,
+            child: Container(
+              height: 45,
+              width: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
                 color: Colors.white,
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                  const Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      // Add your search functionality here
+                    },
+                  ),
+                ],
               ),
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          //logic get started
-        },
-        child: const Icon(Icons.directions),
       ),
     );
   }

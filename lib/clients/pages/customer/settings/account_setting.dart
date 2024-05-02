@@ -80,13 +80,6 @@ class AccountSetting extends StatelessWidget {
                                     await logoutController.logout();
                                   },
                                 ),
-                                // _buildSettingRow(
-                                //   icon: Icons.contact_phone_rounded,
-                                //   text: 'ຂໍ້ມູນການຕິດຕໍ່',
-                                //   onTap: () {
-                                //     Get.to(const ContactSetting());
-                                //   },
-                                // ),
                               ],
                             ),
                           ),
@@ -142,7 +135,7 @@ class AccountSetting extends StatelessWidget {
   }
 
   Widget _buildCoverImage() {
-    return Container(
+    return SizedBox(
       height: coverHeight,
       width: double.infinity,
       child: Image.asset(
@@ -274,6 +267,7 @@ class AccountSetting extends StatelessWidget {
     required String text,
     required void Function() onTap,
   }) {
+    // final LogoutController logoutController = Get.find();
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(
@@ -303,6 +297,17 @@ class AccountSetting extends StatelessWidget {
               ],
             ),
           ),
+          // Obx(() {
+          //   if (logoutController.isLoading.value) {
+          //     return const SizedBox(
+          //       width: 20.0,
+          //       height: 20.0,
+          //       child: CircularProgressIndicator(),
+          //     );
+          //   } else {
+          //     return const SizedBox.shrink();
+          //   }
+          // }),
         ],
       ),
     );

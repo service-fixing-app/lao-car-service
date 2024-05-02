@@ -56,6 +56,7 @@ class _CustomerVerifyState extends State<CustomerVerify> {
   final TextEditingController repasswordController = TextEditingController();
 
   bool _hidePassword = true;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -568,14 +569,23 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                     ),
                     elevation: 3.0,
                   ),
-                  child: const Text(
-                    'ສົ່ງຟອມສະໝັກ',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'phetsarath_ot',
-                    ),
-                  ),
+                  child: isLoading
+                      ? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ],
+                        )
+                      : const Text(
+                          'ສົ່ງຟອມສະໝັກ',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'phetsarath_ot',
+                          ),
+                        ),
                 ),
               ),
             ],

@@ -28,8 +28,9 @@ class StatuSettings extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,6 +62,8 @@ class StatuSettings extends StatelessWidget {
                 // ),
               ],
             ),
+            const SizedBox(height: 10),
+            
           ],
         ),
       ),

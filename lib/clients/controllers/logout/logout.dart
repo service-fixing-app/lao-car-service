@@ -19,10 +19,10 @@ class LogoutController extends GetxController {
           'Content-Type': 'application/json',
         },
       );
-
+      
       if (response.statusCode == 200 || response.statusCode == 201) {
         //print('logout success');
-        Get.to(const LoginPage());
+        Get.offAll(() => const LoginPage());
       } else {
         print('logut error : ${response.statusCode}');
       }

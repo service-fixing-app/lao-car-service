@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
+import 'package:service_fixing/clients/controllers/requestion/request_controller.dart';
 import 'package:service_fixing/constants.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -12,6 +13,7 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   final HistoryController historyController = Get.put(HistoryController());
+  final RequestController requestController = Get.put(RequestController());
 
   // Function to format the date string
   String formatDateString(String dateString) {
@@ -23,7 +25,7 @@ class _HistoryPageState extends State<HistoryPage> {
     OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
     OneSignal.shared.setAppId("60583f59-bff2-470f-992f-ea80cff08875");
     OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-      print("Accepted Permission : $accepted");
+      // print("Accepted Permission : $accepted");
     });
   }
 
@@ -38,7 +40,7 @@ class _HistoryPageState extends State<HistoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'ປະຫັວດ',
+          'ຂໍ້ຄວາມ',
           style: TextStyle(
             fontFamily: 'phetsarath_ot',
           ),
@@ -67,9 +69,21 @@ class _HistoryPageState extends State<HistoryPage> {
                   return _buildNotificationItem(
                     profileImage: const AssetImage('assets/images/man.png'),
                     date: formatDateString(
-                        message['createdAt']), // Format the date string
+                      message['createdAt'],
+                    ),
                     senderName: message['sender_name'],
                     content: message['message'],
+                    status: message['status'],
+                    onAccept: () {
+                      // Call method to update status
+                      requestController.updateStatus(
+                          message['id'], 'completed');
+                    },
+                    onCancel: () {
+                      // Call method to update status to cancelled
+                      requestController.updateStatus(
+                          message['id'], 'cancelled');
+                    },
                   );
                 },
               ),
@@ -82,6 +96,9 @@ class _HistoryPageState extends State<HistoryPage> {
     required String date,
     required String senderName,
     required String content,
+    required String status,
+    required Function() onAccept,
+    required Function() onCancel,
   }) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
@@ -89,7 +106,7 @@ class _HistoryPageState extends State<HistoryPage> {
         color: Colors.white,
         padding: const EdgeInsets.symmetric(
           horizontal: 10.0,
-          vertical: 18.0,
+          vertical: 15.0,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +132,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       Text(
                         date,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -124,6 +141,85 @@ class _HistoryPageState extends State<HistoryPage> {
                     height: 4.0,
                   ),
                   Text(content),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // Display text if status is completed
+                      if (status == 'completed')
+                        const Text(
+                          'ສຳເລັດແລ້ວ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'phetsarath_ot',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.green,
+                          ),
+                        )
+                      // Display text if status is cancelled
+                      else if (status == 'cancelled')
+                        const Text(
+                          'ຍົກເລີກການຮ້ອງຂໍແລ້ວ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'phetsarath_ot',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.red,
+                          ),
+                        )
+                      else
+                        // Display Cancel button if status is not completed or cancelled
+                        SizedBox(
+                          width: 100,
+                          child: ElevatedButton(
+                            onPressed: onCancel,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              elevation: 3.0,
+                            ),
+                            child: const Text(
+                              'ຍົກເລີກ',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'phetsarath_ot',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      // Display Accept button if status is not completed
+                      if (status != 'completed' && status != 'cancelled')
+                        SizedBox(
+                          // width: 100,
+                          child: ElevatedButton(
+                            onPressed: onAccept,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              elevation: 3.0,
+                            ),
+                            child: const Text(
+                              'ຮັບຮ້ອງຂໍ',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'phetsarath_ot',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  )
                 ],
               ),
             ),

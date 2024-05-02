@@ -6,8 +6,10 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
 import 'package:service_fixing/clients/controllers/customer/verifieotp_controller.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
+import 'package:service_fixing/clients/controllers/logout/logout.dart';
 import 'package:service_fixing/clients/controllers/repairshop/verifieotp_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
+import 'package:service_fixing/clients/controllers/shop/shopLocation_controller.dart';
 import 'package:service_fixing/clients/controllers/towingcarshop/towingcarshopVerifieOtp_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
 import 'package:get/get.dart';
@@ -33,6 +35,8 @@ void main() async {
   Get.put(OtpTowingcarshopController());
   Get.put(RepairshopRegisterController());
   Get.put(OpenshopController());
+  Get.put(LogoutController());
+  Get.put(ShopLocationController());
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   if (Platform.isAndroid) {
@@ -50,7 +54,7 @@ void main() async {
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
   OneSignal.shared.setAppId("60583f59-bff2-470f-992f-ea80cff08875");
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-    print("Accepted Permission : $accepted");
+    // print("Accepted Permission : $accepted");
   });
 
   runApp(const MaterialApp(
@@ -65,7 +69,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Services Fixing Car',
-
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

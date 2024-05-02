@@ -4,6 +4,7 @@ import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/logout/logout.dart';
 import 'package:service_fixing/clients/pages/shop/settings/information_setting.dart';
 import 'package:service_fixing/clients/pages/shop/settings/password_setting.dart';
+import 'package:service_fixing/clients/pages/shop/settings/shop_location.dart';
 import 'package:service_fixing/clients/pages/shop/settings/statusShop_setting.dart';
 import 'package:service_fixing/constants.dart';
 
@@ -78,6 +79,13 @@ class AccountSetting extends StatelessWidget {
                                   text: 'ຕັ້ງຄ່າສະຖານະຂອງຮ້ານ',
                                   onTap: () {
                                     Get.to(StatuSettings());
+                                  },
+                                ),
+                                _buildShopLocation(
+                                  icon: Icons.location_on,
+                                  text: 'ກຳນົດທີ່ຢູ່ຮ້ານ',
+                                  onTap: () {
+                                    Get.to(const ShopLocation());
                                   },
                                 ),
                                 _buildLogout(
@@ -228,6 +236,49 @@ class AccountSetting extends StatelessWidget {
   }
 
   Widget _buildSettingRow({
+    required IconData icon,
+    required String text,
+    required void Function() onTap,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          InkWell(
+            onTap: onTap,
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  color: Colors.black54,
+                  size: 30,
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text(
+                  text,
+                  style: const TextStyle(
+                    fontFamily: 'phetsarath_ot',
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black54,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Icon(
+            Icons.arrow_forward_ios_rounded,
+            color: Colors.black54,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShopLocation({
     required IconData icon,
     required String text,
     required void Function() onTap,

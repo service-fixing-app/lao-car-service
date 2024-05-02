@@ -56,7 +56,7 @@ class AccountSetting extends StatelessWidget {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      print('click me 1');
+                                      // print('click me 1');
                                       Get.to(const InformationSetting());
                                     },
                                     child: const Row(
@@ -96,7 +96,7 @@ class AccountSetting extends StatelessWidget {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      print('click me 2');
+                                      // print('click me 2');
                                       Get.to(const PasswordSetting());
                                     },
                                     child: const Row(
@@ -136,7 +136,7 @@ class AccountSetting extends StatelessWidget {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      print('click me 3');
+                                      // print('click me 3');
                                       Get.to(const ContactSetting());
                                     },
                                     child: const Row(

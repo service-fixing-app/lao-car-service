@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:service_fixing/clients/pages/shop/history/history.dart';
 import 'package:service_fixing/clients/pages/shop/home/shop_homepage.dart';
-import 'package:service_fixing/clients/pages/notifications/customer_notifications.dart';
 import 'package:service_fixing/clients/pages/shop/settings/account_setting.dart';
 
 class ShopBottomBar extends StatefulWidget {
@@ -24,7 +23,7 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
         children: [
           const ShopHomePage(),
           HistoryPage(),
-          const CustomerNotifications(),
+          // const CustomerNotifications(),
           const AccountSetting(),
         ],
         onPageChanged: (index) {
@@ -46,17 +45,18 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
             activeTitleColor: Colors.blue.shade600,
           ),
           BottomBarItem(
-            icon: const Icon(Icons.history),
-            title: const Text('ປະຫັວດ'),
+            icon: const Icon(Icons.chat),
+            title: const Text('ຂໍ້ຄວາມ'),
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,
           ),
-          BottomBarItem(
-            icon: const Icon(Icons.notifications_active),
-            title: const Text('Notications'),
-            activeColor: Colors.blue,
-            activeTitleColor: Colors.blue.shade600,
-          ),
+          // BottomBarItem(
+          //   icon: const Icon(Icons.notifications_active),
+          //   title: const Text('Notications'),
+          //   activeColor: Colors.blue,
+
+          //   activeTitleColor: Colors.blue.shade600,
+          // ),
           BottomBarItem(
             icon: const Icon(Icons.person),
             title: const Text('ບັນຊີຂອງທ່ານ'),

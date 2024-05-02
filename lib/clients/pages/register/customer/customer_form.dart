@@ -171,8 +171,7 @@ class _CustomerFormState extends State<CustomerForm> {
                                         ListTile(
                                           leading:
                                               const Icon(Icons.photo_library),
-                                          title:
-                                              const Text('Pick from Gallery'),
+                                          title: const Text('ຮູບພາບ'),
                                           onTap: () {
                                             Navigator.of(context).pop();
                                             _getImage(ImageSource.gallery);
@@ -180,7 +179,7 @@ class _CustomerFormState extends State<CustomerForm> {
                                         ),
                                         ListTile(
                                           leading: const Icon(Icons.camera_alt),
-                                          title: const Text('Take a Photo'),
+                                          title: const Text('ຖ່າຍຮູບ'),
                                           onTap: () {
                                             Navigator.of(context).pop();
                                             _getImage(ImageSource.camera);

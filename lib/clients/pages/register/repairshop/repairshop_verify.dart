@@ -403,12 +403,10 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                             .repairshopRegistrationData(customer);
                         if (customerRegisterController.isSuccess.value) {
                           // Registration successful
-                          // Navigate to success page or perform other actions
                           print('success added');
                           Get.to(const LoginPage());
                         } else {
                           // Registration failed
-                          // Display error message to the user or perform other actions
                           print('added error');
                         }
                       } catch (error) {

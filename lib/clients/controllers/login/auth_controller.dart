@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_fixing/clients/pages/shop/bottom/shop_bottom.dart';
@@ -30,13 +31,20 @@ class AuthController extends GetxController {
         token.value = responseData['token'];
         print("data: ${responseData}");
         final customerData = responseData['user'];
-        final userId = customerData['id'];
-        final userRole = customerData['role'];
+        final userId = customerData['customer_id'];
+        // final userRole = customerData['role'];
         print("userId: ${userId}");
         isAuthenticated.value = true;
         await fetchUserData(); // Pass userRole here
       } else {
         isAuthenticated.value = false;
+        print('user error ${response.statusCode}');
+        Get.snackbar(
+          'ການເຂົ້າສູ່ລະບົບຜິດພາດ',
+          'ເບີໂທ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ, ກະລຸນາສອບຄືນໃໝ່',
+          backgroundColor: Colors.white,
+          colorText: Colors.red,
+        );
         // Error handling
       }
     } finally {
@@ -44,33 +52,6 @@ class AuthController extends GetxController {
     }
   }
 
-  // Future<void> fetchUserData(int userId, String userRole) async {
-  //   // String urlById = 'http://192.168.43.127:5000/api/login/getUserById/$userId';
-  //   try {
-  //     // final response = await http.get(
-  //     //   Uri.parse('http://192.168.43.127:5000/api/login/getUserById/$userId'),
-  //     //   headers: <String, String>{'Authorization': 'Bearer ${token.value}'},
-  //     // );
-  //     final response = await http.get(
-  //       Uri.parse(
-  //           'http://192.168.43.127:5000/api/login/getUserByToken/${token.value}'),
-  //       // Send token in the URL as a parameter
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       final responseData = json.decode(response.body);
-  //       //print("data from get: $responseData");
-  //       showCustomerData(responseData);
-  //       navigateToRolePage(userRole);
-  //     } else {
-  //       // Error handling
-  //       print("Failed to fetch user data: ${response.statusCode}");
-  //     }
-  //   } catch (e) {
-  //     // Error handling
-  //     print("Error fetching user data: $e");
-  //   }
-  // }
   Future<void> fetchUserData() async {
     try {
       final response = await http.get(
@@ -106,14 +87,14 @@ class AuthController extends GetxController {
         break;
       default:
         // Handle unknown roles
-        print("Unknown role: $role");
+        // print("Unknown role: $role");
         break;
     }
   }
 
   void showCustomerData(Map<String, dynamic> data) {
-    print('Received user data: $data');
+    // print('Received user data: $data');
     userData.value = data;
-    print('Updated user data: $userData');
+    // print('Updated user data: $userData');
   }
 }
