@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:service_fixing/clients/controllers/requestion/customer_historyController.dart';
+import 'package:service_fixing/clients/controllers/requestion/request_controller.dart';
 import 'package:service_fixing/constants.dart';
 
 class CustomerHistory extends StatefulWidget {
@@ -12,6 +13,7 @@ class CustomerHistory extends StatefulWidget {
 class _CustomerHistoryState extends State<CustomerHistory> {
   final CustomerHistoryController historyController =
       Get.put(CustomerHistoryController());
+  final RequestController requestController = Get.put(RequestController());
 
   // Function to format the date string
   String formatDateString(String dateString) {
@@ -24,7 +26,7 @@ class _CustomerHistoryState extends State<CustomerHistory> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'ປະຫັວດການບໍລິການ',
+          'ຂໍ້ຄວາມ',
           style: TextStyle(
             fontFamily: 'phetsarath_ot',
           ),
@@ -46,6 +48,7 @@ class _CustomerHistoryState extends State<CustomerHistory> {
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
+              reverse: true,
               itemCount: historyController.messages.length,
               itemBuilder: (BuildContext context, int index) {
                 final message = historyController.messages[index];
@@ -53,8 +56,17 @@ class _CustomerHistoryState extends State<CustomerHistory> {
                   profileImage: const AssetImage('assets/images/man.png'),
                   date: formatDateString(
                       message['createdAt']), // Format the date string
-                  senderName: message['sender_name'],
+                  senderName: message['receiver_name'],
                   content: message['message'],
+                  status: message['status'],
+                  onAccept: () {
+                    // Call method to update status
+                    requestController.updateStatus(message['id'], 'completed');
+                  },
+                  onCancel: () {
+                    // Call method to update status to cancelled
+                    requestController.updateStatus(message['id'], 'cancelled');
+                  },
                 );
               },
             ),
@@ -66,6 +78,9 @@ class _CustomerHistoryState extends State<CustomerHistory> {
     required String date,
     required String senderName,
     required String content,
+    required String status,
+    required Function() onAccept,
+    required Function() onCancel,
   }) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
@@ -100,7 +115,6 @@ class _CustomerHistoryState extends State<CustomerHistory> {
                         date,
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: primaryColor,
                         ),
                       ),
                     ],
@@ -115,49 +129,76 @@ class _CustomerHistoryState extends State<CustomerHistory> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SizedBox(
-                        width: 100,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            elevation: 3.0,
+                      // Display text if status is completed
+                      if (status == 'completed')
+                        const Text(
+                          'ສຳເລັດແລ້ວ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'phetsarath_ot',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.green,
                           ),
-                          child: const Text(
-                            'ຍົກເລີກ',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'phetsarath_ot',
-                              fontWeight: FontWeight.w500,
+                        )
+                      // Display text if status is cancelled
+                      else if (status == 'cancelled')
+                        const Text(
+                          'ຍົກເລີກການຮ້ອງຂໍແລ້ວ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'phetsarath_ot',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.red,
+                          ),
+                        )
+                      else
+                        SizedBox(
+                          // width: 100,
+                          child: ElevatedButton(
+                            onPressed: onCancel,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              elevation: 3.0,
+                            ),
+                            child: const Text(
+                              'ປ່ຽນຮ້ານບໍລິການໃໝ່',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'phetsarath_ot',
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      SizedBox(
-                        width: 100,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            elevation: 3.0,
-                          ),
-                          child: const Text(
-                            'ຮັບຮ້ອງຂໍ',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'phetsarath_ot',
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      )
+                      // const SizedBox(
+                      //   width: 10,
+                      // ),
+                      // // Display Accept button if status is not completed
+                      // if (status != 'completed' && status != 'cancelled')
+                      //   SizedBox(
+                      //     // width: 100,
+                      //     child: ElevatedButton(
+                      //       onPressed: onAccept,
+                      //       style: ElevatedButton.styleFrom(
+                      //         backgroundColor: Colors.blue,
+                      //         shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(50),
+                      //         ),
+                      //         elevation: 3.0,
+                      //       ),
+                      //       child: const Text(
+                      //         'ຮັບຮ້ອງຂໍ',
+                      //         style: TextStyle(
+                      //           fontSize: 14,
+                      //           fontFamily: 'phetsarath_ot',
+                      //           fontWeight: FontWeight.w500,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
                     ],
                   )
                 ],

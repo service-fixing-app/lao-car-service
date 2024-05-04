@@ -53,7 +53,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           ),
           BottomBarItem(
             icon: const Icon(Icons.chat),
-            title: const Text('ປະຫັວດ'),
+            title: const Text('ຂໍ້ຄວາມ'),
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,
           ),

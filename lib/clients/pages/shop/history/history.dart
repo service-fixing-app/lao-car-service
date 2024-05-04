@@ -29,10 +29,15 @@ class _HistoryPageState extends State<HistoryPage> {
     });
   }
 
+  void fatchMessage() async {
+    Get.find<HistoryController>().fetchMessages();
+  }
+
   @override
   void initState() {
     super.initState();
     initNotification();
+    fatchMessage();
   }
 
   @override
@@ -63,6 +68,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 child: CircularProgressIndicator(),
               )
             : ListView.builder(
+                reverse: true,
                 itemCount: historyController.messages.length,
                 itemBuilder: (BuildContext context, int index) {
                   final message = historyController.messages[index];

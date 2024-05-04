@@ -4,6 +4,8 @@ import 'package:service_fixing/clients/components/body_section.dart';
 import 'package:service_fixing/clients/components/cover_image.dart';
 import 'package:service_fixing/clients/components/find_map.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
+import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
+import 'package:service_fixing/clients/pages/shop/history/history.dart';
 import 'package:service_fixing/constants.dart';
 
 class ShopHomePage extends StatefulWidget {
@@ -15,13 +17,34 @@ class ShopHomePage extends StatefulWidget {
 
 class _ShopHomePageState extends State<ShopHomePage> {
   final AuthController authController = Get.find();
-  // final HistoryController historyController = Get.find();
+  final HistoryController historyController = Get.put(HistoryController());
+
+  int newMessageCount = 0;
+
+  void fetchMessagesAndCount() async {
+    await Get.find<HistoryController>().fetchMessages();
+    setState(() {
+      newMessageCount = historyController.messages
+          .where((message) => message['status'] == 'warning')
+          .length;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMessagesAndCount();
+  }
 
   @override
   Widget build(BuildContext context) {
     final userData = authController.userData['user'];
     // print('User Data: ${authController.userData}');
-    int newMessageCount = 11;
+    // int newMessageCount = historyController.messages
+    //     .where((message) => message['status'] == 'warning')
+    //     .length;
+
+    // int newMessageCount = 10;
     return Scaffold(
       backgroundColor: bgColor,
       body: Column(
@@ -86,12 +109,17 @@ class _ShopHomePageState extends State<ShopHomePage> {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 top: 56,
                 left: 290,
-                child: Icon(
-                  Icons.notifications_active,
-                  color: Colors.grey,
+                child: InkWell(
+                  onTap: () {
+                    Get.to(HistoryPage());
+                  },
+                  child: const Icon(
+                    Icons.notifications_active,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
               if (newMessageCount > 0)

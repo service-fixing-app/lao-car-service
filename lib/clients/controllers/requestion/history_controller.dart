@@ -13,7 +13,7 @@ class HistoryController extends GetxController {
     fetchMessages();
   }
 
-  void fetchMessages() async {
+  Future<List<dynamic>> fetchMessages() async {
     try {
       final userData = authController.userData['user'];
       final int receiverTel = userData['tel'];
@@ -27,16 +27,17 @@ class HistoryController extends GetxController {
             jsonDecode(response.body)['requests'];
         messages.assignAll(messagesJson);
 
-
-        print('Fetched Messages: $messages');
+        //print('Fetched Messages: $messages');
       } else {
-        print(
-            'Failed to retrieve messages. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        // print(
+        //     'Failed to retrieve messages. Status code: ${response.statusCode}');
+        // print('Response body: ${response.body}');
         throw Exception('Failed to retrieve messages');
       }
     } catch (e) {
       print('Error: $e');
+      return [];
     }
+    return [];
   }
 }

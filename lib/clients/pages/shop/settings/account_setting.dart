@@ -85,7 +85,7 @@ class AccountSetting extends StatelessWidget {
                                   icon: Icons.location_on,
                                   text: 'ກຳນົດທີ່ຢູ່ຮ້ານ',
                                   onTap: () {
-                                    Get.to(const ShopLocation());
+                                    Get.to(() => const ShopLocation());
                                   },
                                 ),
                                 _buildLogout(

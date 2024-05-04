@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
 import 'package:service_fixing/clients/pages/customer/services/success.dart';
 
 // model
@@ -25,6 +26,7 @@ class Request {
 class RequestController extends GetxController {
   var isLoading = false.obs;
   var isSuccess = false.obs;
+  
 
   Future<void> requestmessageData(Request message) async {
     try {
@@ -101,12 +103,23 @@ class RequestController extends GetxController {
 
       if (response.statusCode == 200) {
         //print('Status updated successfully for message $messageId');
-        // Get.snackbar(
-        //   'ສຳເລັດ',
-        //   'ກ',
-        //   backgroundColor: Colors.white,
-        //   colorText: Colors.red,
-        // );
+        Get.dialog(
+          AlertDialog(
+            icon: Image.asset(
+              'assets/images/success.png',
+              width: 50,
+              height: 50,
+            ),
+            title: const Text(
+              'Success',
+              style: TextStyle(
+                color: Colors.green,
+              ),
+            ),
+            content: const Text('ສຳເລັດໃນການຕອບກັບ, ຂໍຂອບໃຈ'),
+          ),
+        );
+        Get.find<HistoryController>().fetchMessages();
       } else {
         //print(
         //  'Failed to update  $messageId. Status code: ${response.statusCode}',
