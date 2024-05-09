@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                           vertical: 15.0,
                         ),
                         prefixIcon: const Icon(
-                          Icons.lock_outline_rounded,
+                          Icons.lock,
                           color: Colors.grey,
                         ),
                         suffixIcon: Padding(
@@ -136,8 +136,8 @@ class _LoginPageState extends State<LoginPage> {
                               });
                             },
                             icon: _hidePassword
-                                ? const Icon(Icons.visibility_off)
-                                : const Icon(Icons.visibility),
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
                             color: Colors.grey,
                           ),
                         ),

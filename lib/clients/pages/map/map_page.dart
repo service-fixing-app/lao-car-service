@@ -71,8 +71,8 @@ class _MapPageState extends State<MapPage> {
   }
 
   // Function to show bottom sheet
-  void _showBottomSheet(BuildContext context, String markerName, String score,
-      String typeOfService) {
+  void _showBottomSheet(BuildContext context, String markerName, String tel,
+      String score, String typeOfService) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -119,6 +119,14 @@ class _MapPageState extends State<MapPage> {
                     );
                   }),
                 ],
+              ),
+              Text(
+                tel,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'phetsarath_ot',
+                ),
               ),
               Text(
                 score,
@@ -267,28 +275,31 @@ class _MapPageState extends State<MapPage> {
                       ),
                     ),
                     // loop maker in here
-                    for (var shopLocation
-                        in getShopLocationController.shopLocations)
-                      Marker(
-                        markerId: MarkerId(
-                          "${shopLocation.latitude}-${shopLocation.longitude}",
+                    if (getShopLocationController.shopLocations.isNotEmpty)
+                      for (var shopLocation
+                          in getShopLocationController.shopLocations)
+                        Marker(
+                          markerId: MarkerId(
+                              "${shopLocation['latitude']}-${shopLocation['longitude']}"),
+                          icon: BitmapDescriptor.defaultMarkerWithHue(
+                              BitmapDescriptor.hueAzure),
+                          position: LatLng(
+                            double.parse(shopLocation['latitude'].toString()),
+                            double.parse(shopLocation['longitude'].toString()),
+                          ),
+                          onTap: () {
+                            print("shoplocation: $shopLocation");
+                            _showBottomSheet(
+                              context,
+                              shopLocation['shopName'],
+                              // shopLocation['tel'],
+                              '02012345678',
+                              'ຄະແນນ : 100',
+                              'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
+                            );
+                          },
                         ),
-                        icon: BitmapDescriptor.defaultMarkerWithHue(
-                            BitmapDescriptor.hueAzure),
-                        position: LatLng(
-                          shopLocation.latitude,
-                          shopLocation.longitude,
-                        ),
-                        onTap: () {
-                          // Handle marker tap event
-                          _showBottomSheet(
-                            context,
-                            'ຮ້ານສ້ອມແປງລົດຈັກ',
-                            'ຄະແນນ : 100',
-                            'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
-                          );
-                        },
-                      ),
+
                     // Example location
                     // Marker(
                     //   markerId: const MarkerId("_destinationLocation"),
@@ -308,18 +319,6 @@ class _MapPageState extends State<MapPage> {
                     //   },
                     // ),
                   },
-                  // polylines: {
-                  //   Polyline(
-                  //     polylineId: const PolylineId("route"),
-                  //     color: Colors.blue,
-                  //     // points: [
-                  //     //   _currentPosition!,
-                  //     //   _secondLocation,
-                  //     // ],
-                  //     points: polylineCoordinates,
-                  //     width: 6,
-                  //   ),
-                  // },
                 ),
           Positioned(
             left: 30,
