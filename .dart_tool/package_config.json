@@ -218,6 +218,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "flutter_image_slideshow",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_image_slideshow-0.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_launcher_icons",
       "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_launcher_icons-0.13.1",
       "packageUri": "lib/",
@@ -668,7 +674,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-04-25T11:05:41.211370Z",
+  "generated": "2024-05-10T11:06:07.081942Z",
   "generator": "pub",
   "generatorVersion": "3.1.0-63.1.beta"
 }

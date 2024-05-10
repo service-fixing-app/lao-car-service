@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:service_fixing/clients/components/body_section.dart';
+import 'package:service_fixing/clients/components/shopSection/body_section.dart';
 import 'package:service_fixing/clients/components/find_map.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/constants.dart';

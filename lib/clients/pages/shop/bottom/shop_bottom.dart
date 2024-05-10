@@ -23,7 +23,6 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
         children: [
           const ShopHomePage(),
           HistoryPage(),
-          // const CustomerNotifications(),
           const AccountSetting(),
         ],
         onPageChanged: (index) {
@@ -40,7 +39,7 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
         items: <BottomBarItem>[
           BottomBarItem(
             icon: const Icon(Icons.home),
-            title: const Text('ສ້ອມແປງ'),
+            title: const Text('ຮ້ານສ້ອມແປງ'),
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,
           ),
@@ -50,13 +49,6 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,
           ),
-          // BottomBarItem(
-          //   icon: const Icon(Icons.notifications_active),
-          //   title: const Text('Notications'),
-          //   activeColor: Colors.blue,
-
-          //   activeTitleColor: Colors.blue.shade600,
-          // ),
           BottomBarItem(
             icon: const Icon(Icons.person),
             title: const Text('ບັນຊີຂອງທ່ານ'),

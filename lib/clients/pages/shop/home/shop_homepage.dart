@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:service_fixing/clients/components/body_section.dart';
+import 'package:service_fixing/clients/components/customer/repairshop_section.dart';
 import 'package:service_fixing/clients/components/cover_image.dart';
 import 'package:service_fixing/clients/components/find_map.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
@@ -149,7 +149,7 @@ class _ShopHomePageState extends State<ShopHomePage> {
           ),
           const Expanded(
             child: SingleChildScrollView(
-              child: BodySection(),
+              child: RepairshopSection(),
             ),
           ),
         ],

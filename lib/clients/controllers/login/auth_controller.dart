@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_fixing/clients/pages/shop/bottom/shop_bottom.dart';
+import 'package:service_fixing/clients/pages/shop/bottom/towingShop_bottom.dart';
 import '../../pages/customer/bottom/bottom_navigation.dart';
 
 class AuthController extends GetxController {
@@ -83,7 +84,7 @@ class AuthController extends GetxController {
         Get.offAll(() => const ShopBottomBar());
         break;
       case 'towingshop':
-        Get.offAll(() => const ShopBottomBar());
+        Get.offAll(() => const TowingshopBottomBar());
         break;
       default:
         // Handle unknown roles
