@@ -248,6 +248,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "flutter_rating_stars",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_rating_stars-1.0.3+4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/src/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -674,7 +680,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-05-10T11:06:07.081942Z",
+  "generated": "2024-05-14T18:59:44.029579Z",
   "generator": "pub",
   "generatorVersion": "3.1.0-63.1.beta"
 }

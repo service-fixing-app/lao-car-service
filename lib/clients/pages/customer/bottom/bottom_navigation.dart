@@ -47,7 +47,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           ),
           BottomBarItem(
             icon: const Icon(Icons.car_crash),
-            title: const Text('ບໍລິການສ້ອມແປງ'),
+            title: const Text('ບໍລິການແກ່ລົດ'),
             activeColor: Colors.blue,
             activeTitleColor: Colors.blue.shade600,
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/shop/getRepairshopController.dart';
+import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
+import 'package:service_fixing/clients/pages/map/map_page.dart';
 import 'package:service_fixing/constants.dart';
 
 class RepairshopSection extends StatelessWidget {
@@ -74,6 +76,7 @@ class RepairshopSection extends StatelessWidget {
             ],
           ),
           onTap: () {
+            Get.to(() => ServiceRepair(shopName: shopName, phoneNumber: tel));
             // print('Click object');
           },
         ),

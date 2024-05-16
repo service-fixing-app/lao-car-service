@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:service_fixing/clients/controllers/requestion/customer_historyController.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
 import 'package:service_fixing/clients/pages/customer/services/success.dart';
 
@@ -12,6 +13,8 @@ class Request {
   final String senderTel;
   final String receiverName;
   final String receiverTel;
+  final double? customerLatitude;
+  final double? customerLongitude;
   final String message;
 
   Request({
@@ -19,6 +22,8 @@ class Request {
     required this.senderTel,
     required this.receiverName,
     required this.receiverTel,
+    this.customerLatitude,
+    this.customerLongitude,
     required this.message,
   });
 }
@@ -26,11 +31,12 @@ class Request {
 class RequestController extends GetxController {
   var isLoading = false.obs;
   var isSuccess = false.obs;
-  
 
   Future<void> requestmessageData(Request message) async {
     try {
       isLoading.value = true;
+      print("clatitude ${message.customerLatitude}");
+      print("clongitude ${message.customerLongitude}");
       var response = await http.post(
         Uri.parse('http://192.168.43.127:5000/api/request/sendMessage'),
         body: {
@@ -38,24 +44,26 @@ class RequestController extends GetxController {
           'sender_tel': message.senderTel,
           'receiver_name': message.receiverName,
           'receiver_tel': message.receiverTel,
+          'clatitude': message.customerLatitude.toString(),
+          'clongitude': message.customerLongitude.toString(),
           'message': message.message,
           'status': 'warning',
         },
       );
-
+      print("code status: ${response.statusCode}");
       if (response.statusCode == 200 || response.statusCode == 201) {
         // Registration successful
         isSuccess.value = true;
         await callNotificationAPI();
-        //print("Error: ${response.statusCode}");
+        print("Error: ${response.statusCode}");
         // Get.offAll(const HomePage());
         Get.to(const Successs());
       } else {
         isSuccess.value = false;
-        // print("Error: ${response.statusCode}");
+        print("Error: ${response.statusCode}");
       }
     } catch (error) {
-      //print(error);
+      print(error);
       isSuccess.value = false;
       // Handle error
     } finally {
@@ -94,7 +102,7 @@ class RequestController extends GetxController {
     try {
       final response = await http.put(
         Uri.parse(
-            'http://192.168.43.127:5000/api/request//updateStatus/$messageId'),
+            'http://192.168.43.127:5000/api/request/updateStatus/$messageId'),
         body: jsonEncode({'status': newStatus}),
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +127,16 @@ class RequestController extends GetxController {
             content: const Text('ສຳເລັດໃນການຕອບກັບ, ຂໍຂອບໃຈ'),
           ),
         );
-        Get.find<HistoryController>().fetchMessages();
+        try {
+          await Get.find<CustomerHistoryController>().fetchMessages();
+        } catch (e) {
+          //print('Error fetching customer history messages: $e');
+        }
+        try {
+          await Get.find<HistoryController>().fetchMessages();
+        } catch (e) {
+          //print('Error fetching history messages: $e');
+        }
       } else {
         //print(
         //  'Failed to update  $messageId. Status code: ${response.statusCode}',

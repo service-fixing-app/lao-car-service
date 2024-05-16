@@ -100,27 +100,27 @@ class AccountSetting extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.admin_panel_settings_rounded,
-                                  color: primaryColor,
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Admin  02077665494',
-                                  style: TextStyle(
-                                    color: primaryColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // child: const Padding(
+                          //   padding: EdgeInsets.all(10.0),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Icon(
+                          //         Icons.admin_panel_settings_rounded,
+                          //         color: primaryColor,
+                          //       ),
+                          //       SizedBox(width: 10),
+                          //       Text(
+                          //         'Admin  02077665494',
+                          //         style: TextStyle(
+                          //           color: primaryColor,
+                          //           fontSize: 18,
+                          //           fontWeight: FontWeight.bold,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ),
                       ],
                     ),

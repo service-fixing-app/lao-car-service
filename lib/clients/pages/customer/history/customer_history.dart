@@ -11,7 +11,7 @@ class CustomerHistory extends StatefulWidget {
 }
 
 class _CustomerHistoryState extends State<CustomerHistory> {
-  final CustomerHistoryController historyController =
+  final CustomerHistoryController customerHistoryController =
       Get.put(CustomerHistoryController());
   final RequestController requestController = Get.put(RequestController());
 
@@ -20,6 +20,7 @@ class _CustomerHistoryState extends State<CustomerHistory> {
     DateTime dateTime = DateTime.parse(dateString);
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +44,35 @@ class _CustomerHistoryState extends State<CustomerHistory> {
         ),
       ),
       backgroundColor: bgColor,
-      body: historyController.messages.isEmpty
-          ? const Center(
+      body: Obx(
+        () {
+          if (customerHistoryController.isLoading.value) {
+            return const Center(
               child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
+            );
+          } else if (customerHistoryController.messages.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/empty-folder.png',
+                    fit: BoxFit.cover,
+                  ),
+                  const Text('ຍັງບໍ່ມີຂໍ້ຄວາມຮ້ອງຂໍ',
+                      style: TextStyle(fontSize: 14)),
+                ],
+              ),
+            );
+          } else {
+            return ListView.builder(
               reverse: true,
-              itemCount: historyController.messages.length,
+              itemCount: customerHistoryController.messages.length,
               itemBuilder: (BuildContext context, int index) {
-                final message = historyController.messages[index];
+                final message = customerHistoryController.messages[index];
                 return _buildNotificationItem(
                   profileImage: const AssetImage('assets/images/man.png'),
-                  date: formatDateString(
-                      message['createdAt']), // Format the date string
+                  date: formatDateString(message['createdAt']),
                   senderName: message['receiver_name'],
                   content: message['message'],
                   status: message['status'],
@@ -69,7 +86,10 @@ class _CustomerHistoryState extends State<CustomerHistory> {
                   },
                 );
               },
-            ),
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -173,32 +193,6 @@ class _CustomerHistoryState extends State<CustomerHistory> {
                             ),
                           ),
                         ),
-                      // const SizedBox(
-                      //   width: 10,
-                      // ),
-                      // // Display Accept button if status is not completed
-                      // if (status != 'completed' && status != 'cancelled')
-                      //   SizedBox(
-                      //     // width: 100,
-                      //     child: ElevatedButton(
-                      //       onPressed: onAccept,
-                      //       style: ElevatedButton.styleFrom(
-                      //         backgroundColor: Colors.blue,
-                      //         shape: RoundedRectangleBorder(
-                      //           borderRadius: BorderRadius.circular(50),
-                      //         ),
-                      //         elevation: 3.0,
-                      //       ),
-                      //       child: const Text(
-                      //         'ຮັບຮ້ອງຂໍ',
-                      //         style: TextStyle(
-                      //           fontSize: 14,
-                      //           fontFamily: 'phetsarath_ot',
-                      //           fontWeight: FontWeight.w500,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
                     ],
                   )
                 ],

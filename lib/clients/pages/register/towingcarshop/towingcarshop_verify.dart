@@ -55,6 +55,7 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
       TowingcarshopRegisterController();
 
   bool _hidePassword = true;
+  bool _hideRepassword = true;
   @override
   void initState() {
     super.initState();
@@ -241,9 +242,9 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                         });
                       },
                       icon: _hidePassword
-                          ? const Icon(Icons.visibility_off)
-                          : const Icon(Icons.visibility),
-                      color: primaryColor,
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off),
+                      color: Colors.grey,
                     ),
                   ),
                 ),
@@ -253,7 +254,7 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
               ),
               const SizedBox(height: 20.0),
               TextField(
-                obscureText: _hidePassword,
+                obscureText: _hideRepassword,
                 controller: repasswordController,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
@@ -276,13 +277,13 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          _hidePassword = !_hidePassword;
+                          _hideRepassword = !_hideRepassword;
                         });
                       },
-                      icon: _hidePassword
-                          ? const Icon(Icons.visibility_off)
-                          : const Icon(Icons.visibility),
-                      color: primaryColor,
+                      icon: _hideRepassword
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off),
+                      color: Colors.grey,
                     ),
                   ),
                 ),
@@ -364,7 +365,7 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                     } else {
                       if (widget.profileImage == null) {
                         // Handle the case where the image file does not exist
-                        print('Image file does not exist.');
+                        // print('Image file does not exist.');
                         print(widget.profileImage);
                         return;
                       }
@@ -396,7 +397,6 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                           Get.to(const LoginPage());
                         } else {
                           // Registration failed
-                          // Display error message to the user or perform other actions
                           print('added error');
                         }
                       } catch (error) {
@@ -411,13 +411,32 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                     ),
                     elevation: 3.0,
                   ),
-                  child: const Text(
-                    'ສົ່ງຟອມສະໝັກ',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'phetsarath_ot',
-                    ),
+                  child: Obx(
+                    () {
+                      // Use Obx to listen to changes in isLoading
+                      return towingcarshopRegisterController.isLoading.value
+                          ? const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Loading...',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(width: 5),
+                                CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ],
+                            )
+                          : const Text(
+                              'ສົ່ງຟອມສະໝັກ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'phetsarath_ot',
+                              ),
+                            );
+                    },
                   ),
                 ),
               ),

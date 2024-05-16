@@ -9,7 +9,13 @@ import 'package:service_fixing/clients/pages/customer/services/service_repair.da
 import 'package:service_fixing/constants.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+  final double? customerlatitude;
+  final double? customerclongitude;
+  MapPage({
+    Key? key,
+    this.customerlatitude,
+    this.customerclongitude,
+  }) : super(key: key);
 
   @override
   State<MapPage> createState() => _MapPageState();
@@ -31,6 +37,8 @@ class _MapPageState extends State<MapPage> {
   // );
 
   LatLng? _currentPosition;
+  double? clatitude;
+  double? clongitude;
 
   //Get the current location of the user
   Future<void> _getLocation() async {
@@ -58,6 +66,11 @@ class _MapPageState extends State<MapPage> {
       setState(() {
         _currentPosition =
             LatLng(locationData.latitude!, locationData.longitude!);
+        clatitude = locationData.latitude!;
+        clongitude = locationData.longitude!;
+        // print("clatitude $clatitude");
+        // print("clongitude $clongitude");
+        // print(' current location : $_currentPosition');
       });
     } catch (e) {
       // print("Error getting location: $e");
@@ -68,183 +81,36 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
     _getLocation();
+    _loadCustomMarker();
   }
 
-  // Function to show bottom sheet
-  void _showBottomSheet(BuildContext context, String markerName, String tel,
-      String score, String typeOfService) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 50.0,
-                    height: 4.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    markerName,
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Obx(() {
-                    final isOpen = openshopController.isOpen.value;
-                    return Switch(
-                      value: isOpen,
-                      onChanged: (value) {
-                        openshopController.isOpen.value = value;
-                      },
-                      activeColor: primaryColor,
-                    );
-                  }),
-                ],
-              ),
-              Text(
-                tel,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'phetsarath_ot',
-                ),
-              ),
-              Text(
-                score,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'phetsarath_ot',
-                ),
-              ),
-              Text(
-                typeOfService,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'phetsarath_ot',
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 45.0,
-                      // width: 180.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // any logic
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          elevation: 3.0,
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.directions,
-                            ),
-                            Text(
-                              'Direction',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10.0,
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 45.0,
-                      // width: 180.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // any logic
-                          Get.to(const ServiceRepair());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0),
-                            side: const BorderSide(
-                                color: Colors.grey,
-                                width: 2.0), // Add button border
-                          ),
-                          elevation: 3.0,
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.help,
-                              color: Colors.grey,
-                            ),
-                            Text(
-                              'ຮ້ອງບໍລິການ',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Container(
-                width: 100.0,
-                height: 200.0,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black45),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.asset(
-                    'assets/images/shopimage.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+  BitmapDescriptor? customMarker;
+
+  Future<void> _loadCustomMarker() async {
+    customMarker = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(12, 12)),
+      'assets/images/r-location.png',
+    );
+    setState(() {});
+  }
+
+  String _formatStarRating(double score) {
+    // Convert the score to a scale of 5 stars
+    double rating = score / 10; // Assuming the maximum score is 100
+    return rating.toStringAsFixed(1); // Format the rating to one decimal place
+  }
+
+  Widget _buildStarRating(double score) {
+    // Convert the score to a scale of 5 stars
+    double rating = score / 10; // Assuming the maximum score is 100
+    return Row(
+      children: List.generate(
+        5,
+        (index) => Icon(
+          index < rating ? Icons.star : Icons.star_border,
+          color: Colors.amber,
+        ),
+      ),
     );
   }
 
@@ -270,11 +136,20 @@ class _MapPageState extends State<MapPage> {
                       markerId: const MarkerId("_currentLocation"),
                       icon: BitmapDescriptor.defaultMarker,
                       position: _currentPosition!,
+                      draggable: true,
                       infoWindow: const InfoWindow(
                         title: "ທີ່ຢູ່ຂອງທ່ານ",
                       ),
+                      onDragEnd: (LatLng newPosition) {
+                        setState(() {
+                          _currentPosition = newPosition;
+                          clatitude = newPosition.latitude;
+                          clongitude = newPosition.longitude;
+                        });
+                      },
                     ),
                     // loop maker in here
+
                     if (getShopLocationController.shopLocations.isNotEmpty)
                       for (var shopLocation
                           in getShopLocationController.shopLocations)
@@ -283,22 +158,46 @@ class _MapPageState extends State<MapPage> {
                               "${shopLocation['latitude']}-${shopLocation['longitude']}"),
                           icon: BitmapDescriptor.defaultMarkerWithHue(
                               BitmapDescriptor.hueAzure),
+                          infoWindow: InfoWindow(
+                            title: shopLocation['shopName'],
+                          ),
                           position: LatLng(
                             double.parse(shopLocation['latitude'].toString()),
                             double.parse(shopLocation['longitude'].toString()),
                           ),
                           onTap: () {
-                            print("shoplocation: $shopLocation");
+                            // print("shoplocation: $shopLocation");
                             _showBottomSheet(
                               context,
-                              shopLocation['shopName'],
-                              // shopLocation['tel'],
-                              '02012345678',
-                              'ຄະແນນ : 100',
+                              "${shopLocation['shopName']}",
+                              "ເຈົ້າຂອງຮ້ານ: ${shopLocation['managerName']}",
+                              "${shopLocation['phoneNumber']}",
+
+                              // '02012345678',
+                              'ຄະແນນ : 100', // star rating here
+                              _buildStarRating(50),
                               'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
                             );
                           },
                         ),
+                    if (widget.customerlatitude != null &&
+                        widget.customerclongitude != null &&
+                        widget.customerlatitude! != 0.0 &&
+                        widget.customerclongitude! != 0.0)
+                      // Add the marker for customer location
+                      Marker(
+                        markerId: const MarkerId('customer location'),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(
+                          BitmapDescriptor.hueGreen,
+                        ),
+                        infoWindow: const InfoWindow(
+                          title: 'Customer location',
+                        ),
+                        position: LatLng(
+                          widget.customerlatitude!,
+                          widget.customerclongitude!,
+                        ),
+                      )
 
                     // Example location
                     // Marker(
@@ -361,6 +260,208 @@ class _MapPageState extends State<MapPage> {
           ),
         ],
       ),
+    );
+  }
+
+  // Function to show bottom sheet
+  void _showBottomSheet(
+    BuildContext context,
+    String markerName,
+    String ownerName,
+    String tel,
+    String score,
+    Widget ratingStar,
+    String typeOfService,
+  ) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50.0,
+                      height: 4.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'ຮ້ານ $markerName',
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Obx(() {
+                      final isOpen = openshopController.isOpen.value;
+                      return Switch(
+                        value: isOpen,
+                        onChanged: (value) {
+                          openshopController.isOpen.value = value;
+                        },
+                        activeColor: primaryColor,
+                      );
+                    }),
+                  ],
+                ),
+                Text(
+                  ownerName,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'phetsarath_ot',
+                  ),
+                ),
+                Text(
+                  'ເບີຕິດຕໍ່: $tel',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'phetsarath_ot',
+                  ),
+                ),
+                Text(
+                  score,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'phetsarath_ot',
+                  ),
+                ),
+                Text(
+                  typeOfService,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'phetsarath_ot',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 45.0,
+                        // width: 180.0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // any logic
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            elevation: 3.0,
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.directions,
+                              ),
+                              Text(
+                                'Direction',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10.0,
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 45.0,
+                        // width: 180.0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            print('clatitude : $clatitude');
+                            print('clongitude : $clongitude');
+                            // any logic
+                            Get.to(() => ServiceRepair(
+                                  shopName: markerName,
+                                  phoneNumber: tel,
+                                  clatitude: clatitude,
+                                  clongitude: clongitude,
+                                ));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0),
+                              side: const BorderSide(
+                                  color: Colors.grey,
+                                  width: 2.0), // Add button border
+                            ),
+                            elevation: 3.0,
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.help,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                'ຮ້ອງບໍລິການ',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: 100.0,
+                  height: 200.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black45),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.asset(
+                      'assets/images/shopimage.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

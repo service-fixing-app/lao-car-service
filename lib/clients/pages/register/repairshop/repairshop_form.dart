@@ -43,24 +43,33 @@ class _RepairshopFormState extends State<RepairshopForm> {
   List<Map<String, dynamic>> provinces = [];
   List<Map<String, dynamic>> stateMasters = [];
   List<Map<String, dynamic>> states = [];
+  List<Map<String, dynamic>> typeService = [];
 
   String? selectedProvince;
   String? selectedState;
-
+  String? selectTypeService;
   @override
   void initState() {
     super.initState();
 
+    typeService = [
+      {"val": 1, "name": "ບໍລິການສ້ອມແປງລົດຈັກທົ່ວໄປ"},
+      {"val": 2, "name": "ບໍລິການສ້ອມແປງລົດໃຫຍ່"},
+    ];
     provinces = [
-      {"val": 1, "name": "ແຂວງນະຄອນຫຼວງຈັນ"},
-      {"val": 2, "name": "ແຂວງໄຊສົມບູນ"},
+      {"val": 1, "name": "ນະຄອນຫຼວງຈັນ"},
     ];
 
     stateMasters = [
-      {"ID": 1, "Name": "ເມືອງໄຊເສດຖາ", "ParentId": 1},
-      {"ID": 2, "Name": "ເມືອງໄຊທານີ", "ParentId": 1},
-      {"ID": 3, "Name": "ເມືອງຮົ່ມ", "ParentId": 2},
-      {"ID": 4, "Name": "ເມືອງອະນຸວົງ", "ParentId": 2},
+      {"ID": 1, "Name": "ເມືອງຈັນທະບູລີ", "ParentId": 1},
+      {"ID": 2, "Name": "ເມືອງໄຊເສດຖາ", "ParentId": 1},
+      {"ID": 3, "Name": "ເມືອງສີໂຄດຕະບອງ", "ParentId": 1},
+      {"ID": 4, "Name": "ເມືອງສີສັດຕະນາກ", "ParentId": 1},
+      {"ID": 5, "Name": "ເມືອງຫາດຊາຍຟອງ", "ParentId": 1},
+      {"ID": 6, "Name": "ເມືອງນາຊາຍທອງ", "ParentId": 1},
+      {"ID": 7, "Name": "ເມືອງໄຊທານີ", "ParentId": 1},
+      {"ID": 8, "Name": "ເມືອງສັງທອງ", "ParentId": 1},
+      {"ID": 9, "Name": "ເມືອງໃໝ່ປາກງື່ມ", "ParentId": 1},
     ];
   }
 
@@ -461,34 +470,45 @@ class _RepairshopFormState extends State<RepairshopForm> {
                   ],
                 ),
                 const SizedBox(height: 20.0),
-                // type off serivce
-                TextField(
-                  controller: typeServiceController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    labelText: 'ປະເພດບໍລິການສ້ອມແປງ',
-                    labelStyle: const TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'phetsarath_ot',
-                      fontWeight: FontWeight.w500,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(width: 2.0),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                      vertical: 18.0,
-                    ),
+
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black45),
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(50),
-                  ],
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4.0,
+                    vertical: 4.0,
+                  ),
+                  child: DropdownButtonFormField<String>(
+                    value: selectTypeService,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+                      hintText: 'ເລືອກບໍລິການສ້ອມແປງລົດ',
+                      hintStyle: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'phetsarath_ot',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    items: typeService.map((type) {
+                      return DropdownMenuItem<String>(
+                        value: type['name'],
+                        child: Text(type['name']),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectTypeService = newValue;
+                      });
+                    },
+                  ),
                 ),
                 const SizedBox(height: 20.0),
                 // document verify
                 const Text(
-                  'ຮູບພາບເອກະສານຢັ້ງຢືນການເປີດຮ້ານສ້ອມແປງ',
+                  'ຮູບພາບບັດປະຈຳຕົວເປັນເອກະສານຢັ້ງຢືນ',
                   style: TextStyle(
                     fontSize: 18,
                     fontFamily: 'phetsarath_ot',
@@ -651,7 +671,8 @@ class _RepairshopFormState extends State<RepairshopForm> {
                                   province: selectedProvince ?? '',
                                   district: selectedState ?? '',
                                   village: villageController.text,
-                                  typeService: typeServiceController.text,
+                                  // typeService: typeServiceController.text,
+                                  typeService: selectTypeService ?? '',
                                   profileImage: _imageFile!,
                                   documentImage: _documentImageFile!,
                                   tel: '',

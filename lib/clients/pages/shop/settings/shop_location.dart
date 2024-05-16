@@ -135,7 +135,9 @@ class _ShopLocationState extends State<ShopLocation> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
+         
                       final location = ShopNewlocation(
+
                         latitude: latitude.text,
                         longitude: longitude.text,
                       );

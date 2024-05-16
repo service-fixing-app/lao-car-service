@@ -5,6 +5,7 @@ import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 
 class HistoryController extends GetxController {
   var messages = [].obs;
+  var isLoading = true.obs;
   final AuthController authController = Get.find();
 
   @override
@@ -19,7 +20,7 @@ class HistoryController extends GetxController {
       final int receiverTel = userData['tel'];
 
       //print('Data from history: $userData');
-
+      isLoading(true);
       final response = await http.get(Uri.parse(
           'http://192.168.43.127:5000/api/request/getRequestsByTel/$receiverTel'));
       if (response.statusCode == 200) {
@@ -27,7 +28,7 @@ class HistoryController extends GetxController {
             jsonDecode(response.body)['requests'];
         messages.assignAll(messagesJson);
 
-        //print('Fetched Messages: $messages');
+        print('Fetched Messages: $messages');
       } else {
         // print(
         //     'Failed to retrieve messages. Status code: ${response.statusCode}');
@@ -37,6 +38,8 @@ class HistoryController extends GetxController {
     } catch (e) {
       print('Error: $e');
       return [];
+    } finally {
+      isLoading(false);
     }
     return [];
   }

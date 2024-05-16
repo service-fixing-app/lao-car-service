@@ -112,7 +112,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/Map',
-          page: () => const MapPage(),
+          page: () => MapPage(),
           transition: Transition.rightToLeft,
         ),
       ],

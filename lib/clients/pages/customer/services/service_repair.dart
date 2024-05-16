@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/requestion/request_controller.dart';
 import 'package:service_fixing/constants.dart';
 
 class ServiceRepair extends StatefulWidget {
-  const ServiceRepair({super.key});
+  final String shopName;
+  final String phoneNumber;
+  final double? clatitude;
+  final double? clongitude;
+  const ServiceRepair({
+    Key? key,
+    required this.shopName,
+    required this.phoneNumber,
+    this.clatitude,
+    this.clongitude,
+  }) : super(key: key);
 
   @override
   State<ServiceRepair> createState() => _ServiceRepairState();
@@ -14,31 +23,11 @@ class ServiceRepair extends StatefulWidget {
 
 class _ServiceRepairState extends State<ServiceRepair> {
   final AuthController authController = Get.find();
-  TextEditingController senderName = TextEditingController();
-  TextEditingController senderTel = TextEditingController();
-  TextEditingController receiverName = TextEditingController();
-  TextEditingController receiverTel = TextEditingController();
   TextEditingController message = TextEditingController();
-  // TextEditingController _status = TextEditingController();
-
   final RequestController requestController = RequestController();
 
   @override
-  void initState() {
-    super.initState();
-    senderTel.text = authController.userData['user']['tel'] != null
-        ? authController.userData['user']['tel'].toString()
-        : '';
-    senderName.text = authController.userData['user']['first_name'] != null
-        ? authController.userData['user']['first_name'].toString()
-        : '';
-    print(" sender name : $senderTel");
-    print(" sender name : $senderName");
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final userData = authController.userData['user'];
     // print(userData);
     return Scaffold(
       appBar: AppBar(
@@ -75,107 +64,9 @@ class _ServiceRepairState extends State<ServiceRepair> {
               ),
               const SizedBox(height: 20.0),
               TextField(
-                // controller: userData['first_name'] != null
-                //     ? TextEditingController(text: userData['first_name'])
-                //     : senderName,
-                controller: senderName,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: 'ຊື່ຜູ້ຮ້ອງຂໍບໍລິການ',
-                  labelStyle: const TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'phetsarath_ot',
-                    fontWeight: FontWeight.w500,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(width: 2.0),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 18.0,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                controller: senderTel,
-                // controller: userData['tel'] != null
-                //     ? TextEditingController(text: userData['tel'].toString())
-                //     : senderTel,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  labelText: 'ເບີໂທຜູ້ຮ້ອງຂໍບໍລິການ',
-                  labelStyle: const TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'phetsarath_ot',
-                    fontWeight: FontWeight.w500,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(width: 2.0),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 18.0,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                controller: receiverName,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: 'ຊື່ຮ້ານສ້ອມແປງ',
-                  labelStyle: const TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'phetsarath_ot',
-                    fontWeight: FontWeight.w500,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(width: 2.0),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 18.0,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                controller: receiverTel,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  labelText: 'ເບີໂທຮ້ານສ້ອມແປງ',
-                  labelStyle: const TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'phetsarath_ot',
-                    fontWeight: FontWeight.w500,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(width: 2.0),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 18.0,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              TextField(
                 controller: message,
                 keyboardType: TextInputType.multiline,
-                maxLines: null,
+                maxLines: 10,
                 decoration: InputDecoration(
                   labelText: 'ຂໍ້ຄວາມຮ້ອງຂໍ',
                   labelStyle: const TextStyle(
@@ -200,29 +91,39 @@ class _ServiceRepairState extends State<ServiceRepair> {
                 child: ElevatedButton(
                   onPressed: () async {
                     // logic
+                    final senderName = authController.userData['user']
+                                ['first_name']
+                            ?.toString() ??
+                        '';
+                    final senderTel =
+                        authController.userData['user']['tel']?.toString() ??
+                            '';
                     final request = Request(
-                      senderName: senderName.text,
-                      senderTel: senderTel.text,
-                      receiverName: receiverName.text,
-                      receiverTel: receiverTel.text,
+                      senderName: senderName,
+                      senderTel: senderTel,
+                      receiverName: widget.shopName,
+                      receiverTel: widget.phoneNumber,
+                      customerLatitude: widget.clatitude,
+                      customerLongitude: widget.clongitude,
                       message: message.text,
                     );
-
-                    // print("request data: $senderName");
-                    // print("request data: $senderTel");
-                    // print("request data: $receiverName");
-                    // print("request data: $receiverTel");
-                    // print("request data: $message");
+                    print("request data: $senderName");
+                    print("request data: $senderTel");
+                    print("request data: ${widget.shopName}");
+                    print("request data: ${widget.phoneNumber}");
+                    print("clatitude data: ${widget.clatitude}");
+                    print("clongitude data: ${widget.clongitude}");
+                    print("request data: $message");
 
                     try {
                       await requestController.requestmessageData(request);
                       if (requestController.isSuccess.value) {
                         // Registration successful
-                        // OneSignal.shared.addTrigger(key, value);
                         print('success added');
                       } else {
                         // Registration failed
-                        print('added error');
+                        print(
+                            'added error ${requestController.isSuccess.value}');
                       }
                     } catch (error) {
                       // Handle error

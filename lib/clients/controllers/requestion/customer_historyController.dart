@@ -5,6 +5,8 @@ import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 
 class CustomerHistoryController extends GetxController {
   var messages = [].obs;
+  var isLoading = true.obs;
+
   final AuthController authController = Get.find();
 
   @override
@@ -13,12 +15,12 @@ class CustomerHistoryController extends GetxController {
     fetchMessages();
   }
 
-  void fetchMessages() async {
+  Future<List<dynamic>> fetchMessages() async {
     try {
       final userData = authController.userData['user'];
       final int requestTel = userData['tel'];
 
-      //print('Data from history: $userData');
+      isLoading(true); // Set loading state to true
 
       final response = await http.get(Uri.parse(
           'http://192.168.43.127:5000/api/request/getCustomerRequestsByTel/$requestTel'));
@@ -36,6 +38,10 @@ class CustomerHistoryController extends GetxController {
       }
     } catch (e) {
       print('Error: $e');
+      return [];
+    } finally {
+      isLoading(false);
+      return [];
     }
   }
 }

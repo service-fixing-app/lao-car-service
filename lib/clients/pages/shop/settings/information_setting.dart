@@ -115,7 +115,7 @@ class InformationSetting extends StatelessWidget {
               const SizedBox(height: 20.0),
               TextField(
                 controller: TextEditingController(
-                  text: '${userData['management_name']}',
+                  text: '${userData['manager_name']}',
                 ),
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(

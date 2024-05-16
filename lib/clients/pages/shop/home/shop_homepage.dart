@@ -148,9 +148,7 @@ class _ShopHomePageState extends State<ShopHomePage> {
             height: 30.0,
           ),
           const Expanded(
-            child: SingleChildScrollView(
-              child: RepairshopSection(),
-            ),
+            child: RepairshopSection(),
           ),
         ],
       ),

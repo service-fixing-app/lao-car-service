@@ -55,6 +55,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
       RepairshopRegisterController();
 
   bool _hidePassword = true;
+  bool _hideRePassword = true;
   @override
   void initState() {
     super.initState();
@@ -245,9 +246,9 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                         });
                       },
                       icon: _hidePassword
-                          ? const Icon(Icons.visibility_off)
-                          : const Icon(Icons.visibility),
-                      color: primaryColor,
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off),
+                      color: Colors.grey,
                     ),
                   ),
                 ),
@@ -257,7 +258,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
               ),
               const SizedBox(height: 20.0),
               TextField(
-                obscureText: _hidePassword,
+                obscureText: _hideRePassword,
                 controller: repasswordController,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
@@ -280,13 +281,13 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          _hidePassword = !_hidePassword;
+                          _hideRePassword = !_hideRePassword;
                         });
                       },
-                      icon: _hidePassword
-                          ? const Icon(Icons.visibility_off)
-                          : const Icon(Icons.visibility),
-                      color: primaryColor,
+                      icon: _hideRePassword
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off),
+                      color: Colors.grey,
                     ),
                   ),
                 ),
@@ -366,21 +367,6 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                       );
                       return; // Do not proceed further
                     } else {
-                      // if (widget.profileImage == null ||
-                      //     widget.profileImage!.existsSync()) {
-                      //   // Handle the case where the image file does not exist
-                      //   print('profile image does not exist.');
-                      //   print(widget.profileImage);
-                      //   return;
-                      // }
-                      // if (widget.documentImage == null ||
-                      //     widget.documentImage!.existsSync()) {
-                      //   // Handle the case where the image file does not exist
-                      //   print('document image does not exist.');
-                      //   print(widget.profileImage);
-                      //   return;
-                      // }
-
                       // Proceed with sending image data and other form data to the API
                       final customer = Repairshop(
                         shopName: widget.shopName,
@@ -421,13 +407,32 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                     ),
                     elevation: 3.0,
                   ),
-                  child: const Text(
-                    'ສົ່ງຟອມສະໝັກ',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'phetsarath_ot',
-                    ),
+                  child: Obx(
+                    () {
+                      // Use Obx to listen to changes in isLoading
+                      return customerRegisterController.isLoading.value
+                          ? const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Loading...',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(width: 5),
+                                CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ],
+                            )
+                          : const Text(
+                              'ສົ່ງຟອມສະໝັກ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'phetsarath_ot',
+                              ),
+                            );
+                    },
                   ),
                 ),
               ),

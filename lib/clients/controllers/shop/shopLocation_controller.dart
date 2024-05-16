@@ -7,13 +7,13 @@ import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 
 class ShopNewlocation {
   // final String shopId;
-  // final String shopName;
+  // final String shopId;
   final String latitude;
   final String longitude;
 
   ShopNewlocation({
     // required this.shopId,
-    // required this.shopName,
+    // required this.shopId,
     required this.latitude,
     required this.longitude,
   });
@@ -37,10 +37,14 @@ class ShopLocationController extends GetxController {
       isLoading.value = true;
       final userData = authController.userData['user'];
       final String shopName = userData['shop_name'];
+      final String shopId = userData['id'];
+      print("shopName: $shopName");
+      print("shopID: $shopId");
 
       var response = await http.post(
         Uri.parse('http://192.168.43.127:5000/api/location/addNewShopLocation'),
         body: {
+          'shopID': shopId,
           'shop_name': shopName,
           'latitude': shop.latitude,
           'longitude': shop.longitude
