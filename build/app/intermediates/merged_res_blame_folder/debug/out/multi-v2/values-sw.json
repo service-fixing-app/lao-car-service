@@ -4,23 +4,6 @@
             "outputFile": "com.example.service_fixing.app-mergeDebugResources-40:/values-sw/values-sw.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ACER\\.gradle\\caches\\transforms-3\\32abe5608abeb7cb7e60dfdea09d5541\\transformed\\browser-1.4.0\\res\\values-sw\\values-sw.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,169,270,387",
-                        "endColumns": "113,100,116,102",
-                        "endOffsets": "164,265,382,485"
-                    },
-                    "to": {
-                        "startLines": "54,55,56,57",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "5785,5899,6000,6117",
-                        "endColumns": "113,100,116,102",
-                        "endOffsets": "5894,5995,6112,6215"
-                    }
-                },
-                {
                     "source": "C:\\Users\\ACER\\.gradle\\caches\\transforms-3\\69e25726befd18553dd22c5f585842b2\\transformed\\jetified-play-services-base-18.1.0\\res\\values-sw\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
@@ -52,6 +35,23 @@
                         "startOffsets": "4539",
                         "endColumns": "145",
                         "endOffsets": "4680"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ACER\\.gradle\\caches\\transforms-3\\9d0a76da957bdb77c63e73dfe188ec31\\transformed\\browser-1.5.0\\res\\values-sw\\values-sw.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,169,270,387",
+                        "endColumns": "113,100,116,102",
+                        "endOffsets": "164,265,382,485"
+                    },
+                    "to": {
+                        "startLines": "54,55,56,57",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "5785,5899,6000,6117",
+                        "endColumns": "113,100,116,102",
+                        "endOffsets": "5894,5995,6112,6215"
                     }
                 },
                 {

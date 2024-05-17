@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:9:5-41:19
+INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:22:5-54:19
 MERGED from [:firebase_auth] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_auth] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_storage] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-13:19
@@ -13,6 +13,8 @@ MERGED from [:geolocator_android] C:\Users\ACER\Desktop\Service_Fixing\front_end
 MERGED from [:geolocator_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\geolocator_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-17:19
 MERGED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-17:19
+MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-12:19
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-16:19
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-16:19
 MERGED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:49:5-134:19
@@ -96,11 +98,11 @@ MERGED from [androidx.room:room-runtime:2.2.5] C:\Users\ACER\.gradle\caches\tran
 	android:name
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
-INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
-INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
-INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
-MERGED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-55:12
+INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-55:12
+INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-55:12
+INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-55:12
+MERGED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-55:12
 MERGED from [:firebase_auth] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_storage] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_messaging] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-48:12
@@ -109,9 +111,11 @@ MERGED from [:geolocator_android] C:\Users\ACER\Desktop\Service_Fixing\front_end
 MERGED from [:google_maps_flutter_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\google_maps_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-19:12
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:path_provider_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-18:12
+MERGED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-13:12
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\ACER\.gradle\caches\transforms-3\abf46f6928ee7c192ee517b46767cb82\transformed\multidex-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:2:1-136:12
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:17:1-75:12
@@ -125,6 +129,7 @@ MERGED from [com.google.firebase:firebase-installations:17.2.0] C:\Users\ACER\.g
 MERGED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\ACER\.gradle\caches\transforms-3\95989c59a6a9c16721395880a247fd8f\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:15:1-34:12
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\ACER\.gradle\caches\transforms-3\e06ec5a9ff8c5b419cf5dd4f92279efd\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\ACER\.gradle\caches\transforms-3\d6cb0ecee65861a803a50a9281a80d73\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:15:1-41:12
+MERGED from [androidx.browser:browser:1.5.0] C:\Users\ACER\.gradle\caches\transforms-3\9d0a76da957bdb77c63e73dfe188ec31\transformed\browser-1.5.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\ACER\.gradle\caches\transforms-3\8ebdd0e86e76fab3fff503eabffaf0a2\transformed\appcompat-1.3.1\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gradle\caches\transforms-3\85f8f178a610a355010aa95e4a319a97\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:17:1-44:12
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\869a7fda42955f84742ec0ab04409b62\transformed\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -164,7 +169,6 @@ MERGED from [com.google.android.gms:play-services-tasks:18.1.0] C:\Users\ACER\.g
 MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\ACER\.gradle\caches\transforms-3\0a09abcbfa71f7b6bbf69e0b7047c99e\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:16:1-26:12
 MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\ACER\.gradle\caches\transforms-3\89377a9220b89927e81e22c5d0c61903\transformed\fragment-1.3.6\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\ACER\.gradle\caches\transforms-3\8f01092e63e82685de28889338fd089c\transformed\jetified-activity-1.7.2\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.browser:browser:1.4.0] C:\Users\ACER\.gradle\caches\transforms-3\32abe5608abeb7cb7e60dfdea09d5541\transformed\browser-1.4.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.media:media:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\e6d493a09da9198b7afde5b860a27c15\transformed\media-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.appcompat:appcompat-resources:1.3.1] C:\Users\ACER\.gradle\caches\transforms-3\487a9fbd694d5f9d896570d9d45c07ca\transformed\jetified-appcompat-resources-1.3.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\93d68a51ba08639da95bf2442ede2510\transformed\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -185,9 +189,9 @@ MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\ACER\.grad
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ACER\.gradle\caches\transforms-3\4d2e228335297d9921ddfbae32d13c57\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:17:1-55:12
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\ACER\.gradle\caches\transforms-3\f3afe0986f2cfee53a7343b6f7b48a1f\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\b0de8b81de13fb8552f9fee4ab99df88\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\1133c324904ee35b26596dd3f3657ec3\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\cd957e02c101fd27b5f93a00914b4914\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ACER\.gradle\caches\transforms-3\668213045d0fbe2fde5fadd3aead8ce8\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\1133c324904ee35b26596dd3f3657ec3\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-datatransport:18.1.7] C:\Users\ACER\.gradle\caches\transforms-3\be8271bc7cdb25b6cef5095c4a37b1e4\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:15:1-33:12
 MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\ACER\.gradle\caches\transforms-3\6f26a20761f1865695ad560ac2b66c2c\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:15:1-37:12
 MERGED from [com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\ACER\.gradle\caches\transforms-3\15d42df4fe2a222f884b529325b091fd\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:15:1-41:12
@@ -205,15 +209,15 @@ INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\andr
 INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-55:12
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-55:12
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-42:12
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:1-55:12
 		INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -253,6 +257,28 @@ MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_f
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
 	android:name
 		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:8:22-78
+queries
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:9:5-21:15
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gradle\caches\transforms-3\85f8f178a610a355010aa95e4a319a97\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:30:5-34:15
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gradle\caches\transforms-3\85f8f178a610a355010aa95e4a319a97\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:30:5-34:15
+intent#action:name:android.intent.action.VIEW+data:scheme:sms
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:10:5-13:14
+action#android.intent.action.VIEW
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:11:9-61
+	android:name
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:11:17-58
+data
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:12:9-38
+	android:scheme
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:12:15-35
+intent#action:name:android.intent.action.VIEW+data:scheme:tel
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:14:5-17:14
+intent#action:name:android.support.customtabs.action.CustomTabsService
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:18:5-20:14
+action#android.support.customtabs.action.CustomTabsService
+ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:19:9-86
+	android:name
+		ADDED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml:19:17-83
 uses-sdk
 INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\android\app\src\main\AndroidManifest.xml
@@ -273,12 +299,16 @@ MERGED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_e
 MERGED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\ACER\.gradle\caches\transforms-3\abf46f6928ee7c192ee517b46767cb82\transformed\multidex-2.0.0\AndroidManifest.xml:20:5-43
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\ACER\.gradle\caches\transforms-3\abf46f6928ee7c192ee517b46767cb82\transformed\multidex-2.0.0\AndroidManifest.xml:20:5-43
 MERGED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:4:5-44
@@ -305,6 +335,8 @@ MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\ACER\.grad
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\ACER\.gradle\caches\transforms-3\e06ec5a9ff8c5b419cf5dd4f92279efd\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\ACER\.gradle\caches\transforms-3\d6cb0ecee65861a803a50a9281a80d73\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:19:5-44
 MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\ACER\.gradle\caches\transforms-3\d6cb0ecee65861a803a50a9281a80d73\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:19:5-44
+MERGED from [androidx.browser:browser:1.5.0] C:\Users\ACER\.gradle\caches\transforms-3\9d0a76da957bdb77c63e73dfe188ec31\transformed\browser-1.5.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.5.0] C:\Users\ACER\.gradle\caches\transforms-3\9d0a76da957bdb77c63e73dfe188ec31\transformed\browser-1.5.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\ACER\.gradle\caches\transforms-3\8ebdd0e86e76fab3fff503eabffaf0a2\transformed\appcompat-1.3.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\ACER\.gradle\caches\transforms-3\8ebdd0e86e76fab3fff503eabffaf0a2\transformed\appcompat-1.3.1\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gradle\caches\transforms-3\85f8f178a610a355010aa95e4a319a97\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:20:5-44
@@ -383,8 +415,6 @@ MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\ACER\.gradle\caches\tran
 MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\ACER\.gradle\caches\transforms-3\89377a9220b89927e81e22c5d0c61903\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\ACER\.gradle\caches\transforms-3\8f01092e63e82685de28889338fd089c\transformed\jetified-activity-1.7.2\AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\ACER\.gradle\caches\transforms-3\8f01092e63e82685de28889338fd089c\transformed\jetified-activity-1.7.2\AndroidManifest.xml:20:5-44
-MERGED from [androidx.browser:browser:1.4.0] C:\Users\ACER\.gradle\caches\transforms-3\32abe5608abeb7cb7e60dfdea09d5541\transformed\browser-1.4.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.browser:browser:1.4.0] C:\Users\ACER\.gradle\caches\transforms-3\32abe5608abeb7cb7e60dfdea09d5541\transformed\browser-1.4.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.media:media:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\e6d493a09da9198b7afde5b860a27c15\transformed\media-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.media:media:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\e6d493a09da9198b7afde5b860a27c15\transformed\media-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat-resources:1.3.1] C:\Users\ACER\.gradle\caches\transforms-3\487a9fbd694d5f9d896570d9d45c07ca\transformed\jetified-appcompat-resources-1.3.1\AndroidManifest.xml:20:5-22:41
@@ -425,12 +455,12 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\ACER\.gradle\cache
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\ACER\.gradle\caches\transforms-3\f3afe0986f2cfee53a7343b6f7b48a1f\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\b0de8b81de13fb8552f9fee4ab99df88\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\b0de8b81de13fb8552f9fee4ab99df88\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\1133c324904ee35b26596dd3f3657ec3\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\1133c324904ee35b26596dd3f3657ec3\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\cd957e02c101fd27b5f93a00914b4914\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\cd957e02c101fd27b5f93a00914b4914\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ACER\.gradle\caches\transforms-3\668213045d0fbe2fde5fadd3aead8ce8\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ACER\.gradle\caches\transforms-3\668213045d0fbe2fde5fadd3aead8ce8\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\1133c324904ee35b26596dd3f3657ec3\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\ACER\.gradle\caches\transforms-3\1133c324904ee35b26596dd3f3657ec3\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-datatransport:18.1.7] C:\Users\ACER\.gradle\caches\transforms-3\be8271bc7cdb25b6cef5095c4a37b1e4\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:18:5-20:41
 MERGED from [com.google.firebase:firebase-datatransport:18.1.7] C:\Users\ACER\.gradle\caches\transforms-3\be8271bc7cdb25b6cef5095c4a37b1e4\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:18:5-20:41
 MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\ACER\.gradle\caches\transforms-3\6f26a20761f1865695ad560ac2b66c2c\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:18:5-20:41
@@ -693,6 +723,14 @@ ADDED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_en
 		ADDED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-72
 	android:name
 		ADDED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-11:74
+	android:exported
+		ADDED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-37
+	android:theme
+		ADDED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-71
+	android:name
+		ADDED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-74
 service#com.lyokone.location.FlutterLocationService
 ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-15:56
 	android:enabled
@@ -703,6 +741,16 @@ ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fi
 		ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-53
 	android:name
 		ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-71
+uses-permission#android.permission.CALL_PHONE
+ADDED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-69
+	android:name
+		ADDED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-66
+uses-feature#android.hardware.telephony
+ADDED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-11:36
+	android:required
+		ADDED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-33
+	android:name
+		ADDED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-50
 permission#${applicationId}.permission.C2D_MESSAGE
 ADDED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:7:5-9:47
 	android:protectionLevel
@@ -855,10 +903,6 @@ ADDED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transfor
 		ADDED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:72:13-71
 intent-filter#action:name:android.intent.action.VIEW
 ADDED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:76:13-78:29
-action#android.intent.action.VIEW
-ADDED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:77:17-69
-	android:name
-		ADDED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:77:25-66
 service#com.onesignal.FCMIntentService
 ADDED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:81:9-83:40
 	android:exported
@@ -979,14 +1023,6 @@ category#android.intent.category.BROWSABLE
 ADDED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:39:17-78
 	android:name
 		ADDED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:39:27-75
-data
-ADDED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:41:17-44:51
-	android:path
-		ADDED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:43:21-37
-	android:host
-		ADDED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:42:21-49
-	android:scheme
-		ADDED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:44:21-48
 activity#com.google.firebase.auth.internal.RecaptchaActivity
 ADDED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\ACER\.gradle\caches\transforms-3\82d6945ad54579000c42fbfa59a76033\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:47:9-64:20
 	android:excludeFromRecents
@@ -1147,8 +1183,6 @@ ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gra
 		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gradle\caches\transforms-3\85f8f178a610a355010aa95e4a319a97\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:27:9-41
 	android:required
 		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gradle\caches\transforms-3\85f8f178a610a355010aa95e4a319a97\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:28:9-32
-queries
-ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gradle\caches\transforms-3\85f8f178a610a355010aa95e4a319a97\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:30:5-34:15
 package#com.google.android.apps.maps
 ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\ACER\.gradle\caches\transforms-3\85f8f178a610a355010aa95e4a319a97\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:33:9-64
 	android:name

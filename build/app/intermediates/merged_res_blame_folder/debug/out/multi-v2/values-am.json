@@ -21,6 +21,23 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\ACER\\.gradle\\caches\\transforms-3\\9d0a76da957bdb77c63e73dfe188ec31\\transformed\\browser-1.5.0\\res\\values-am\\values-am.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,151,246,352",
+                        "endColumns": "95,94,105,96",
+                        "endOffsets": "146,241,347,444"
+                    },
+                    "to": {
+                        "startLines": "54,55,56,57",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "5416,5512,5607,5713",
+                        "endColumns": "95,94,105,96",
+                        "endOffsets": "5507,5602,5708,5805"
+                    }
+                },
+                {
                     "source": "C:\\Users\\ACER\\.gradle\\caches\\transforms-3\\29f3bb9bb0a9001849e788b88127327a\\transformed\\core-1.10.1\\res\\values-am\\values-am.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -69,23 +86,6 @@
                         "startOffsets": "4335",
                         "endColumns": "131",
                         "endOffsets": "4462"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ACER\\.gradle\\caches\\transforms-3\\32abe5608abeb7cb7e60dfdea09d5541\\transformed\\browser-1.4.0\\res\\values-am\\values-am.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,151,246,352",
-                        "endColumns": "95,94,105,96",
-                        "endOffsets": "146,241,347,444"
-                    },
-                    "to": {
-                        "startLines": "54,55,56,57",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "5416,5512,5607,5713",
-                        "endColumns": "95,94,105,96",
-                        "endOffsets": "5507,5602,5708,5805"
                     }
                 }
             ]

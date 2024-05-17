@@ -236,6 +236,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "flutter_phone_direct_caller",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_phone_direct_caller-2.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.17",
       "packageUri": "lib/",
@@ -248,10 +254,10 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "flutter_rating_stars",
-      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_rating_stars-1.0.3+4",
+      "name": "flutter_rating_bar",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_rating_bar-4.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "flutter_test",
@@ -644,6 +650,54 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "url_launcher",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.14",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "url_launcher_android",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "url_launcher_ios",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_ios-6.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "url_launcher_linux",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_linux-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "url_launcher_macos",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_macos-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "url_launcher_platform_interface",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_platform_interface-2.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "url_launcher_web",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_web-2.0.19",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "url_launcher_windows",
+      "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_windows-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/ACER/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -680,7 +734,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-05-14T18:59:44.029579Z",
+  "generated": "2024-05-17T21:19:01.595447Z",
   "generator": "pub",
   "generatorVersion": "3.1.0-63.1.beta"
 }

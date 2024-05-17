@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -7,6 +9,7 @@ import 'package:service_fixing/clients/controllers/shop/getShopLocation_controll
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
 import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
 import 'package:service_fixing/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MapPage extends StatefulWidget {
   final double? customerlatitude;
@@ -94,23 +97,22 @@ class _MapPageState extends State<MapPage> {
     setState(() {});
   }
 
-  String _formatStarRating(double score) {
-    // Convert the score to a scale of 5 stars
-    double rating = score / 10; // Assuming the maximum score is 100
-    return rating.toStringAsFixed(1); // Format the rating to one decimal place
-  }
-
   Widget _buildStarRating(double score) {
-    // Convert the score to a scale of 5 stars
-    double rating = score / 10; // Assuming the maximum score is 100
-    return Row(
-      children: List.generate(
-        5,
-        (index) => Icon(
-          index < rating ? Icons.star : Icons.star_border,
-          color: Colors.amber,
-        ),
+    return RatingBar.builder(
+      initialRating: score,
+      minRating: 1,
+      direction: Axis.horizontal,
+      allowHalfRating: true,
+      itemCount: 5,
+      itemPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+      itemBuilder: (context, _) => const Icon(
+        Icons.star,
+        color: Colors.amber,
       ),
+      itemSize: 16.0,
+      onRatingUpdate: (rating) {
+        print(rating);
+      },
     );
   }
 
@@ -172,10 +174,8 @@ class _MapPageState extends State<MapPage> {
                               "${shopLocation['shopName']}",
                               "ເຈົ້າຂອງຮ້ານ: ${shopLocation['managerName']}",
                               "${shopLocation['phoneNumber']}",
-
-                              // '02012345678',
-                              'ຄະແນນ : 100', // star rating here
-                              _buildStarRating(50),
+                              'ນິຍົມ : ',
+                              _buildStarRating(3.0),
                               'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
                             );
                           },
@@ -191,7 +191,7 @@ class _MapPageState extends State<MapPage> {
                           BitmapDescriptor.hueGreen,
                         ),
                         infoWindow: const InfoWindow(
-                          title: 'Customer location',
+                          title: 'ຕຳແໜ່ງລູກຄ້າ',
                         ),
                         position: LatLng(
                           widget.customerlatitude!,
@@ -275,191 +275,449 @@ class _MapPageState extends State<MapPage> {
   ) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+        ),
+      ),
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 50.0,
-                      height: 4.0,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'ຮ້ານ $markerName',
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Obx(() {
-                      final isOpen = openshopController.isOpen.value;
-                      return Switch(
-                        value: isOpen,
-                        onChanged: (value) {
-                          openshopController.isOpen.value = value;
+        return DraggableScrollableSheet(
+          initialChildSize: 0.5,
+          minChildSize: 0.5,
+          maxChildSize: 1.0,
+          expand: false,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return Container(
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: DefaultTabController(
+                  length: 2,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
                         },
-                        activeColor: primaryColor,
-                      );
-                    }),
-                  ],
-                ),
-                Text(
-                  ownerName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'phetsarath_ot',
-                  ),
-                ),
-                Text(
-                  'ເບີຕິດຕໍ່: $tel',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'phetsarath_ot',
-                  ),
-                ),
-                Text(
-                  score,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'phetsarath_ot',
-                  ),
-                ),
-                Text(
-                  typeOfService,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'phetsarath_ot',
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 45.0,
-                        // width: 180.0,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // any logic
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            elevation: 3.0,
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.directions,
-                              ),
-                              Text(
-                                'Direction',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 45.0,
-                        // width: 180.0,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            print('clatitude : $clatitude');
-                            print('clongitude : $clongitude');
-                            // any logic
-                            Get.to(() => ServiceRepair(
-                                  shopName: markerName,
-                                  phoneNumber: tel,
-                                  clatitude: clatitude,
-                                  clongitude: clongitude,
-                                ));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
-                              side: const BorderSide(
-                                  color: Colors.grey,
-                                  width: 2.0), // Add button border
-                            ),
-                            elevation: 3.0,
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.help,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 50.0,
+                              height: 4.0,
+                              decoration: BoxDecoration(
                                 color: Colors.grey,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              Text(
-                                'ຮ້ອງບໍລິການ',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  width: 100.0,
-                  height: 200.0,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black45),
-                    borderRadius: BorderRadius.circular(10.0),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'ຮ້ານ $markerName',
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Obx(() {
+                            final isOpen = openshopController.isOpen.value;
+                            return Switch(
+                              value: isOpen,
+                              onChanged: (value) {
+                                openshopController.isOpen.value = value;
+                              },
+                              activeColor: primaryColor,
+                            );
+                          }),
+                        ],
+                      ),
+                      Text(
+                        ownerName,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'phetsarath_ot',
+                        ),
+                      ),
+                      Text(
+                        'ເບີຕິດຕໍ່: $tel',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'phetsarath_ot',
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            score,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'phetsarath_ot',
+                            ),
+                          ),
+                          ratingStar,
+                        ],
+                      ),
+                      Text(
+                        typeOfService,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'phetsarath_ot',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const TabBar(tabs: [
+                        Tab(
+                          child: Text(
+                            'ພາບລວມ',
+                            style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            'ຄຳຕິຊົມ',
+                            style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ]),
+                      const Divider(height: 4),
+                      const SizedBox(height: 10),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: 45.0,
+                                  width: 45.0,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      // any logic
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blue,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                      ),
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.directions,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                const Text(
+                                  'ເສັ້ນທາງ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 30),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: 45.0,
+                                  width: 45.0,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      print('clatitude : $clatitude');
+                                      print('clongitude : $clongitude');
+                                      // any logic
+                                      Get.to(() => ServiceRepair(
+                                            shopName: markerName,
+                                            phoneNumber: tel,
+                                            clatitude: clatitude,
+                                            clongitude: clongitude,
+                                          ));
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                      ),
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.question_mark,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                const Text(
+                                  'ຮ້ອງຂໍບໍລິການ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 30),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: 45.0,
+                                  width: 45.0,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      final Uri url =
+                                          Uri.parse('https://wa.me/856$tel');
+                                      launchUrl(url);
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                      ),
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    child: Center(
+                                      child: Image.asset(
+                                        'assets/images/whatsapp.png',
+                                        fit: BoxFit.cover,
+                                        width: 30,
+                                        height: 30,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                const Text(
+                                  'ວອດແອັບ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 30),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: 45.0,
+                                  width: 45.0,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      FlutterPhoneDirectCaller.callNumber(
+                                          '+8562077472492');
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                      ),
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.call,
+                                        size: 24,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                const Text(
+                                  'ໂທເບີ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 30),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: 45.0,
+                                  width: 45.0,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      // any logic
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                      ),
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.grade,
+                                        size: 24,
+                                        color: Colors.amber,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                const Text(
+                                  'ໃຫ້ດາວ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 30),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: 45.0,
+                                  width: 45.0,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      // any logic
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                      ),
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.share,
+                                        size: 24,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                const Text(
+                                  'ແບ່ງປັບ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 300.0,
+                              height: 240.0,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black45),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Image.asset(
+                                  'assets/images/shopimage.jpg',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 2),
+                            Column(
+                              children: [
+                                Container(
+                                  width: 200.0,
+                                  height: 120.0,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black45),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.asset(
+                                      'assets/images/shopimage.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Container(
+                                  width: 200.0,
+                                  height: 120.0,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black45),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.asset(
+                                      'assets/images/shopimage.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image.asset(
-                      'assets/images/shopimage.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );
