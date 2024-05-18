@@ -107,13 +107,13 @@ class _ServiceRepairState extends State<ServiceRepair> {
                       customerLongitude: widget.clongitude,
                       message: message.text,
                     );
-                    print("request data: $senderName");
-                    print("request data: $senderTel");
-                    print("request data: ${widget.shopName}");
-                    print("request data: ${widget.phoneNumber}");
-                    print("clatitude data: ${widget.clatitude}");
-                    print("clongitude data: ${widget.clongitude}");
-                    print("request data: $message");
+                    // print("request data: $senderName");
+                    // print("request data: $senderTel");
+                    // print("request data: ${widget.shopName}");
+                    // print("request data: ${widget.phoneNumber}");
+                    // print("clatitude data: ${widget.clatitude}");
+                    // print("clongitude data: ${widget.clongitude}");
+                    // print("request data: $message");
 
                     try {
                       await requestController.requestmessageData(request);

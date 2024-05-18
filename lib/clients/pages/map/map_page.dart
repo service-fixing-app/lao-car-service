@@ -8,6 +8,7 @@ import 'package:location/location.dart';
 import 'package:service_fixing/clients/controllers/shop/getShopLocation_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
 import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
+import 'package:service_fixing/clients/pages/map/review_ratestar.dart';
 import 'package:service_fixing/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,7 +25,7 @@ class MapPage extends StatefulWidget {
   State<MapPage> createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
   final OpenshopController openshopController = Get.find();
   final GetShopLocationController getShopLocationController = Get.put(
     GetShopLocationController(),
@@ -80,11 +81,20 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
+  late TabController _tabController;
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
     _getLocation();
     _loadCustomMarker();
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   BitmapDescriptor? customMarker;
@@ -175,7 +185,7 @@ class _MapPageState extends State<MapPage> {
                               "ເຈົ້າຂອງຮ້ານ: ${shopLocation['managerName']}",
                               "${shopLocation['phoneNumber']}",
                               'ນິຍົມ : ',
-                              _buildStarRating(3.0),
+                              _buildStarRating(3.5),
                               'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
                             );
                           },
@@ -380,278 +390,15 @@ class _MapPageState extends State<MapPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const TabBar(tabs: [
-                        Tab(
-                          child: Text(
-                            'ພາບລວມ',
-                            style: TextStyle(
-                              color: Colors.black45,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                        Tab(
-                          child: Text(
-                            'ຄຳຕິຊົມ',
-                            style: TextStyle(
-                              color: Colors.black45,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ]),
                       const Divider(height: 4),
                       const SizedBox(height: 10),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: 45.0,
-                                  width: 45.0,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      // any logic
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                      ),
-                                      padding: const EdgeInsets.all(0),
-                                    ),
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.directions,
-                                        size: 24,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                                const Text(
-                                  'ເສັ້ນທາງ',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 30),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: 45.0,
-                                  width: 45.0,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      print('clatitude : $clatitude');
-                                      print('clongitude : $clongitude');
-                                      // any logic
-                                      Get.to(() => ServiceRepair(
-                                            shopName: markerName,
-                                            phoneNumber: tel,
-                                            clatitude: clatitude,
-                                            clongitude: clongitude,
-                                          ));
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                      ),
-                                      padding: const EdgeInsets.all(0),
-                                    ),
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.question_mark,
-                                        size: 24,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                                const Text(
-                                  'ຮ້ອງຂໍບໍລິການ',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 30),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: 45.0,
-                                  width: 45.0,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      final Uri url =
-                                          Uri.parse('https://wa.me/856$tel');
-                                      launchUrl(url);
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                      ),
-                                      padding: const EdgeInsets.all(0),
-                                    ),
-                                    child: Center(
-                                      child: Image.asset(
-                                        'assets/images/whatsapp.png',
-                                        fit: BoxFit.cover,
-                                        width: 30,
-                                        height: 30,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                                const Text(
-                                  'ວອດແອັບ',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 30),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: 45.0,
-                                  width: 45.0,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      FlutterPhoneDirectCaller.callNumber(
-                                          '+8562077472492');
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                      ),
-                                      padding: const EdgeInsets.all(0),
-                                    ),
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.call,
-                                        size: 24,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                                const Text(
-                                  'ໂທເບີ',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 30),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: 45.0,
-                                  width: 45.0,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      // any logic
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                      ),
-                                      padding: const EdgeInsets.all(0),
-                                    ),
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.grade,
-                                        size: 24,
-                                        color: Colors.amber,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                                const Text(
-                                  'ໃຫ້ດາວ',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 30),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: 45.0,
-                                  width: 45.0,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      // any logic
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                      ),
-                                      padding: const EdgeInsets.all(0),
-                                    ),
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.share,
-                                        size: 24,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                                const Text(
-                                  'ແບ່ງປັບ',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                      // all buttons
+                      SlideButtons(
+                        clatitude: clatitude,
+                        clongitude: clongitude,
+                        markerName: markerName,
+                        score: score,
+                        tel: tel,
                       ),
                       const SizedBox(height: 10),
                       SingleChildScrollView(
@@ -662,13 +409,12 @@ class _MapPageState extends State<MapPage> {
                               width: 300.0,
                               height: 240.0,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black45),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image.asset(
-                                  'assets/images/shopimage.jpg',
+                                  'assets/images/exampleImg1.jpg',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -680,13 +426,12 @@ class _MapPageState extends State<MapPage> {
                                   width: 200.0,
                                   height: 120.0,
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black45),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Image.asset(
-                                      'assets/images/shopimage.jpg',
+                                      'assets/images/exampleImg2.jpg',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -696,18 +441,140 @@ class _MapPageState extends State<MapPage> {
                                   width: 200.0,
                                   height: 120.0,
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black45),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Image.asset(
-                                      'assets/images/shopimage.jpg',
+                                      'assets/images/exampleImg3.jpg',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
                               ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      TabBar(
+                        controller: _tabController,
+                        labelColor: Colors.black45,
+                        labelStyle: const TextStyle(fontSize: 18),
+                        tabs: const <Widget>[
+                          Tab(
+                            text: 'Overview',
+                          ),
+                          Tab(text: 'Review'),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 500,
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: <Widget>[
+                            const Card(
+                              margin: EdgeInsets.all(0.0),
+                              child: Column(
+                                children: [],
+                              ),
+                            ),
+                            Card(
+                              margin: const EdgeInsets.all(0.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 20),
+                                  const Text(
+                                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
+                                  const SizedBox(height: 10),
+                                  const Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Text(
+                                          '3.5',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Expanded(
+                                          flex: 7,
+                                          child: Column(
+                                            children: [
+                                              TRatingProccessing(
+                                                numberRate: '5',
+                                                value: 1.0,
+                                              ),
+                                              TRatingProccessing(
+                                                numberRate: '4',
+                                                value: 0.8,
+                                              ),
+                                              TRatingProccessing(
+                                                numberRate: '3',
+                                                value: 0.6,
+                                              ),
+                                              TRatingProccessing(
+                                                numberRate: '2',
+                                                value: 0.4,
+                                              ),
+                                              TRatingProccessing(
+                                                numberRate: '1',
+                                                value: 0.2,
+                                              ),
+                                            ],
+                                          ))
+                                    ],
+                                  ),
+                                  RatingBar.builder(
+                                    initialRating: 3.5,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemPadding: const EdgeInsets.symmetric(
+                                        horizontal: 0.0),
+                                    itemBuilder: (context, _) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    itemSize: 16.0,
+                                    onRatingUpdate: (rating) {
+                                      // print(rating);
+                                    },
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 45.0,
+                                        width: 100.0,
+                                        child: OutlinedButton(
+                                          onPressed: () {
+                                            //
+                                            Get.to(
+                                                () => const ReviewRatingStar());
+                                          },
+                                          style: OutlinedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0),
+                                            ),
+                                            padding: const EdgeInsets.all(0),
+                                          ),
+                                          child: const Center(
+                                            child: Text('ຂຽນຄຳຕິຊົມ'),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  const Divider(height: 2),
+                                  const SizedBox(height: 20),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -720,6 +587,301 @@ class _MapPageState extends State<MapPage> {
           },
         );
       },
+    );
+  }
+}
+
+class SlideButtons extends StatelessWidget {
+  const SlideButtons({
+    super.key,
+    required this.clatitude,
+    required this.clongitude,
+    required this.markerName,
+    required this.tel,
+    required this.score,
+  });
+  final String markerName;
+  final String tel;
+  final String score;
+  final double? clatitude;
+  final double? clongitude;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 45.0,
+                width: 45.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // any logic
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    padding: const EdgeInsets.all(0),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.directions,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              const Text(
+                'ເສັ້ນທາງ',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 30),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 45.0,
+                width: 45.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    // print('clatitude : $clatitude');
+                    // print('clongitude : $clongitude');
+                    // any logic
+                    Get.to(() => ServiceRepair(
+                          shopName: markerName,
+                          phoneNumber: tel,
+                          clatitude: clatitude,
+                          clongitude: clongitude,
+                        ));
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    padding: const EdgeInsets.all(0),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.question_mark,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              const Text(
+                'ຮ້ອງຂໍບໍລິການ',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 30),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 45.0,
+                width: 45.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    final Uri url = Uri.parse('https://wa.me/856$tel');
+                    launchUrl(url);
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    padding: const EdgeInsets.all(0),
+                  ),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/whatsapp.png',
+                      fit: BoxFit.cover,
+                      width: 30,
+                      height: 30,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              const Text(
+                'ວອດແອັບ',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 30),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 45.0,
+                width: 45.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    FlutterPhoneDirectCaller.callNumber('+856$tel');
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    padding: const EdgeInsets.all(0),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.call,
+                      size: 24,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              const Text(
+                'ໂທເບີ',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 30),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 45.0,
+                width: 45.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    // any logic
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    padding: const EdgeInsets.all(0),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.grade,
+                      size: 24,
+                      color: Colors.amber,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              const Text(
+                'ໃຫ້ດາວ',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 30),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 45.0,
+                width: 45.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    // any logic
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    padding: const EdgeInsets.all(0),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.share,
+                      size: 24,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              const Text(
+                'ແບ່ງປັບ',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TRatingProccessing extends StatelessWidget {
+  final String numberRate;
+  final double value;
+
+  const TRatingProccessing(
+      {super.key, required this.numberRate, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(numberRate),
+        ),
+        Expanded(
+          flex: 11,
+          child: SizedBox(
+            child: LinearProgressIndicator(
+              value: value,
+              minHeight: 10,
+              backgroundColor: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(7),
+              valueColor: const AlwaysStoppedAnimation(Colors.amber),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
