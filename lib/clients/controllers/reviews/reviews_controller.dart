@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/requestion/customer_historyController.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
 
@@ -22,16 +23,21 @@ class ReviewsController extends GetxController {
   var isLoading = false.obs;
   var isSuccess = false.obs;
   var ratingStarList = [].obs;
+  final AuthController authController = Get.find();
 
   Future<void> addNewReviews(Reviews data) async {
     try {
       isLoading.value = true;
+      final userData = authController.userData['user'];
+      final String customerId = userData['id'];
+      print("customerId : $customerId");
       // print("clatitude ${data.customerLatitude}");
       // print("clongitude ${data.customerLongitude}");
       var response = await http.post(
         Uri.parse('http://192.168.43.127:5000/api/reviews/addReviews'),
         body: {
           'shop_id': data.shopId,
+          'customer_id': customerId,
           'shop_type': "repair",
           "rating": data.rate.toString(),
           "comment": data.comment

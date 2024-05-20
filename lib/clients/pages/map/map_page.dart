@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:service_fixing/clients/controllers/reviews/getReviews_controller.dart';
 import 'package:service_fixing/clients/controllers/reviews/reviews_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/getShopLocation_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
-import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
 import 'package:service_fixing/clients/pages/map/review_ratestar.dart';
+import 'package:service_fixing/clients/pages/map/slidebutton.dart';
 import 'package:service_fixing/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class MapPage extends StatefulWidget {
   final double? customerlatitude;
@@ -326,7 +326,16 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
       builder: (BuildContext context) {
         final ReviewsController getreviewsController =
             Get.find<ReviewsController>();
+        final GetReviewController getCustomerReviewsController =
+            Get.put(GetReviewController());
         reviewsController.getRatingStar(shopId);
+        getCustomerReviewsController.getReviews(shopId);
+        // Function to format the date string
+        String formatDateString(String dateString) {
+          DateTime dateTime = DateTime.parse(dateString);
+          return DateFormat('dd/MM/yyyy').format(dateTime);
+        }
+
         return DraggableScrollableSheet(
           initialChildSize: 0.5,
           minChildSize: 0.5,
@@ -502,139 +511,265 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                           Tab(text: 'Review'),
                         ],
                       ),
-                      SizedBox(
-                        height: 500,
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: <Widget>[
-                            const Card(
-                              margin: EdgeInsets.all(0.0),
-                              child: Column(
-                                children: [],
-                              ),
-                            ),
-                            Obx(() {
-                              // final allAvgScore =
-                              //     reviewsController.ratingStarList;
-                              final ratingStarList =
-                                  getreviewsController.ratingStarList;
-                              final ratingAverages =
-                                  calculateRatingAverages(ratingStarList);
-                              final averageScore =
-                                  ratingAverages['averageScore'] ?? 0.0;
-
-                              return Card(
-                                margin: const EdgeInsets.all(0.0),
+                      SingleChildScrollView(
+                        child: SizedBox(
+                          height: 700, // Set a fixed height or adjust as needed
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: <Widget>[
+                              const Card(
+                                margin: EdgeInsets.all(0.0),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 20),
-                                    const Text(
-                                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 3,
-                                          child: Text(
-                                            '1.0',
-                                            style: const TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 7,
-                                          child: Column(
-                                            children: [
-                                              TRatingProccessing(
-                                                numberRate: '5',
-                                                value:
-                                                    ratingAverages['5'] ?? 0.0,
-                                              ),
-                                              TRatingProccessing(
-                                                numberRate: '4',
-                                                value:
-                                                    ratingAverages['4'] ?? 0.0,
-                                              ),
-                                              TRatingProccessing(
-                                                numberRate: '3',
-                                                value:
-                                                    ratingAverages['3'] ?? 0.0,
-                                              ),
-                                              TRatingProccessing(
-                                                numberRate: '2',
-                                                value:
-                                                    ratingAverages['2'] ?? 0.0,
-                                              ),
-                                              TRatingProccessing(
-                                                numberRate: '1',
-                                                value:
-                                                    ratingAverages['1'] ?? 0.0,
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    RatingBar.builder(
-                                      initialRating: averageScore,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemPadding: const EdgeInsets.symmetric(
-                                          horizontal: 0.0),
-                                      itemBuilder: (context, _) => const Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      itemSize: 16.0,
-                                      onRatingUpdate: (rating) {
-                                        // print(rating);
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          height: 45.0,
-                                          width: 100.0,
-                                          child: OutlinedButton(
-                                            onPressed: () {
-                                              //
-                                              final shopId =
-                                                  getShopLocationController
-                                                      .shopLocations[0]['id'];
-                                              print(
-                                                  "Selected Shop ID: $shopId");
-                                              Get.to(() => ReviewRatingStar(
-                                                  shopId: shopId));
-                                            },
-                                            style: OutlinedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(50.0),
-                                              ),
-                                              padding: const EdgeInsets.all(0),
-                                            ),
-                                            child: const Center(
-                                              child: Text('ຂຽນຄຳຕິຊົມ'),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20),
-                                    const Divider(height: 2),
-                                    const SizedBox(height: 20),
-                                  ],
+                                  children: [],
                                 ),
-                              );
-                            }),
-                          ],
+                              ),
+                              Obx(() {
+                                final ratingStarList =
+                                    getreviewsController.ratingStarList;
+                                final ratingAverages =
+                                    calculateRatingAverages(ratingStarList);
+                                final averageScore =
+                                    ratingAverages['averageScore'] ?? 0.0;
+
+                                return Card(
+                                  margin: const EdgeInsets.all(0.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 20),
+                                      const Text('ການປະເມີນ'),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 3,
+                                            child: Text(
+                                              averageScore.toStringAsFixed(1),
+                                              style: const TextStyle(
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 7,
+                                            child: Column(
+                                              children: [
+                                                TRatingProccessing(
+                                                  numberRate: '5',
+                                                  value: ratingAverages['5'] ??
+                                                      0.0,
+                                                ),
+                                                TRatingProccessing(
+                                                  numberRate: '4',
+                                                  value: ratingAverages['4'] ??
+                                                      0.0,
+                                                ),
+                                                TRatingProccessing(
+                                                  numberRate: '3',
+                                                  value: ratingAverages['3'] ??
+                                                      0.0,
+                                                ),
+                                                TRatingProccessing(
+                                                  numberRate: '2',
+                                                  value: ratingAverages['2'] ??
+                                                      0.0,
+                                                ),
+                                                TRatingProccessing(
+                                                  numberRate: '1',
+                                                  value: ratingAverages['1'] ??
+                                                      0.0,
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      RatingBar.builder(
+                                        initialRating: averageScore,
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemPadding: const EdgeInsets.symmetric(
+                                            horizontal: 0.0),
+                                        itemBuilder: (context, _) => const Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        itemSize: 16.0,
+                                        onRatingUpdate: (rating) {
+                                          // print(rating);
+                                        },
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 45.0,
+                                            width: 100.0,
+                                            child: OutlinedButton(
+                                              onPressed: () {
+                                                Get.to(() => ReviewRatingStar(
+                                                    shopId: shopId));
+                                              },
+                                              style: OutlinedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50.0),
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.all(0),
+                                              ),
+                                              child: const Center(
+                                                child: Text('ຂຽນຄຳຕິຊົມ'),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 20),
+                                      const Divider(height: 2),
+                                      const SizedBox(height: 20),
+                                      Expanded(
+                                        child: Obx(
+                                          () {
+                                            if (getCustomerReviewsController
+                                                .isLoading.value) {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            } else if (getCustomerReviewsController
+                                                .customerReviews.isEmpty) {
+                                              return Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset(
+                                                      'assets/images/empty-folder.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                    const Text(
+                                                      'ຍັງບໍ່ມີຂໍ້ຄວາມຮ້ອງຂໍ',
+                                                      style: TextStyle(
+                                                          fontSize: 14),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            } else {
+                                              return ListView.builder(
+                                                itemCount:
+                                                    getCustomerReviewsController
+                                                        .customerReviews.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  final review =
+                                                      getCustomerReviewsController
+                                                              .customerReviews[
+                                                          index];
+                                                  return Card(
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 5),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              CircleAvatar(
+                                                                backgroundImage:
+                                                                    NetworkImage(
+                                                                  review
+                                                                      .profileImage,
+                                                                ),
+                                                                radius: 20,
+                                                              ),
+                                                              const SizedBox(
+                                                                  width: 10),
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    review.name,
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    formatDateString(review
+                                                                        .createdAt
+                                                                        .toString()),
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      fontSize:
+                                                                          12,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          RatingBarIndicator(
+                                                            rating: review.rate,
+                                                            itemBuilder:
+                                                                (context,
+                                                                        index) =>
+                                                                    const Icon(
+                                                              Icons.star,
+                                                              color:
+                                                                  Colors.amber,
+                                                            ),
+                                                            itemCount: 5,
+                                                            itemSize: 16.0,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Text(
+                                                            review.comment,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 14,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -645,6 +780,36 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
           },
         );
       },
+    );
+  }
+
+  Widget _buildCommentItem({
+    required String comment,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 18.0,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(comment),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -681,271 +846,6 @@ Map<String, double> calculateRatingAverages(List<dynamic> ratingStarList) {
   averages['1'] = averages['1']! / totalRatings;
 
   return averages;
-
-  // get in all leght avg
-}
-
-class SlideButtons extends StatelessWidget {
-  const SlideButtons({
-    super.key,
-    required this.clatitude,
-    required this.clongitude,
-    required this.markerName,
-    required this.tel,
-    required this.score,
-  });
-  final String markerName;
-  final String tel;
-  final String score;
-  final double? clatitude;
-  final double? clongitude;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 45.0,
-                width: 45.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // any logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    padding: const EdgeInsets.all(0),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.directions,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              const Text(
-                'ເສັ້ນທາງ',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 30),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 45.0,
-                width: 45.0,
-                child: OutlinedButton(
-                  onPressed: () {
-                    // print('clatitude : $clatitude');
-                    // print('clongitude : $clongitude');
-                    // any logic
-                    Get.to(() => ServiceRepair(
-                          shopName: markerName,
-                          phoneNumber: tel,
-                          clatitude: clatitude,
-                          clongitude: clongitude,
-                        ));
-                  },
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    padding: const EdgeInsets.all(0),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.question_mark,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              const Text(
-                'ຮ້ອງຂໍບໍລິການ',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 30),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 45.0,
-                width: 45.0,
-                child: OutlinedButton(
-                  onPressed: () {
-                    final Uri url = Uri.parse('https://wa.me/856$tel');
-                    launchUrl(url);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    padding: const EdgeInsets.all(0),
-                  ),
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/whatsapp.png',
-                      fit: BoxFit.cover,
-                      width: 30,
-                      height: 30,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              const Text(
-                'ວອດແອັບ',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 30),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 45.0,
-                width: 45.0,
-                child: OutlinedButton(
-                  onPressed: () {
-                    FlutterPhoneDirectCaller.callNumber('+856$tel');
-                  },
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    padding: const EdgeInsets.all(0),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.call,
-                      size: 24,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              const Text(
-                'ໂທເບີ',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 30),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 45.0,
-                width: 45.0,
-                child: OutlinedButton(
-                  onPressed: () {
-                    // any logic
-                  },
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    padding: const EdgeInsets.all(0),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.grade,
-                      size: 24,
-                      color: Colors.amber,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              const Text(
-                'ໃຫ້ດາວ',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 30),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 45.0,
-                width: 45.0,
-                child: OutlinedButton(
-                  onPressed: () {
-                    // any logic
-                  },
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    padding: const EdgeInsets.all(0),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.share,
-                      size: 24,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              const Text(
-                'ແບ່ງປັບ',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class TRatingProccessing extends StatelessWidget {
