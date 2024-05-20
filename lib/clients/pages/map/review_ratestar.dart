@@ -1,17 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
+import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
+import 'package:service_fixing/clients/controllers/reviews/reviews_controller.dart';
 import 'package:service_fixing/constants.dart';
 
 class ReviewRatingStar extends StatefulWidget {
-  const ReviewRatingStar({super.key});
+  final String shopId;
+  ReviewRatingStar({super.key, required this.shopId});
 
   @override
   State<ReviewRatingStar> createState() => _ReviewRatingStarState();
 }
 
 class _ReviewRatingStarState extends State<ReviewRatingStar> {
+  final AuthController authController = Get.find();
+  final ReviewsController reviewsController = Get.put(ReviewsController());
   TextEditingController comment = TextEditingController();
+  double starRating = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,21 +42,30 @@ class _ReviewRatingStarState extends State<ReviewRatingStar> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
               const SizedBox(height: 20),
               const Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '),
+                'ການໃຫ້ດາວເພື່ອເປັນຕົວປະເມີນການບໍລິການຂອງຮ້ານດັ່ງເກົ່າ',
+                style: TextStyle(fontSize: 16),
+              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      'ບໍລິການ',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
                   RatingBar.builder(
                     initialRating: 0,
                     minRating: 1,
                     direction: Axis.horizontal,
-                    allowHalfRating: true,
+                    allowHalfRating: false,
                     itemCount: 5,
                     itemPadding: const EdgeInsets.symmetric(horizontal: 0.0),
                     itemBuilder: (context, _) => const Icon(
@@ -58,33 +74,18 @@ class _ReviewRatingStarState extends State<ReviewRatingStar> {
                     ),
                     itemSize: 50.0,
                     onRatingUpdate: (rating) {
-                      // print(rating);
+                      starRating = rating;
                     },
                   ),
                 ],
               ),
-              // const SizedBox(height: 20),
-              // SizedBox(
-              //   height: 45.0,
-              //   width: 100.0,
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       // any logic
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Colors.blue,
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(50.0),
-              //       ),
-              //       padding: const EdgeInsets.all(0),
-              //     ),
-              //     child: const Center(child: Text('ໃຫ້ດາວ')),
-              //   ),
-              // ),
               const SizedBox(height: 20),
               const Divider(height: 2),
               const SizedBox(height: 20),
-              const Text('Comment'),
+              const Text(
+                'ຂໍ້ຄວາມສະແດງຄຳຄິດເຫັນ',
+                style: TextStyle(fontSize: 16),
+              ),
               const SizedBox(height: 20),
               TextField(
                 controller: comment,
@@ -140,8 +141,37 @@ class _ReviewRatingStarState extends State<ReviewRatingStar> {
               SizedBox(
                 height: 45.0,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // any logic
+                  // onPressed: () {
+                  //   // any logic
+                  //   print(starRating);
+
+                  // },
+                  onPressed: () async {
+                    // logic
+
+                    final reviews = Reviews(
+                      shopId: widget.shopId,
+                      rate: starRating,
+                      comment: comment.text,
+                    );
+                    // print("shopId data: ${widget.shopId}");
+                    // print("rate star data: $starRating");
+                    // print("comment data: $comment");
+
+                    try {
+                      await reviewsController.addNewReviews(reviews);
+                      if (reviewsController.isSuccess.value) {
+                        // Registration successful
+                        print('success added');
+                      } else {
+                        // Registration failed
+                        print(
+                            'added error ${reviewsController.isSuccess.value}');
+                      }
+                    } catch (error) {
+                      // Handle error
+                      print(error);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,

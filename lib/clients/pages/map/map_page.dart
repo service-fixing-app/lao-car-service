@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:service_fixing/clients/controllers/reviews/reviews_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/getShopLocation_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
 import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
@@ -30,6 +31,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
   final GetShopLocationController getShopLocationController = Get.put(
     GetShopLocationController(),
   );
+  final ReviewsController reviewsController = Get.put(ReviewsController());
   Location locationController = Location();
 
   final Completer<GoogleMapController> _mapController =
@@ -107,9 +109,35 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
     setState(() {});
   }
 
-  Widget _buildStarRating(double score) {
+  Widget _buildStarRating(List<dynamic> ratingStarList) {
+    if (ratingStarList.isEmpty) {
+      return RatingBar.builder(
+        initialRating: 0,
+        minRating: 1,
+        direction: Axis.horizontal,
+        allowHalfRating: true,
+        itemCount: 5,
+        itemPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+        itemBuilder: (context, _) => const Icon(
+          Icons.star,
+          color: Colors.amber,
+        ),
+        itemSize: 16.0,
+        onRatingUpdate: (rating) {
+          print(rating);
+        },
+      );
+    }
+
+    double totalScore = 0;
+    for (var rating in ratingStarList) {
+      totalScore += rating['rating'];
+    }
+    double averageScore = totalScore / ratingStarList.length;
+    print('avg $averageScore');
+
     return RatingBar.builder(
-      initialRating: score,
+      initialRating: averageScore,
       minRating: 1,
       direction: Axis.horizontal,
       allowHalfRating: true,
@@ -178,15 +206,17 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                             double.parse(shopLocation['longitude'].toString()),
                           ),
                           onTap: () {
-                            // print("shoplocation: $shopLocation");
+                            print("shoplocation: $shopLocation");
                             _showBottomSheet(
                               context,
                               "${shopLocation['shopName']}",
                               "ເຈົ້າຂອງຮ້ານ: ${shopLocation['managerName']}",
                               "${shopLocation['phoneNumber']}",
                               'ນິຍົມ : ',
-                              _buildStarRating(3.5),
+                              _buildStarRating(
+                                  reviewsController.ratingStarList),
                               'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
+                              shopLocation['id'],
                             );
                           },
                         ),
@@ -282,6 +312,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
     String score,
     Widget ratingStar,
     String typeOfService,
+    String shopId,
   ) {
     showModalBottomSheet(
       context: context,
@@ -293,6 +324,9 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
         ),
       ),
       builder: (BuildContext context) {
+        final ReviewsController getreviewsController =
+            Get.find<ReviewsController>();
+        reviewsController.getRatingStar(shopId);
         return DraggableScrollableSheet(
           initialChildSize: 0.5,
           minChildSize: 0.5,
@@ -352,6 +386,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                           }),
                         ],
                       ),
+                      // Text(shopId),
                       Text(
                         ownerName,
                         style: const TextStyle(
@@ -478,104 +513,127 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                                 children: [],
                               ),
                             ),
-                            Card(
-                              margin: const EdgeInsets.all(0.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 20),
-                                  const Text(
-                                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
-                                  const SizedBox(height: 10),
-                                  const Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Text(
-                                          '3.5',
-                                          style: TextStyle(
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.bold),
+                            Obx(() {
+                              // final allAvgScore =
+                              //     reviewsController.ratingStarList;
+                              final ratingStarList =
+                                  getreviewsController.ratingStarList;
+                              final ratingAverages =
+                                  calculateRatingAverages(ratingStarList);
+                              final averageScore =
+                                  ratingAverages['averageScore'] ?? 0.0;
+
+                              return Card(
+                                margin: const EdgeInsets.all(0.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 20),
+                                    const Text(
+                                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Text(
+                                            '1.0',
+                                            style: const TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
+                                        Expanded(
                                           flex: 7,
                                           child: Column(
                                             children: [
                                               TRatingProccessing(
                                                 numberRate: '5',
-                                                value: 1.0,
+                                                value:
+                                                    ratingAverages['5'] ?? 0.0,
                                               ),
                                               TRatingProccessing(
                                                 numberRate: '4',
-                                                value: 0.8,
+                                                value:
+                                                    ratingAverages['4'] ?? 0.0,
                                               ),
                                               TRatingProccessing(
                                                 numberRate: '3',
-                                                value: 0.6,
+                                                value:
+                                                    ratingAverages['3'] ?? 0.0,
                                               ),
                                               TRatingProccessing(
                                                 numberRate: '2',
-                                                value: 0.4,
+                                                value:
+                                                    ratingAverages['2'] ?? 0.0,
                                               ),
                                               TRatingProccessing(
                                                 numberRate: '1',
-                                                value: 0.2,
+                                                value:
+                                                    ratingAverages['1'] ?? 0.0,
                                               ),
                                             ],
-                                          ))
-                                    ],
-                                  ),
-                                  RatingBar.builder(
-                                    initialRating: 3.5,
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemPadding: const EdgeInsets.symmetric(
-                                        horizontal: 0.0),
-                                    itemBuilder: (context, _) => const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    itemSize: 16.0,
-                                    onRatingUpdate: (rating) {
-                                      // print(rating);
-                                    },
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: 45.0,
-                                        width: 100.0,
-                                        child: OutlinedButton(
-                                          onPressed: () {
-                                            //
-                                            Get.to(
-                                                () => const ReviewRatingStar());
-                                          },
-                                          style: OutlinedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(50.0),
-                                            ),
-                                            padding: const EdgeInsets.all(0),
                                           ),
-                                          child: const Center(
-                                            child: Text('ຂຽນຄຳຕິຊົມ'),
+                                        )
+                                      ],
+                                    ),
+                                    RatingBar.builder(
+                                      initialRating: averageScore,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding: const EdgeInsets.symmetric(
+                                          horizontal: 0.0),
+                                      itemBuilder: (context, _) => const Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      itemSize: 16.0,
+                                      onRatingUpdate: (rating) {
+                                        // print(rating);
+                                      },
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 45.0,
+                                          width: 100.0,
+                                          child: OutlinedButton(
+                                            onPressed: () {
+                                              //
+                                              final shopId =
+                                                  getShopLocationController
+                                                      .shopLocations[0]['id'];
+                                              print(
+                                                  "Selected Shop ID: $shopId");
+                                              Get.to(() => ReviewRatingStar(
+                                                  shopId: shopId));
+                                            },
+                                            style: OutlinedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                              ),
+                                              padding: const EdgeInsets.all(0),
+                                            ),
+                                            child: const Center(
+                                              child: Text('ຂຽນຄຳຕິຊົມ'),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 20),
-                                  const Divider(height: 2),
-                                  const SizedBox(height: 20),
-                                ],
-                              ),
-                            ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
+                                    const Divider(height: 2),
+                                    const SizedBox(height: 20),
+                                  ],
+                                ),
+                              );
+                            }),
                           ],
                         ),
                       ),
@@ -589,6 +647,42 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
       },
     );
   }
+}
+
+Map<String, double> calculateRatingAverages(List<dynamic> ratingStarList) {
+  Map<String, double> averages = {
+    '5': 0.0,
+    '4': 0.0,
+    '3': 0.0,
+    '2': 0.0,
+    '1': 0.0,
+    'averageScore': 0.0,
+  };
+
+  if (ratingStarList.isEmpty) {
+    return averages;
+  }
+
+  double totalScore = 0.0;
+
+  for (var rating in ratingStarList) {
+    int star = rating['rating'];
+    totalScore += star;
+    averages[star.toString()] = (averages[star.toString()] ?? 0.0) + 1;
+  }
+
+  int totalRatings = ratingStarList.length;
+  averages['averageScore'] = totalScore / totalRatings;
+
+  averages['5'] = averages['5']! / totalRatings;
+  averages['4'] = averages['4']! / totalRatings;
+  averages['3'] = averages['3']! / totalRatings;
+  averages['2'] = averages['2']! / totalRatings;
+  averages['1'] = averages['1']! / totalRatings;
+
+  return averages;
+
+  // get in all leght avg
 }
 
 class SlideButtons extends StatelessWidget {
