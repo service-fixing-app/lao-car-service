@@ -217,6 +217,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                                   reviewsController.ratingStarList),
                               'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
                               shopLocation['id'],
+                              shopLocation['Status'],
                             );
                           },
                         ),
@@ -305,15 +306,15 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
 
   // Function to show bottom sheet
   void _showBottomSheet(
-    BuildContext context,
-    String markerName,
-    String ownerName,
-    String tel,
-    String score,
-    Widget ratingStar,
-    String typeOfService,
-    String shopId,
-  ) {
+      BuildContext context,
+      String markerName,
+      String ownerName,
+      String tel,
+      String score,
+      Widget ratingStar,
+      String typeOfService,
+      String shopId,
+      String statusOpenShop) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -377,22 +378,39 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'ຮ້ານ $markerName',
+                            'ຮ້ານ $markerName ',
                             style: const TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Obx(() {
-                            final isOpen = openshopController.isOpen.value;
-                            return Switch(
-                              value: isOpen,
-                              onChanged: (value) {
-                                openshopController.isOpen.value = value;
-                              },
-                              activeColor: primaryColor,
-                            );
-                          }),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              statusOpenShop,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: statusOpenShop == 'ເປີດ'
+                                    ? Colors.green
+                                    : Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                          // Obx(() {
+                          //   final isOpen = openshopController.isOpen.value;
+                          //   return Switch(
+                          //     value: isOpen,
+                          //     onChanged: (value) {
+                          //       openshopController.isOpen.value = value;
+                          //     },
+                          //     activeColor: primaryColor,
+                          //   );
+                          // }),
                         ],
                       ),
                       // Text(shopId),
@@ -634,135 +652,10 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                                       const SizedBox(height: 20),
                                       const Divider(height: 2),
                                       const SizedBox(height: 20),
-                                      Expanded(
-                                        child: Obx(
-                                          () {
-                                            if (getCustomerReviewsController
-                                                .isLoading.value) {
-                                              return const Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            } else if (getCustomerReviewsController
-                                                .customerReviews.isEmpty) {
-                                              return Center(
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/images/empty-folder.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                    const Text(
-                                                      'ຍັງບໍ່ມີຂໍ້ຄວາມຮ້ອງຂໍ',
-                                                      style: TextStyle(
-                                                          fontSize: 14),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            } else {
-                                              return ListView.builder(
-                                                itemCount:
-                                                    getCustomerReviewsController
-                                                        .customerReviews.length,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
-                                                  final review =
-                                                      getCustomerReviewsController
-                                                              .customerReviews[
-                                                          index];
-                                                  return Card(
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 10,
-                                                        horizontal: 5),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              CircleAvatar(
-                                                                backgroundImage:
-                                                                    NetworkImage(
-                                                                  review
-                                                                      .profileImage,
-                                                                ),
-                                                                radius: 20,
-                                                              ),
-                                                              const SizedBox(
-                                                                  width: 10),
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    review.name,
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    formatDateString(review
-                                                                        .createdAt
-                                                                        .toString()),
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      fontSize:
-                                                                          12,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          RatingBarIndicator(
-                                                            rating: review.rate,
-                                                            itemBuilder:
-                                                                (context,
-                                                                        index) =>
-                                                                    const Icon(
-                                                              Icons.star,
-                                                              color:
-                                                                  Colors.amber,
-                                                            ),
-                                                            itemCount: 5,
-                                                            itemSize: 16.0,
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          Text(
-                                                            review.comment,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 14,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            }
-                                          },
-                                        ),
+                                      buildAllComments(
+                                        getCustomerReviewsController:
+                                            getCustomerReviewsController,
+                                        formatDateString: formatDateString,
                                       ),
                                     ],
                                   ),
@@ -782,33 +675,111 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
       },
     );
   }
+}
 
-  Widget _buildCommentItem({
-    required String comment,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.all(3.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10.0,
-          vertical: 18.0,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
+class buildAllComments extends StatelessWidget {
+  const buildAllComments({
+    super.key,
+    required this.getCustomerReviewsController,
+    required this.formatDateString,
+  });
+
+  final GetReviewController getCustomerReviewsController;
+  final String Function(String) formatDateString;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Obx(
+        () {
+          if (getCustomerReviewsController.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (getCustomerReviewsController.customerReviews.isEmpty) {
+            return Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(comment),
-                  const SizedBox(
-                    height: 10.0,
+                  Image.asset(
+                    'assets/images/empty-folder.png',
+                    fit: BoxFit.cover,
+                  ),
+                  const Text(
+                    'ຍັງບໍ່ມີຂໍ້ຄວາມຮ້ອງຂໍ',
+                    style: TextStyle(fontSize: 14),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: getCustomerReviewsController.customerReviews.length,
+              itemBuilder: (BuildContext context, int index) {
+                final review =
+                    getCustomerReviewsController.customerReviews[index];
+                return Card(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                review.profileImage,
+                              ),
+                              radius: 20,
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  review.name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  formatDateString(review.createdAt.toString()),
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        RatingBarIndicator(
+                          rating: review.rate,
+                          itemBuilder: (context, index) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 16.0,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          review.comment,
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }

@@ -1,4 +1,4 @@
-#Tue May 21 03:55:02 WIB 2024
+#Wed May 22 02:48:13 WIB 2024
 base.0=C\:\\Users\\ACER\\Desktop\\Service_Fixing\\front_end\\service_fixing\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 base.1=C\:\\Users\\ACER\\Desktop\\Service_Fixing\\front_end\\service_fixing\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 base.2=C\:\\Users\\ACER\\Desktop\\Service_Fixing\\front_end\\service_fixing\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex

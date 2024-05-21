@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     const SizedBox(
-                      height: 30.0,
+                      height: 20.0,
                     ),
                     // login
                     SizedBox(
@@ -197,36 +197,90 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 30.0),
                     // register member
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    const Row(
                       children: [
-                        const Text(
-                          'ຍັງບໍ່ມີບັນຊີຜູ້ໃຊ້?',
-                          style: TextStyle(
-                            fontFamily: 'phetsarath_ot',
-                          ),
+                        Expanded(
+                          child: Divider(height: 2),
                         ),
-                        const SizedBox(width: 5.0),
-                        InkWell(
-                          onTap: () {
-                            Get.to(
-                              () => const Register(),
-                              transition: Transition.downToUp,
-                              curve: Curves.easeInOut,
-                              duration: const Duration(milliseconds: 500),
-                            );
-                          },
-                          child: const Text(
-                            'ລົງທະບຽນຜູ້ໃຊ້',
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            'ຍັງບໍ່ມີບັນຊີຜູ້ໃຊ້?',
                             style: TextStyle(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
                               fontFamily: 'phetsarath_ot',
                             ),
                           ),
                         ),
+                        Expanded(
+                          child: Divider(height: 2),
+                        ),
                       ],
-                    )
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 50.0,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(
+                            () => const Register(),
+                            transition: Transition.downToUp,
+                            curve: Curves.easeInOut,
+                            duration: const Duration(milliseconds: 500),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 3.0,
+                        ),
+                        child: const Text(
+                          'ລົງທະບຽນຜູ້ໃຊ້',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'phetsarath_ot',
+                          ),
+                        ),
+                      ),
+                    ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     const Text(
+                    //       'ຍັງບໍ່ມີບັນຊີຜູ້ໃຊ້?',
+                    //       style: TextStyle(
+                    //         fontFamily: 'phetsarath_ot',
+                    //       ),
+                    //     ),
+                    //     const SizedBox(width: 5.0),
+                    //     InkWell(
+                    //       onTap: () {
+                    //         Get.to(
+                    //           () => const Register(),
+                    //           transition: Transition.downToUp,
+                    //           curve: Curves.easeInOut,
+                    //           duration: const Duration(milliseconds: 500),
+                    //         );
+                    //       },
+                    //       child: const Text(
+                    //         'ລົງທະບຽນຜູ້ໃຊ້',
+                    //         style: TextStyle(
+                    //           color: Colors.blue,
+                    //           fontWeight: FontWeight.bold,
+                    //           fontFamily: 'phetsarath_ot',
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // )
                   ],
                 ),
               ),

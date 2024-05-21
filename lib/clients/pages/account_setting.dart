@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:service_fixing/clients/components/account_setting/user_profile.dart';
 
 import '../../constants.dart';
-import '../components/account_setting/user_info.dart';
+
 
 class AccountSetting extends StatefulWidget {
   const AccountSetting({super.key});

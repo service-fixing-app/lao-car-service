@@ -29,43 +29,39 @@ class StatuSettings extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Obx(() {
+          if (openshopController.isLoading.value) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'ສະຖານະຮ້ານ',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'phetsarath_ot',
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'ສະຖານະຮ້ານ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'phetsarath_ot',
+                      ),
+                    ),
+                    Switch(
+                      value: openshopController.isOpen.value,
+                      onChanged: (value) async {
+                        await openshopController.openshopUpdate(
+                          Status(status: value ? 'ເປີດ' : 'ປິດ'),
+                        );
+                      },
+                      activeColor: primaryColor,
+                    ),
+                  ],
                 ),
-                Obx(
-                  () => Switch(
-                    value: openshopController.isOpen.value,
-                    onChanged: (value) {
-                      openshopController.isOpen.value = value;
-                    },
-                    activeColor: primaryColor,
-                  ),
-                ),
-                // GetBuilder<OpenshopController>(
-                //   builder: (_) => Switch(
-                //     value: openshopController.isSwitcheded,
-                //     onChanged: (value) {
-                //       openshopController.changeSwitchState(value);
-                //     },
-                //     activeColor: primaryColor,
-                //   ),
-                // ),
+                const Divider(height: 2),
               ],
-            ),
-            const SizedBox(height: 10),
-            
-          ],
-        ),
+            );
+          }
+        }),
       ),
     );
   }

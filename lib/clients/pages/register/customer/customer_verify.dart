@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
 import 'package:service_fixing/clients/pages/register/customer/customer_otp.dart';
-import 'package:service_fixing/clients/pages/register/customer/customer_pass.dart';
 
 import '../../../../constants.dart';
 import '../../../controllers/customer/verifieotp_controller.dart';

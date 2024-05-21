@@ -21,18 +21,12 @@ class _ShopLocationState extends State<ShopLocation> {
   @override
   void initState() {
     super.initState();
-    fetchShopLocationByShopName();
+    final userData = authController.userData['user'];
+    latitude.text = userData['latitude'].toString();
+    longitude.text = userData['longitude'].toString();
 
-    latitude.text = shopLocationController.specificLocation.value.latitude != ""
-        ? shopLocationController.specificLocation.value.latitude.toString()
-        : '';
-    longitude.text =
-        shopLocationController.specificLocation.value.longitude != ""
-            ? shopLocationController.specificLocation.value.longitude.toString()
-            : '';
-    // print(" latitude : $latitude");
-    // print(" longitude : $longitude");
-    if (latitude.text.isNotEmpty && longitude.text.isNotEmpty) {
+    // Check if latitude and longitude are not empty
+    if (latitude.text != '0' && longitude.text != '0') {
       setState(() {
         isButtonVisible = false;
       });
@@ -41,12 +35,6 @@ class _ShopLocationState extends State<ShopLocation> {
         isButtonVisible = true;
       });
     }
-  }
-
-  void fetchShopLocationByShopName() {
-    final userData = authController.userData['user'];
-    final String shopName = userData['shop_name'];
-    shopLocationController.fetchShopLocationsByShopName(shopName);
   }
 
   @override
@@ -135,9 +123,7 @@ class _ShopLocationState extends State<ShopLocation> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
-         
                       final location = ShopNewlocation(
-
                         latitude: latitude.text,
                         longitude: longitude.text,
                       );

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:service_fixing/clients/controllers/customer/register_controller.dart';
-import 'package:path/path.dart' as path;
 
 import '../../../../constants.dart';
 import 'customer_verify.dart';
@@ -103,7 +101,7 @@ class _CustomerFormState extends State<CustomerForm> {
       if (pickedFile != null) {
         _imageFile = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        // print('No image selected.');
       }
     });
   }
