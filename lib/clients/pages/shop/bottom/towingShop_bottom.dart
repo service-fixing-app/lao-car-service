@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
-import 'package:service_fixing/clients/pages/shop/history/history.dart';
+import 'package:service_fixing/clients/pages/shop/message/towingshop_message.dart';
 import 'package:service_fixing/clients/pages/shop/home/towingShop_homepage.dart';
-import 'package:service_fixing/clients/pages/shop/settings/account_setting.dart';
+import 'package:service_fixing/clients/pages/shop/towingshop_settings/account_setting.dart';
 
 class TowingshopBottomBar extends StatefulWidget {
   const TowingshopBottomBar({Key? key}) : super(key: key);
@@ -22,8 +22,8 @@ class _TowingshopBottomBarState extends State<TowingshopBottomBar> {
         controller: _pageController,
         children: [
           const TowingShopHome(),
-          HistoryPage(),
-          const AccountSetting(),
+          TowingShopMessage(),
+          const TowingshopSetting(),
         ],
         onPageChanged: (index) {
           setState(() => _currentPage = index);

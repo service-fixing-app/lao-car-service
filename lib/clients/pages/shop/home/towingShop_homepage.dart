@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/components/customer/towingshop_section.dart';
 import 'package:service_fixing/clients/components/cover_image.dart';
-import 'package:service_fixing/clients/components/find_map.dart';
+import 'package:service_fixing/clients/components/findtowing_map.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
-import 'package:service_fixing/clients/pages/shop/history/history.dart';
+import 'package:service_fixing/clients/pages/shop/message/towingshop_message.dart';
 import 'package:service_fixing/constants.dart';
 
 class TowingShopHome extends StatefulWidget {
@@ -59,7 +59,7 @@ class _TowingShopHomeState extends State<TowingShopHome> {
                 top: CoverImage.coverHeight / 1.2,
                 left: 0,
                 right: 0,
-                child: FindMap(),
+                child: FindTowingMap(),
               ),
               Positioned(
                 top: 60,
@@ -114,7 +114,7 @@ class _TowingShopHomeState extends State<TowingShopHome> {
                 left: 290,
                 child: InkWell(
                   onTap: () {
-                    Get.to(HistoryPage());
+                    Get.to(()=> TowingShopMessage());
                   },
                   child: const Icon(
                     Icons.notifications_active,

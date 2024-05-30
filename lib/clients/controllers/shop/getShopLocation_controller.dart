@@ -35,6 +35,7 @@ class GetShopLocationController extends GetxController {
                   'managerName': shop['manager_name'],
                   'phoneNumber': shop['tel'],
                   'Status': shop['status'],
+                  'permission': shop['permission_status'],
                 })
             .toList());
         isSuccess.value = true;

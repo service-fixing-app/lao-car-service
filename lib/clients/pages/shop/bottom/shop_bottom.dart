@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
-import 'package:service_fixing/clients/pages/shop/history/history.dart';
+import 'package:service_fixing/clients/pages/shop/message/repairshop_message.dart';
 import 'package:service_fixing/clients/pages/shop/home/shop_homepage.dart';
-import 'package:service_fixing/clients/pages/shop/settings/account_setting.dart';
+import 'package:service_fixing/clients/pages/shop/repairshop_settings/account_setting.dart';
 
 class ShopBottomBar extends StatefulWidget {
   const ShopBottomBar({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class _ShopBottomBarState extends State<ShopBottomBar> {
         controller: _pageController,
         children: [
           const ShopHomePage(),
-          HistoryPage(),
+          RepairShopMessage(),
           const AccountSetting(),
         ],
         onPageChanged: (index) {

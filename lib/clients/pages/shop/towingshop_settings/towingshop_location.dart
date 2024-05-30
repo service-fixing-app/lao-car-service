@@ -1,0 +1,163 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
+import 'package:service_fixing/clients/controllers/shop/updateTowingshop_location.dart';
+import 'package:service_fixing/constants.dart';
+
+class TowingShopLocation extends StatefulWidget {
+  const TowingShopLocation({super.key});
+
+  @override
+  State<TowingShopLocation> createState() => _TowingShopLocationState();
+}
+
+class _TowingShopLocationState extends State<TowingShopLocation> {
+  final TowingShopLocationController towingShopLocationController =
+      Get.put(TowingShopLocationController());
+  final AuthController authController = Get.find();
+  TextEditingController latitude = TextEditingController();
+  TextEditingController longitude = TextEditingController();
+  bool isButtonVisible = false;
+  @override
+  void initState() {
+    super.initState();
+    final userData = authController.userData['user'];
+    latitude.text = userData['latitude'].toString();
+    longitude.text = userData['longitude'].toString();
+
+    // Check if latitude and longitude are not empty
+    if (latitude.text != '0' && longitude.text != '0') {
+      setState(() {
+        isButtonVisible = false;
+      });
+    } else {
+      setState(() {
+        isButtonVisible = true;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'ຕັ້ງຄ່າທີ່ຢູ່ຂອງຮ້ານ',
+          style: TextStyle(
+            fontFamily: 'phetsarath_ot',
+          ),
+        ),
+        backgroundColor: primaryColor,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'ທີ່ຢູ່ຂອງຮ້ານ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'phetsarath_ot',
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: latitude,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'ເສັ້ນຂະໜານ',
+                  labelStyle: const TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'phetsarath_ot',
+                    fontWeight: FontWeight.w500,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(width: 2.0),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 18.0,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: longitude,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'ເສັ້ນແວງ',
+                  labelStyle: const TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'phetsarath_ot',
+                    fontWeight: FontWeight.w500,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(width: 2.0),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 18.0,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Visibility(
+                visible: isButtonVisible,
+                child: SizedBox(
+                  height: 52.0,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      print('click');
+                      final location = TowingShopNewlocation(
+                        latitude: latitude.text,
+                        longitude: longitude.text,
+                      );
+
+                      try {
+                        await towingShopLocationController
+                            .shopLocationData(location);
+                      } catch (error) {
+                        // Handle error
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      elevation: 3.0,
+                    ),
+                    child: const Text(
+                      'ບັນທືຶກ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'phetsarath_ot',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

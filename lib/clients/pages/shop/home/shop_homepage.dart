@@ -5,7 +5,7 @@ import 'package:service_fixing/clients/components/cover_image.dart';
 import 'package:service_fixing/clients/components/find_map.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
-import 'package:service_fixing/clients/pages/shop/history/history.dart';
+import 'package:service_fixing/clients/pages/shop/message/repairshop_message.dart';
 import 'package:service_fixing/constants.dart';
 
 class ShopHomePage extends StatefulWidget {
@@ -114,7 +114,7 @@ class _ShopHomePageState extends State<ShopHomePage> {
                 left: 290,
                 child: InkWell(
                   onTap: () {
-                    Get.to(HistoryPage());
+                    Get.to(()=> RepairShopMessage());
                   },
                   child: const Icon(
                     Icons.notifications_active,

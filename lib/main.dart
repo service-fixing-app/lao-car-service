@@ -9,7 +9,7 @@ import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/logout/logout.dart';
 import 'package:service_fixing/clients/controllers/repairshop/verifieotp_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
-import 'package:service_fixing/clients/controllers/shop/shopLocation_controller.dart';
+import 'package:service_fixing/clients/controllers/shop/updateRepairshop_location.dart';
 import 'package:service_fixing/clients/controllers/towingcarshop/towingcarshopVerifieOtp_controller.dart';
 import 'package:service_fixing/clients/pages/login/login.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,7 @@ import 'package:service_fixing/clients/pages/register/towingcarshop/towingcarsho
 import 'clients/controllers/repairshop/repairshopRegister_controller.dart';
 import 'clients/pages/customer/bottom/bottom_navigation.dart';
 import 'clients/pages/customer/home/home_page.dart';
-import 'clients/pages/map/map_page.dart';
+import 'clients/pages/map/repairshop_map.dart';
 
 // void main() {
 //   runApp(
