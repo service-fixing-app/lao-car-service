@@ -66,14 +66,14 @@ class AccountSetting extends StatelessWidget {
                                   },
                                 ),
                                 _buildSettingRow(
-                                  icon: Icons.lock_person,
+                                  icon: Icons.lock_person_rounded,
                                   text: 'ຂໍ້ມູນລະຫັດຜ່ານ ແລະ ເບີຕິດຕໍ່',
                                   onTap: () {
                                     Get.to(const PasswordSetting());
                                   },
                                 ),
                                 _buildLogout(
-                                  icon: Icons.logout,
+                                  icon: Icons.logout_rounded,
                                   text: 'ອອກຈາກລະບົບ',
                                   onTap: () async {
                                     // logout logic
@@ -245,9 +245,9 @@ class AccountSetting extends StatelessWidget {
                   text,
                   style: const TextStyle(
                     fontFamily: 'phetsarath_ot',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black54,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
               ],
@@ -289,9 +289,9 @@ class AccountSetting extends StatelessWidget {
                   text,
                   style: const TextStyle(
                     fontFamily: 'phetsarath_ot',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black54,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
               ],

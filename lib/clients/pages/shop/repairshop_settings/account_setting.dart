@@ -89,7 +89,7 @@ class AccountSetting extends StatelessWidget {
                                   },
                                 ),
                                 _buildLogout(
-                                  icon: Icons.logout,
+                                  icon: Icons.logout_rounded,
                                   text: 'ອອກຈາກລະບົບ',
                                   onTap: () async {
                                     // logout logic

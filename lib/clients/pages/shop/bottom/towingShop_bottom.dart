@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bottom_bar/bottom_bar.dart';
 import 'package:service_fixing/clients/pages/shop/message/towingshop_message.dart';
 import 'package:service_fixing/clients/pages/shop/home/towingShop_homepage.dart';
 import 'package:service_fixing/clients/pages/shop/towingshop_settings/account_setting.dart';
@@ -13,48 +12,56 @@ class TowingshopBottomBar extends StatefulWidget {
 
 class _TowingshopBottomBarState extends State<TowingshopBottomBar> {
   int _currentPage = 0;
-  final _pageController = PageController();
+  final List<Widget> _pages = [
+    const TowingShopHome(),
+    TowingShopMessage(),
+    const TowingshopSetting(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentPage = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        children: [
-          const TowingShopHome(),
-          TowingShopMessage(),
-          const TowingshopSetting(),
-        ],
-        onPageChanged: (index) {
-          setState(() => _currentPage = index);
-        },
-      ),
-      bottomNavigationBar: BottomBar(
-        textStyle: const TextStyle(fontWeight: FontWeight.bold),
-        selectedIndex: _currentPage,
-        onTap: (int index) {
-          _pageController.jumpToPage(index);
-          setState(() => _currentPage = index);
-        },
-        items: <BottomBarItem>[
-          BottomBarItem(
-            icon: const Icon(Icons.home),
-            title: const Text('ຮ້ານແກ່ລົດ'),
-            activeColor: Colors.blue,
-            activeTitleColor: Colors.blue.shade600,
+      body: _pages[_currentPage],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentPage,
+        onTap: _onItemTapped,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/images/tow-truck.png',
+              width: 25,
+              height: 25,
+              color: _currentPage == 0 ? Colors.blue : Colors.grey,
+            ),
+            label: 'ຮ້ານແກ່ລົດ',
           ),
-          BottomBarItem(
-            icon: const Icon(Icons.chat),
-            title: const Text('ຂໍ້ຄວາມ'),
-            activeColor: Colors.blue,
-            activeTitleColor: Colors.blue.shade600,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/images/chat.png',
+              width: 25,
+              height: 25,
+              color: _currentPage == 1 ? Colors.blue : Colors.grey,
+            ),
+            label: 'ຂໍ້ຄວາມ',
           ),
-          BottomBarItem(
-            icon: const Icon(Icons.person),
-            title: const Text('ບັນຊີຂອງທ່ານ'),
-            backgroundColorOpacity: 0.1,
-            activeColor: Colors.blue,
-            activeTitleColor: Colors.blue.shade600,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/images/user.png',
+              width: 25,
+              height: 25,
+              color: _currentPage == 2 ? Colors.blue : Colors.grey,
+            ),
+            label: 'ຂອງຂ້ອຍ',
           ),
         ],
       ),
