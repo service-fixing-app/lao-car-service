@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:service_fixing/clients/pages/register/register_page.dart';
 import '../../../constants.dart';
 import '../../controllers/login/auth_controller.dart';
 import '../register/register.dart';
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 100.0),
                     const Text(
                       'ເຂົ້າສູ່ລະບົບ',
                       style: TextStyle(
@@ -225,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           Get.to(
-                            () => const Register(),
+                            () => const RegisterPage(),
                             transition: Transition.downToUp,
                             curve: Curves.easeInOut,
                             duration: const Duration(milliseconds: 500),

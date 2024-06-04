@@ -79,12 +79,12 @@ class OpenshopController extends GetxController {
         await fetchCurrentStatus();
       } else {
         isSuccess.value = false;
-        print("Error: ${response.statusCode}");
-        print("Response body: ${response.body}");
+        // print("Error: ${response.statusCode}");
+        // print("Response body: ${response.body}");
       }
     } catch (error) {
       isSuccess.value = false;
-      print("Error: $error");
+      // print("Error: $error");
     } finally {
       isLoading.value = false;
     }

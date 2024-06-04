@@ -5,12 +5,14 @@ import 'package:service_fixing/clients/controllers/requestion/request_controller
 import 'package:service_fixing/constants.dart';
 
 class ServiceRepair extends StatefulWidget {
+  final String? shopId;
   final String shopName;
   final String phoneNumber;
   final double? clatitude;
   final double? clongitude;
   const ServiceRepair({
     Key? key,
+    this.shopId,
     required this.shopName,
     required this.phoneNumber,
     this.clatitude,
@@ -98,7 +100,11 @@ class _ServiceRepairState extends State<ServiceRepair> {
                     final senderTel =
                         authController.userData['user']['tel']?.toString() ??
                             '';
+                    final customerId =
+                        authController.userData['user']['id']?.toString() ?? '';
                     final request = Request(
+                      customerId: customerId,
+                      shopId: widget.shopId,
                       senderName: senderName,
                       senderTel: senderTel,
                       receiverName: widget.shopName,

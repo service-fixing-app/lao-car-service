@@ -12,12 +12,14 @@ class SlideButtons extends StatelessWidget {
     required this.markerName,
     required this.tel,
     required this.score,
+    required this.shopId,
   });
   final String markerName;
   final String tel;
   final String score;
   final double? clatitude;
   final double? clongitude;
+  final String shopId;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,7 @@ class SlideButtons extends StatelessWidget {
                     // print('clongitude : $clongitude');
                     // any logic
                     Get.to(() => ServiceRepair(
+                          shopId: shopId,
                           shopName: markerName,
                           phoneNumber: tel,
                           clatitude: clatitude,

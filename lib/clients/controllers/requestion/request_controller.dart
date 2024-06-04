@@ -10,6 +10,8 @@ import 'package:service_fixing/clients/pages/customer/services/success.dart';
 // model
 class Request {
   final String senderName;
+  final String? customerId;
+  final String? shopId;
   final String senderTel;
   final String receiverName;
   final String receiverTel;
@@ -19,6 +21,8 @@ class Request {
 
   Request({
     required this.senderName,
+    this.customerId,
+    this.shopId,
     required this.senderTel,
     required this.receiverName,
     required this.receiverTel,
@@ -35,11 +39,15 @@ class RequestController extends GetxController {
   Future<void> requestmessageData(Request message) async {
     try {
       isLoading.value = true;
+      print("shopId ${message.shopId}");
+      print("customerId ${message.customerId}");
       print("clatitude ${message.customerLatitude}");
       print("clongitude ${message.customerLongitude}");
       var response = await http.post(
         Uri.parse('http://192.168.43.127:5000/api/request/sendMessage'),
         body: {
+          'shop_id': message.shopId,
+          'customer_id': message.customerId,
           'sender_name': message.senderName,
           'sender_tel': message.senderTel,
           'receiver_name': message.receiverName,

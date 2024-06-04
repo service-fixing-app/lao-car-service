@@ -586,16 +586,17 @@ class _TowingcarshopFormState extends State<TowingcarshopForm> {
                             _documentImageFile!,
                             fit: BoxFit.cover,
                           )
-                        : const Center(
+                        : Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.upload,
-                                  size: 50,
-                                  color: Colors.blue,
+                                Image.asset(
+                                  'assets/images/image-upload.png',
+                                  width: 50,
+                                  height: 50,
                                 ),
-                                Text(
+                                const SizedBox(width: 10),
+                                const Text(
                                   'ອັບໂລບຮູບພາບ',
                                   style: TextStyle(
                                     fontSize: 18,
@@ -613,34 +614,6 @@ class _TowingcarshopFormState extends State<TowingcarshopForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 50.0,
-                        // width: 140.0,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            elevation: 3.0,
-                          ),
-                          child: const Text(
-                            'ຍົກເລີກ',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
                     Expanded(
                       child: SizedBox(
                         height: 50.0,
@@ -716,7 +689,7 @@ class _TowingcarshopFormState extends State<TowingcarshopForm> {
                             elevation: 3.0,
                           ),
                           child: const Text(
-                            'ຕໍ່ໄປ',
+                            'ຖັດໄປ',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,

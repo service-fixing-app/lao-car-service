@@ -64,21 +64,21 @@ class AccountSetting extends StatelessWidget {
                                   icon: Icons.person,
                                   text: 'ຂໍ້ມູນພື້ນຖານ',
                                   onTap: () {
-                                    Get.to(const InformationSetting());
+                                    Get.to(()=> const InformationSetting());
                                   },
                                 ),
                                 _buildSettingRow(
                                   icon: Icons.lock_person,
                                   text: 'ຂໍ້ມູນລະຫັດຜ່ານ ແລະ ເບີຕິດຕໍ່',
                                   onTap: () {
-                                    Get.to(const PasswordSetting());
+                                    Get.to(()=>  const PasswordSetting());
                                   },
                                 ),
                                 _buildSettingRow(
                                   icon: Icons.settings,
                                   text: 'ຕັ້ງຄ່າສະຖານະຂອງຮ້ານ',
                                   onTap: () {
-                                    Get.to(StatuSettings());
+                                    Get.to(()=> StatuSettings());
                                   },
                                 ),
                                 _buildShopLocation(

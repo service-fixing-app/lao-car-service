@@ -60,7 +60,7 @@ class _MapsPageState extends State<MapsPage> {
                   zoom: 15),
             );
           } else {
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

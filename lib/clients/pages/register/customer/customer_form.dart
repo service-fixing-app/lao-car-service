@@ -483,63 +483,10 @@ class _CustomerFormState extends State<CustomerForm> {
                     Expanded(
                       child: SizedBox(
                         height: 50.0,
-                        // width: 180.0,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            elevation: 3.0,
-                          ),
-                          child: const Text(
-                            'ຍົກເລີກ',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 50.0,
                         // width: 190.0,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Call the method to update registration data
-                            // customerRegisterController.updateRegistrationData(
-                            //   firstName: firstNameController.text,
-                            //   lastName: lastNameController.text,
-                            //   age: ageController.text,
-                            //   gender: _selectGender,
-                            //   birthdate: _selectedDate != null
-                            //       ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                            //       : '',
-                            //   province: selectedProvince ??
-                            //       '', // Retrieve selected province
-                            //   district: selectedState ??
-                            //       '', // Retrieve selected district
-                            //   village: villageController.text,
-                            //   profileImage: _imageFile != null
-                            //       ? _imageFile!.path
-                            //       : '', // Retrieve profile image path
-                            //   password: '', // will get value in next page
-                            //   tel: '', // will get value in next page
-                            // );
-                            // String fileName =
-                            //     path.basename(_imageFile?.path ?? '');
-                            // String profileImage =
-                            //     _imageFile != null ? fileName : '';
-                            // Navigate to the next page
-                            //print('image path : ${_imageFile}');
+                            //logic
                             Get.to(
                               CustomerVerify(
                                 firstName: firstNameController.text,
@@ -566,7 +513,7 @@ class _CustomerFormState extends State<CustomerForm> {
                             elevation: 3.0,
                           ),
                           child: const Text(
-                            'ຕໍ່ໄປ',
+                            'ຖັດໄປ',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,

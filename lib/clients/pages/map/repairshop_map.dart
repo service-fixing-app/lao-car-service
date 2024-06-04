@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:service_fixing/clients/controllers/reviews/getReviews_controller.dart';
 import 'package:service_fixing/clients/controllers/reviews/reviews_controller.dart';
+import 'package:service_fixing/clients/controllers/shop/getReviewShopImageController.dart';
 import 'package:service_fixing/clients/controllers/shop/getShopLocation_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
 import 'package:service_fixing/clients/pages/map/review_ratestar.dart';
@@ -349,8 +350,11 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
             Get.find<ReviewsController>();
         final GetReviewController getCustomerReviewsController =
             Get.put(GetReviewController());
+        final GetReviewsShopImage getReviewsShopImage =
+            Get.put(GetReviewsShopImage());
         reviewsController.getRatingStar(shopId);
         getCustomerReviewsController.getReviews(shopId);
+        getReviewsShopImage.reviewsShopImage(shopId);
         // Function to format the date string
         String formatDateString(String dateString) {
           DateTime dateTime = DateTime.parse(dateString);
@@ -476,6 +480,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                       const SizedBox(height: 10),
                       // all buttons
                       SlideButtons(
+                        shopId: shopId,
                         clatitude: clatitude,
                         clongitude: clongitude,
                         markerName: markerName,
@@ -483,61 +488,40 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                         tel: tel,
                       ),
                       const SizedBox(height: 10),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 300.0,
-                              height: 240.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: Image.asset(
-                                  'assets/images/exampleImg1.jpg',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 2),
-                            Column(
-                              children: [
-                                Container(
-                                  width: 200.0,
-                                  height: 120.0,
+                      Obx(() {
+                      if (getReviewsShopImage.isLoading.value) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (getReviewsShopImage.imageUrls.isEmpty) {
+                        return const Center(child: Text('No images available'));
+                      } else {
+                        return SizedBox(
+                          height: 240.0,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: getReviewsShopImage.imageUrls.length,
+                            itemBuilder: (context, index) {
+                              var imageUrl = getReviewsShopImage.imageUrls[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                child: Container(
+                                  width: 300.0,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.asset(
-                                      'assets/images/exampleImg2.jpg',
+                                    child: Image.network(
+                                      imageUrl,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 2),
-                                Container(
-                                  width: 200.0,
-                                  height: 120.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.asset(
-                                      'assets/images/exampleImg3.jpg',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                              );
+                            },
+                          ),
+                        );
+                      }
+                    }),
                       TabBar(
                         controller: _tabController,
                         labelColor: Colors.black45,
