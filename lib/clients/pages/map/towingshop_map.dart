@@ -12,6 +12,7 @@ import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart
 import 'package:service_fixing/clients/pages/map/review_ratestar.dart';
 import 'package:service_fixing/clients/pages/map/slidebutton.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TowingshopMap extends StatefulWidget {
   final double? customerlatitude;
@@ -95,7 +96,22 @@ class _TowingshopMapState extends State<TowingshopMap>
   void initState() {
     super.initState();
     _getLocation();
+    addCustomIcon();
     _tabController = TabController(length: 2, vsync: this);
+  }
+
+  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
+
+  void addCustomIcon() {
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(), "assets/images/towinglocation.png")
+        .then(
+      (icon) {
+        setState(() {
+          markerIcon = icon;
+        });
+      },
+    );
   }
 
   Widget _buildStarRating(List<dynamic> ratingStarList) {
@@ -149,8 +165,16 @@ class _TowingshopMapState extends State<TowingshopMap>
       body: Stack(
         children: [
           _currentPosition == null
-              ? const Center(
-                  child: CircularProgressIndicator(),
+              ? Center(
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: Colors.white,
+                    ),
+                  ),
                 )
               : GoogleMap(
                   onMapCreated: (GoogleMapController controller) =>
@@ -186,8 +210,9 @@ class _TowingshopMapState extends State<TowingshopMap>
                           Marker(
                             markerId: MarkerId(
                                 "${shopLocation['latitude']}-${shopLocation['longitude']}"),
-                            icon: BitmapDescriptor.defaultMarkerWithHue(
-                                BitmapDescriptor.hueAzure),
+                            // icon: BitmapDescriptor.defaultMarkerWithHue(
+                            //     BitmapDescriptor.hueAzure),
+                            icon: markerIcon,
                             infoWindow: InfoWindow(
                               title: shopLocation['shopName'],
                             ),

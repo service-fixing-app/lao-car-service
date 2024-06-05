@@ -66,8 +66,7 @@ class UpdateRepairshopReviewImage extends GetxController {
         isSuccess.value = false;
         return;
       }
-
-      print('shop image : $imageUrls');
+      // print('shop image : $imageUrls');
 
       var response = await http.post(
         Uri.parse(
@@ -80,11 +79,11 @@ class UpdateRepairshopReviewImage extends GetxController {
           'images': imageUrls,
         }),
       );
-      print('statuscode:   ${response.statusCode}');
+      // print('statuscode:   ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         isSuccess.value = true;
-        print('Successs  ${response.statusCode}');
+        // print('Successs  ${response.statusCode}');
         Get.dialog(
           AlertDialog(
             icon: Image.asset(
@@ -105,8 +104,8 @@ class UpdateRepairshopReviewImage extends GetxController {
         Get.find<AuthController>().fetchUserData();
       } else {
         isSuccess.value = false;
-        print("Error: ${response.statusCode}");
-        print("Response body: ${response.body}");
+        // print("Error: ${response.statusCode}");
+        // print("Response body: ${response.body}");
       }
     } catch (error) {
       isSuccess.value = false;
@@ -116,12 +115,14 @@ class UpdateRepairshopReviewImage extends GetxController {
     }
   }
 
+
+  // function update shop reviews Image
   Future<void> shopReviewImageData(ReviewsImage reviewsImage) async {
     try {
       isLoading.value = true;
       final userData = authController.userData['user'];
       final String shopId = userData['id'];
-      print('shop id : $shopId');
+      // print('shop id : $shopId');
 
       // Upload images to Firebase Storage
       List<String>? imageUrls =

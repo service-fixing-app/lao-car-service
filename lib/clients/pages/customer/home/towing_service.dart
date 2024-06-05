@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/components/cover_imagetowing.dart';
 import 'package:service_fixing/clients/components/customer/towingshop_section.dart';
-import 'package:service_fixing/clients/components/find_map.dart';
 import 'package:service_fixing/clients/components/findtowing_map.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/requestion/customer_historyController.dart';

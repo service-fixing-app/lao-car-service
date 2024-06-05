@@ -17,11 +17,9 @@ class CustomerHistoryController extends GetxController {
 
   Future<List<dynamic>> fetchMessages() async {
     try {
+      isLoading.value = true;
       final userData = authController.userData['user'];
       final int requestTel = userData['tel'];
-
-      isLoading(true); // Set loading state to true
-
       final response = await http.get(Uri.parse(
           'http://192.168.43.127:5000/api/request/getCustomerRequestsByTel/$requestTel'));
       if (response.statusCode == 200) {
@@ -40,7 +38,7 @@ class CustomerHistoryController extends GetxController {
       print('Error: $e');
       return [];
     } finally {
-      isLoading(false);
+      isLoading.value = false;
       return [];
     }
   }

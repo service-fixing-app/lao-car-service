@@ -12,6 +12,7 @@ import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart
 import 'package:service_fixing/clients/pages/map/review_ratestar.dart';
 import 'package:service_fixing/clients/pages/map/slidebutton.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MapPage extends StatefulWidget {
   final double? customerlatitude;
@@ -178,8 +179,16 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
       body: Stack(
         children: [
           _currentPosition == null
-              ? const Center(
-                  child: CircularProgressIndicator(),
+              ? Center(
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: Colors.white,
+                    ),
+                  ),
                 )
               : GoogleMap(
                   onMapCreated: (GoogleMapController controller) =>
@@ -425,16 +434,6 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                               ),
                             ),
                           )
-                          // Obx(() {
-                          //   final isOpen = openshopController.isOpen.value;
-                          //   return Switch(
-                          //     value: isOpen,
-                          //     onChanged: (value) {
-                          //       openshopController.isOpen.value = value;
-                          //     },
-                          //     activeColor: primaryColor,
-                          //   );
-                          // }),
                         ],
                       ),
                       // Text(shopId),
@@ -489,39 +488,43 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                       ),
                       const SizedBox(height: 10),
                       Obx(() {
-                      if (getReviewsShopImage.isLoading.value) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (getReviewsShopImage.imageUrls.isEmpty) {
-                        return const Center(child: Text('No images available'));
-                      } else {
-                        return SizedBox(
-                          height: 240.0,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: getReviewsShopImage.imageUrls.length,
-                            itemBuilder: (context, index) {
-                              var imageUrl = getReviewsShopImage.imageUrls[index];
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                                child: Container(
-                                  width: 300.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.network(
-                                      imageUrl,
-                                      fit: BoxFit.cover,
+                        if (getReviewsShopImage.isLoading.value) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (getReviewsShopImage.imageUrls.isEmpty) {
+                          return const Center(
+                              child: Text('No images available'));
+                        } else {
+                          return SizedBox(
+                            height: 240.0,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: getReviewsShopImage.imageUrls.length,
+                              itemBuilder: (context, index) {
+                                var imageUrl =
+                                    getReviewsShopImage.imageUrls[index];
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 2.0),
+                                  child: Container(
+                                    width: 300.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.network(
+                                        imageUrl,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      }
-                    }),
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      }),
                       TabBar(
                         controller: _tabController,
                         labelColor: Colors.black45,

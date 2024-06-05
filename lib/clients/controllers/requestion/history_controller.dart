@@ -20,7 +20,7 @@ class HistoryController extends GetxController {
       final int receiverTel = userData['tel'];
 
       //print('Data from history: $userData');
-      isLoading(true);
+      isLoading.value = true;
       final response = await http.get(Uri.parse(
           'http://192.168.43.127:5000/api/request/getRequestsByTel/$receiverTel'));
       if (response.statusCode == 200) {
@@ -30,16 +30,15 @@ class HistoryController extends GetxController {
 
         print('Fetched Messages: $messages');
       } else {
-        // print(
-        //     'Failed to retrieve messages. Status code: ${response.statusCode}');
-        // print('Response body: ${response.body}');
+        // print( 'Failed to retrieve messages. Status code: ${response.statusCode}');
+
         throw Exception('Failed to retrieve messages');
       }
     } catch (e) {
       print('Error: $e');
       return [];
     } finally {
-      isLoading(false);
+      isLoading.value = false;
     }
     return [];
   }

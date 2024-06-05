@@ -11,19 +11,20 @@ class GetTowingshopController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchRepairshop();
+    fetchTowingshop();
     fetchTowingshopLocation();
   }
 
   fetchTowingshopLocation() async {
     try {
+      isLoading.value = true;
       var response = await http.get(
         Uri.parse('http://192.168.43.127:5000/api/towingtruck/allTowingtruck'),
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
-        print('data location with towingshop info get : $data');
-        print(response.statusCode);
+        // print('data location with towingshop info get : $data');
+        // print(response.statusCode);
         // Update shopLocations with the fetched data
         shopLocations.assignAll(data
             .where(
@@ -45,30 +46,30 @@ class GetTowingshopController extends GetxController {
       }
     } catch (error) {
       // Handle error
-      print("Error fetching shop locations with shop info: $error");
+      // print("Error fetching shop locations with shop info: $error");
     } finally {
       isLoading.value = false;
     }
   }
 
-  Future<List<dynamic>> fetchRepairshop() async {
+  Future<List<dynamic>> fetchTowingshop() async {
     try {
+      isLoading.value = true;
       final response = await http.get(Uri.parse(
           'http://192.168.43.127:5000/api/towingtruck/allTowingtruck'));
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
         getTowingshopData.assignAll(data);
-
-        print('Fetched Messages: $getTowingshopData');
+        // print('Fetched Messages: $getTowingshopData');
       } else {
-        print(
-            'Failed to retrieve messages. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        // print('Status code: ${response.statusCode}');
         throw Exception('Failed to retrieve messages');
       }
     } catch (e) {
       print('Error: $e');
       return [];
+    } finally {
+      isLoading.value = false;
     }
     return [];
   }

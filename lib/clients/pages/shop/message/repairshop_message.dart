@@ -6,6 +6,7 @@ import 'package:service_fixing/clients/controllers/requestion/history_controller
 import 'package:service_fixing/clients/controllers/requestion/request_controller.dart';
 import 'package:service_fixing/clients/pages/map/repairshop_map.dart';
 import 'package:service_fixing/constants.dart';
+import 'package:shimmer/shimmer.dart';
 
 class RepairShopMessage extends StatefulWidget {
   @override
@@ -55,9 +56,7 @@ class _RepairShopMessageState extends State<RepairShopMessage> {
       body: Obx(
         () {
           if (historyController.isLoading.value) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return buildShimmerLoading();
           } else if (historyController.messages.isEmpty) {
             return Center(
               child: Column(
@@ -246,6 +245,99 @@ class _RepairShopMessageState extends State<RepairShopMessage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildShimmerLoading() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (BuildContext context, int index) {
+          return _buildShimmerNotificationItem();
+        },
+      ),
+    );
+  }
+
+  Widget _buildShimmerNotificationItem() {
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: Container(
+        color: Colors.white, // Background color of the container
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 18.0,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // image
+            CircleAvatar(
+              backgroundColor: Colors.grey[300], // Shimmer base color
+              radius: 25,
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // text
+                      Container(
+                        height: 10.0,
+                        width: 100.0,
+                        color: Colors.grey[300], // Shimmer base color
+                      ),
+                      // text
+                      Container(
+                        height: 10.0,
+                        width: 50.0,
+                        color: Colors.grey[300], // Shimmer base color
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 4.0,
+                  ),
+                  // text
+                  Container(
+                    width: double.infinity,
+                    height: 10.0,
+                    color: Colors.grey[300], // Shimmer base color
+                  ),
+                  const SizedBox(
+                    height: 4.0,
+                  ),
+                  // text
+                  Container(
+                    width: double.infinity,
+                    height: 10.0,
+                    color: Colors.grey[300], // Shimmer base color
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // button
+                      Container(
+                        width: 150.0,
+                        height: 40.0,
+                        color: Colors.grey[300], // Shimmer base color
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

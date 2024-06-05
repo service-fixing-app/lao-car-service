@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/shop/getRepairshopController.dart';
 import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
 import 'package:service_fixing/constants.dart';
+import 'package:shimmer/shimmer.dart';
 
 class RepairshopSection extends StatelessWidget {
   const RepairshopSection({Key? key}) : super(key: key);
@@ -20,30 +21,37 @@ class RepairshopSection extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
         child: Obx(
-          () => getRepairshopController.getrepairshopData.isEmpty
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: getRepairshopController.getrepairshopData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final responseData =
-                          getRepairshopController.getrepairshopData[index];
-                      return _buildShopItem(
-                        shopName: responseData['shop_name'],
-                        managerName: responseData['manager_name'],
-                        tel: responseData['tel'].toString(),
-                        typeService: responseData['type_service'],
-                        profileImage: NetworkImage(
-                          responseData['profile_image'],
-                        ),
-                      );
-                    },
-                  ),
+          () {
+            if (getRepairshopController.isLoading.value) {
+              return buildShimmerLoading();
+            } else if (getRepairshopController.getrepairshopData.isEmpty) {
+              return const Center(
+                child: Text('ຍັງບໍ່ມີຂໍ້ມູນຮ້ານ'),
+              );
+            } else {
+              // Show data
+              return SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: getRepairshopController.getrepairshopData.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final responseData =
+                        getRepairshopController.getrepairshopData[index];
+                    return _buildShopItem(
+                      shopName: responseData['shop_name'],
+                      managerName: responseData['manager_name'],
+                      tel: responseData['tel'].toString(),
+                      typeService: responseData['type_service'],
+                      profileImage: NetworkImage(
+                        responseData['profile_image'],
+                      ),
+                    );
+                  },
                 ),
+              );
+            }
+          },
         ),
       ),
     );
@@ -79,6 +87,43 @@ class RepairshopSection extends StatelessWidget {
             // print('Click object');
           },
         ),
+      ),
+    );
+  }
+
+  Widget buildShimmerLoading() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: ListView.builder(
+        padding: EdgeInsets.zero,
+        itemCount: 5,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: const CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 25,
+            ),
+            title: Container(
+              height: 10.0,
+              color: Colors.white,
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5.0),
+                  height: 10.0,
+                  color: Colors.white,
+                ),
+                Container(
+                  height: 10.0,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 100.0),
+                    const SizedBox(height: 50.0),
                     const Text(
                       'ເຂົ້າສູ່ລະບົບ',
                       style: TextStyle(

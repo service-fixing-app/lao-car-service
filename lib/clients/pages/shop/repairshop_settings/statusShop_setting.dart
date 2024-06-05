@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:service_fixing/clients/controllers/shop/getReviewShopImageController.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/updateRepairshop_reviewImage.dart';
 import 'package:service_fixing/constants.dart';
@@ -19,6 +20,8 @@ class _StatuSettingsState extends State<StatuSettings> {
   final OpenshopController openshopController = Get.put(OpenshopController());
   final UpdateRepairshopReviewImage updateRepairshopReviewImage =
       Get.put(UpdateRepairshopReviewImage());
+  final GetReviewsShopImage getReviewsShopImage =
+      Get.put(GetReviewsShopImage());
   final AuthController authController = Get.find();
 
   // upload ducoment image
@@ -36,6 +39,13 @@ class _StatuSettingsState extends State<StatuSettings> {
     } else {
       print('No document images selected.');
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final shopId = authController.userData['user']['id'];
+    getReviewsShopImage.reviewsShopImage(shopId);
   }
 
   @override
@@ -148,9 +158,9 @@ class _StatuSettingsState extends State<StatuSettings> {
                           try {
                             await updateRepairshopReviewImage
                                 .addShopReviewImage(reviewsImage);
-                            print('click me');
+                            // print('click me');
                           } catch (error) {
-                            print('error $error');
+                            // print('error $error');
                           }
                         }
                       },
@@ -172,9 +182,9 @@ class _StatuSettingsState extends State<StatuSettings> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                reviewsShopImageFiles.isNotEmpty
-                    ? Expanded(
-                        child: GridView.builder(
+                Expanded(
+                  child: reviewsShopImageFiles.isNotEmpty
+                      ? GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
@@ -186,16 +196,31 @@ class _StatuSettingsState extends State<StatuSettings> {
                             return Image.file(reviewsShopImageFiles[index],
                                 fit: BoxFit.cover);
                           },
-                        ),
-                      )
-                    : const Center(
-                        child: Text(
-                          'ຍັງບໍ່ມີຮູບພາບທີ່ເລືອກ.',
-                          style: TextStyle(
-                            fontFamily: 'phetsarath_ot',
-                          ),
-                        ),
-                      ),
+                        )
+                      : getReviewsShopImage.imageUrls.isNotEmpty
+                          ? GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 4.0,
+                                mainAxisSpacing: 4.0,
+                              ),
+                              itemCount: getReviewsShopImage.imageUrls.length,
+                              itemBuilder: (context, index) {
+                                return Image.network(
+                                    getReviewsShopImage.imageUrls[index],
+                                    fit: BoxFit.cover);
+                              },
+                            )
+                          : const Center(
+                              child: Text(
+                                'ຍັງບໍ່ມີຮູບພາບທີ່ເລືອກ.',
+                                style: TextStyle(
+                                  fontFamily: 'phetsarath_ot',
+                                ),
+                              ),
+                            ),
+                ),
                 const SizedBox(height: 10),
                 const Divider(height: 2),
               ],

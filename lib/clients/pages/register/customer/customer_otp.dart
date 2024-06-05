@@ -32,31 +32,37 @@ class _CustomerOtpState extends State<CustomerOtp> {
   // error message
   String? errorMessage;
   //
-  int _countdownSeconds = 20; // Total seconds for the countdown
-  late Timer _timer;
+  Timer? _timer;
+  int _start = 30;
 
-  void resendCode() {
-    // Add your code to resend the verification code here
-    // Reset the countdown timer
-    _countdownSeconds = 20;
-    startTimer(); // Start the timer again
-  }
-
-  // Method to start the timer
   void startTimer() {
-    const oneSecond = Duration(seconds: 1);
+    const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
-      oneSecond,
-      (timer) {
-        setState(() {
-          if (_countdownSeconds == 0) {
-            timer.cancel(); // Cancel the timer when countdown reaches 0
-          } else {
-            _countdownSeconds--; // Decrease the countdown seconds
-          }
-        });
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -87,7 +93,7 @@ class _CustomerOtpState extends State<CustomerOtp> {
             child: Column(
               children: [
                 Text(
-                  'Enter the OTP set to ${widget.phoneNumber} ',
+                  'ກະລຸນາປ້ອນOTPໃຫ້${widget.phoneNumber} ',
                   style: const TextStyle(fontSize: 18.0),
                 ),
                 const SizedBox(
@@ -99,39 +105,21 @@ class _CustomerOtpState extends State<CustomerOtp> {
                     VerifyOtpCode(
                       controller: valueBox1,
                     ),
-                    // const SizedBox(
-                    //   width: 10.0,
-                    // ),
                     VerifyOtpCode(
                       controller: valueBox2,
                     ),
-                    // const SizedBox(
-                    //   width: 10.0,
-                    // ),
                     VerifyOtpCode(
                       controller: valueBox3,
                     ),
-                    // const SizedBox(
-                    //   width: 10.0,
-                    // ),
                     VerifyOtpCode(
                       controller: valueBox4,
                     ),
-                    // const SizedBox(
-                    //   width: 10.0,
-                    // ),
                     VerifyOtpCode(
                       controller: valueBox5,
                     ),
-                    // const SizedBox(
-                    //   width: 10.0,
-                    // ),
                     VerifyOtpCode(
                       controller: valueBox6,
                     ),
-                    // const SizedBox(
-                    //   width: 10.0,
-                    // ),
                   ],
                 ),
                 const SizedBox(
@@ -141,7 +129,7 @@ class _CustomerOtpState extends State<CustomerOtp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Didn\'t receive code ? Resend in $_countdownSeconds s',
+                      'Didn\'t receive code ? Resend in $_start s',
                       style: const TextStyle(
                         fontSize: 18.0,
                         color: primaryColor,
@@ -154,8 +142,14 @@ class _CustomerOtpState extends State<CustomerOtp> {
                   height: 50.0,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed:
-                        _countdownSeconds == 0 ? () => resendCode() : null,
+                    onPressed: _start == 0
+                        ? () {
+                            setState(() {
+                              _start = 30;
+                              startTimer();
+                            });
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(

@@ -181,7 +181,7 @@ class CustomerRegisterController extends GetxController {
             'village': customer.village,
             'district': customer.district,
             'province': customer.province,
-            'profile_image': imageUrl, // Send the image URL to the database
+            'profile_image': imageUrl, 
             'role': 'customer',
           },
         );
@@ -189,7 +189,7 @@ class CustomerRegisterController extends GetxController {
         if (response.statusCode == 200 || response.statusCode == 201) {
           // Registration successful
           isSuccess.value = true;
-          // Navigate to success page or perform other actions
+          
         } else {
           // Registration failed
           isSuccess.value = false;

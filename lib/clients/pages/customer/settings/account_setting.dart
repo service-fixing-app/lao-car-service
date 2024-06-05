@@ -184,9 +184,21 @@ class AccountSetting extends StatelessWidget {
     final userData = authController.userData['user'];
     return Row(
       children: [
-        CircleAvatar(
-          radius: 60,
-          backgroundImage: NetworkImage('${userData['profile_image']}'),
+        // CircleAvatar(
+        //   radius: 60,
+        //   backgroundImage: NetworkImage('${userData['profile_image']}'),
+        // ),
+        Container(
+          width: 120,
+          height: 120,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.scaleDown,
+              image: NetworkImage('${userData['profile_image']}'),
+            ),
+          ),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
