@@ -42,7 +42,7 @@ class AuthController extends GetxController {
         print('user error ${response.statusCode}');
         Get.snackbar(
           'ການເຂົ້າສູ່ລະບົບຜິດພາດ',
-          'ເບີໂທ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ, ກະລຸນາສອບຄືນໃໝ່',
+          'ເບີໂທ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ, ກະລຸນາກວດສອບຄືນໃໝ່',
           backgroundColor: Colors.white,
           colorText: Colors.red,
         );

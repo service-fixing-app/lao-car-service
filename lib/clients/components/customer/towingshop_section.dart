@@ -23,7 +23,7 @@ class TowingshopSection extends StatelessWidget {
           () {
             if (getTowingshopController.isLoading.value) {
               // return buildShimmerLoading();
-              return Center(child: Text('loading...'));
+              return const Center(child: Text('loading...'));
             } else if (getTowingshopController.getTowingshopData.isEmpty) {
               return const Center(
                 child: Text('ຍັງບໍ່ມີຂໍ້ມູນຮ້ານ'),

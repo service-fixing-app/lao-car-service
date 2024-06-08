@@ -392,9 +392,79 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                     onPressed: () async {
                       //print(widget.profileImage);
                       if (_formKey.currentState!.validate()) {
-                        if (passwordController.text !=
-                            repasswordController.text) {
-                          // Passwords do not match, show error message
+                        if (otpController.isVerified.value) {
+                          if (passwordController.text !=
+                              repasswordController.text) {
+                            // Passwords do not match, show error message
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Column(
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/warning.png',
+                                        fit: BoxFit.cover,
+                                        width: 50,
+                                        height: 50,
+                                      ),
+                                      const Text(
+                                        'ຂໍ້ຄວາມແຈ້ງເຕືອນ',
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  content: const Text('ລະຫັດຜ່ານບໍ່ຄືກັນ '),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            return; // Do not proceed further
+                          } else {
+                            if (widget.profileImage == null ||
+                                !widget.profileImage!.existsSync()) {
+                              print(widget.profileImage);
+                              return;
+                            }
+
+                            // Proceed with sending image data and other form data to the API
+                            final customer = Customer(
+                              firstName: widget.firstName,
+                              lastName: widget.lastName,
+                              tel: _phoneNumberController.text,
+                              password: passwordController.text,
+                              age: widget.age,
+                              gender: widget.gender,
+                              birthdate: widget.birthdate,
+                              village: widget.village,
+                              district: widget.district,
+                              province: widget.province,
+                              profileImage: widget.profileImage!,
+                            );
+
+                            try {
+                              await customerRegisterController
+                                  .customerRegistrationData(customer);
+                              if (customerRegisterController.isSuccess.value) {
+                                print('success added');
+                                Get.to(const LoginPage());
+                              } else {
+                                print('added error');
+                              }
+                            } catch (error) {
+                              // Handle error
+                            }
+                          }
+                        } else {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -415,7 +485,8 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                                     ),
                                   ],
                                 ),
-                                content: const Text('ລະຫັດຜ່ານບໍ່ຄືກັນ '),
+                                content:
+                                    const Text('ເບີໂທລະສັບຍັງບໍ່ໄດ້ຢຶນຢັນ OTP'),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
@@ -427,41 +498,6 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                               );
                             },
                           );
-                          return; // Do not proceed further
-                        } else {
-                          if (widget.profileImage == null ||
-                              !widget.profileImage!.existsSync()) {
-                            print(widget.profileImage);
-                            return;
-                          }
-
-                          // Proceed with sending image data and other form data to the API
-                          final customer = Customer(
-                            firstName: widget.firstName,
-                            lastName: widget.lastName,
-                            tel: _phoneNumberController.text,
-                            password: passwordController.text,
-                            age: widget.age,
-                            gender: widget.gender,
-                            birthdate: widget.birthdate,
-                            village: widget.village,
-                            district: widget.district,
-                            province: widget.province,
-                            profileImage: widget.profileImage!,
-                          );
-
-                          try {
-                            await customerRegisterController
-                                .customerRegistrationData(customer);
-                            if (customerRegisterController.isSuccess.value) {
-                              print('success added');
-                              Get.to(const LoginPage());
-                            } else {
-                              print('added error');
-                            }
-                          } catch (error) {
-                            // Handle error
-                          }
                         }
                       }
                     },
@@ -472,23 +508,27 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                       ),
                       elevation: 3.0,
                     ),
-                    child: customerRegisterController.isLoading.value
-                        ? const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircularProgressIndicator(
-                                color: Colors.white,
-                              ),
-                            ],
-                          )
-                        : const Text(
-                            'ສົ່ງຟອມສະໝັກ',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'phetsarath_ot',
-                            ),
-                          ),
+                    child: Obx(
+                      () {
+                        return customerRegisterController.isLoading.value
+                            ? const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              )
+                            : const Text(
+                                'ສົ່ງຟອມສະໝັກ',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'phetsarath_ot',
+                                ),
+                              );
+                      },
+                    ),
                   ),
                 ),
               ],

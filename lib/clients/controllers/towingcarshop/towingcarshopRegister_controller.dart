@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:service_fixing/constants.dart';
 
 class Towingcarshop {
   final String shopName;
@@ -79,10 +82,34 @@ class Towingcarshop {
 class TowingcarshopRegisterController extends GetxController {
   var isLoading = false.obs;
   var isSuccess = false.obs;
+  Future<bool> checkCustomer(String tel) async {
+    try {
+      final urls = [
+        'http://192.168.43.127:5000/api/customer/getCustomerByTel/$tel',
+        'http://192.168.43.127:5000/api/repairshop/getRepairshopByTel/$tel',
+        'http://192.168.43.127:5000/api/towingtruck/getTowingtruckByTel/$tel',
+      ];
 
-  // api for virtual emulator
-  // String url = "http://10.0.2.2:500/api/towingtruck/addTowingtruck";
-  // real android device
+      for (var url in urls) {
+        var response = await http.get(Uri.parse(url));
+        if (response.statusCode == 200) {
+          var data = json.decode(response.body);
+          print("data get from check : $data");
+          if (data is List && data.isNotEmpty && data[0]['tel'] != null) {
+            return false;
+          }
+        } else {
+          throw Exception(
+              'Failed Status code: ${response.statusCode} for URL: $url');
+        }
+      }
+      return true;
+    } catch (e) {
+      print('Error checking customer tel: $e');
+      throw Exception('Failed to load customer tel: $e');
+    }
+  }
+
   String urlRegister =
       "http://192.168.43.127:5000/api/towingtruck/addTowingtruck";
 
@@ -90,6 +117,50 @@ class TowingcarshopRegisterController extends GetxController {
       Towingcarshop towingcarshop) async {
     try {
       isLoading.value = true;
+      bool canRegister = await checkCustomer(towingcarshop.tel);
+      if (!canRegister) {
+        isSuccess.value = false;
+        print('Error: Telephone number already registered');
+        Get.dialog(
+          Builder(
+            builder: (context) {
+              return AlertDialog(
+                icon: Image.asset(
+                  'assets/images/warning.png',
+                  width: 50,
+                  height: 50,
+                ),
+                title: const Text(
+                  'ທ່ານບໍ່ສາມາດລົງທະບຽນໄດ້',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+                content: const Text(
+                    'ກະລຸນາກວດສອບເບີຂອງທ່ານຄືນໃໝ່ ເບີອາດເຄີຍລົງທະບຽນມາກ່ອນແລ້ວ. ຂໍຂອບໃຈ'),
+                actions: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: primaryColor,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 20.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('ຕົກລົງ'),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+        return;
+      }
 
       // Upload profile image to Firebase Storage and get image URL
       String? profileImageUrl =

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:service_fixing/clients/controllers/requestion/customer_historyController.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
 import 'package:service_fixing/clients/pages/customer/services/success.dart';
+import 'package:service_fixing/constants.dart';
 
 // model
 class Request {
@@ -36,13 +37,88 @@ class RequestController extends GetxController {
   var isLoading = false.obs;
   var isSuccess = false.obs;
 
+  Future<bool> checkCustomerStatus(String customerId) async {
+    try {
+      var response = await http.get(
+        Uri.parse(
+          'http://192.168.43.127:5000/api/request/getCustomerRequestById/$customerId',
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        if (data['status'] == true) {
+          var requests = data['requests'];
+          for (var request in requests) {
+            if (request['status'] == 'warning') {
+              return false; // Found a request with status 'warning'
+            }
+          }
+        }
+        return true; // No request with status 'warning' found
+      } else {
+        throw Exception('Failed Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error checking customer status: $e');
+      throw Exception('Failed to load customer status: $e');
+    }
+  }
+
   Future<void> requestmessageData(Request message) async {
     try {
       isLoading.value = true;
-      print("shopId ${message.shopId}");
-      print("customerId ${message.customerId}");
-      print("clatitude ${message.customerLatitude}");
-      print("clongitude ${message.customerLongitude}");
+      // print("shopId ${message.shopId}");
+      // print("customerId ${message.customerId}");
+      // print("clatitude ${message.customerLatitude}");
+      // print("clongitude ${message.customerLongitude}");
+
+      if (message.customerId != null) {
+        bool canSendRequest = await checkCustomerStatus(message.customerId!);
+        if (!canSendRequest) {
+          Get.dialog(
+            Builder(
+              builder: (context) {
+                return AlertDialog(
+                  icon: Image.asset(
+                    'assets/images/warning.png',
+                    width: 50,
+                    height: 50,
+                  ),
+                  title: const Text(
+                    'ທ່ານບໍ່ສາມາດຮ້ອງຂໍໄດ້',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                  content: const Text(
+                      'ກະລຸນາຍົກເລີກຮ້ານທີ່ເຄີຍຮ້ອງຂໍບໍລິການກ່ອນໝ້ານີ້ກ່ອນ. ຂໍຂອບໃຈ'),
+                  actions: [
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: primaryColor,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 20.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('ຕົກລົງ'),
+                    ),
+                  ],
+                );
+              },
+            ),
+          );
+
+          isSuccess.value = false;
+          return;
+        }
+      }
       var response = await http.post(
         Uri.parse('http://192.168.43.127:5000/api/request/sendMessage'),
         body: {
@@ -58,7 +134,7 @@ class RequestController extends GetxController {
           'status': 'warning',
         },
       );
-      print("code status: ${response.statusCode}");
+      // print("code status: ${response.statusCode}");
       if (response.statusCode == 200 || response.statusCode == 201) {
         // Registration successful
         isSuccess.value = true;
@@ -68,7 +144,7 @@ class RequestController extends GetxController {
         Get.to(const Successs());
       } else {
         isSuccess.value = false;
-        print("Error: ${response.statusCode}");
+        // print("Error: ${response.statusCode}");
       }
     } catch (error) {
       print(error);
