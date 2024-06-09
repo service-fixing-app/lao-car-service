@@ -30,16 +30,26 @@ class AuthController extends GetxController {
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         token.value = responseData['token'];
-        print("data: ${responseData}");
+        // print("data: ${responseData}");
         final customerData = responseData['user'];
-        final userId = customerData['customer_id'];
-        // final userRole = customerData['role'];
-        print("userId: ${userId}");
+        final permissionStatus = customerData['permission_status'];
+        // print('permission : $permissionStatus');
+        // Check if the user is blocked
+        if (permissionStatus == 'blocked') {
+          isAuthenticated.value = false;
+          Get.snackbar(
+            'ບັນຊີຂອງທ່ານຖືກບລັອກ',
+            'ບັນຊີຂອງທ່ານໄດ້ຖືກບລັອກ. ກະລຸນາຕິດຕໍ່ຝ່າຍຊ່ວຍເຫຼືອ.',
+            backgroundColor: Colors.white,
+            colorText: Colors.red,
+          );
+          return;
+        }
         isAuthenticated.value = true;
-        await fetchUserData(); // Pass userRole here
+        await fetchUserData();
       } else {
         isAuthenticated.value = false;
-        print('user error ${response.statusCode}');
+        // print('user error ${response.statusCode}');
         Get.snackbar(
           'ການເຂົ້າສູ່ລະບົບຜິດພາດ',
           'ເບີໂທ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ, ກະລຸນາກວດສອບຄືນໃໝ່',
@@ -58,7 +68,6 @@ class AuthController extends GetxController {
       final response = await http.get(
         Uri.parse(
             'http://192.168.43.127:5000/api/login/getUserByToken/${token.value}'),
-        // Send token in the URL as a parameter
       );
 
       if (response.statusCode == 200) {
@@ -67,11 +76,11 @@ class AuthController extends GetxController {
         navigateToRolePage(responseData['user']['role']);
       } else {
         // Error handling
-        print("Failed to fetch user data: ${response.statusCode}");
+        // print("Failed to fetch user data: ${response.statusCode}");
       }
     } catch (e) {
       // Error handling
-      print("Error fetching user data: $e");
+      // print("Error fetching user data: $e");
     }
   }
 

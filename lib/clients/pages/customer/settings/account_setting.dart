@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/logout/logout.dart';
+import 'package:service_fixing/clients/controllers/shop/getCustomerController.dart';
 import 'package:service_fixing/clients/pages/customer/settings/information_setting.dart';
 import 'package:service_fixing/clients/pages/customer/settings/password_setting.dart';
 import 'package:service_fixing/constants.dart';
@@ -62,16 +63,16 @@ class AccountSetting extends StatelessWidget {
                                   icon: Icons.person,
                                   text: 'ຂໍ້ມູນພື້ນຖານ',
                                   onTap: () {
-                                    Get.to(const InformationSetting());
+                                    Get.to(() => const InformationSetting());
                                   },
                                 ),
-                                _buildSettingRow(
-                                  icon: Icons.lock_person_rounded,
-                                  text: 'ຂໍ້ມູນລະຫັດຜ່ານ ແລະ ເບີຕິດຕໍ່',
-                                  onTap: () {
-                                    Get.to(const PasswordSetting());
-                                  },
-                                ),
+                                // _buildSettingRow(
+                                //   icon: Icons.lock_person_rounded,
+                                //   text: 'ຂໍ້ມູນລະຫັດຜ່ານ ແລະ ເບີຕິດຕໍ່',
+                                //   onTap: () {
+                                //     Get.to(const PasswordSetting());
+                                //   },
+                                // ),
                                 _buildLogout(
                                   icon: Icons.logout_rounded,
                                   text: 'ອອກຈາກລະບົບ',
@@ -100,27 +101,6 @@ class AccountSetting extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // child: const Padding(
-                          //   padding: EdgeInsets.all(10.0),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Icon(
-                          //         Icons.admin_panel_settings_rounded,
-                          //         color: primaryColor,
-                          //       ),
-                          //       SizedBox(width: 10),
-                          //       Text(
-                          //         'Admin  02077665494',
-                          //         style: TextStyle(
-                          //           color: primaryColor,
-                          //           fontSize: 18,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                         ),
                       ],
                     ),
@@ -180,26 +160,31 @@ class AccountSetting extends StatelessWidget {
   }
 
   Widget _buildLocationRow() {
-    final AuthController authController = Get.find();
-    final userData = authController.userData['user'];
+    // final AuthController authController = Get.find();
+    // final userData = authController.userData['user'];
+    final GetCustomerController _getCustomerController =
+        Get.put(GetCustomerController());
+    final customerData = _getCustomerController.getCustomerData;
     return Row(
       children: [
-        // CircleAvatar(
-        //   radius: 60,
-        //   backgroundImage: NetworkImage('${userData['profile_image']}'),
-        // ),
-        Container(
-          width: 120,
-          height: 120,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              fit: BoxFit.scaleDown,
-              image: NetworkImage('${userData['profile_image']}'),
-            ),
-          ),
+        const SizedBox(width: 10),
+        CircleAvatar(
+          radius: 40,
+          backgroundImage: NetworkImage('${customerData['profile_image']}'),
         ),
+        // Container(
+        //   width: 120,
+        //   height: 120,
+        //   decoration: BoxDecoration(
+        //     color: Colors.grey[200],
+        //     shape: BoxShape.circle,
+        //     image: DecorationImage(
+        //       fit: BoxFit.scaleDown,
+        //       image: NetworkImage('${userData['profile_image']}'),
+        //     ),
+        //   ),
+        // ),
+        const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -207,7 +192,7 @@ class AccountSetting extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '${userData['first_name']}',
+              '${customerData['first_name']}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,
@@ -218,7 +203,7 @@ class AccountSetting extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '+856 ${userData['tel']}',
+              '+856 ${customerData['tel']}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,

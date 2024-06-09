@@ -93,7 +93,7 @@ class CustomerRegisterController extends GetxController {
       bool canRegister = await checkCustomer(customer.tel);
       if (!canRegister) {
         isSuccess.value = false;
-        print('Error: Telephone number already registered');
+        // print('Error: Telephone number already registered');
         Get.dialog(
           Builder(
             builder: (context) {
