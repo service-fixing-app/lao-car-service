@@ -19,7 +19,7 @@ class _CustomerHistoryState extends State<CustomerHistory> {
   // Function to format the date string
   String formatDateString(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
-    return DateFormat('dd/MM/yyyy').format(dateTime);
+    return DateFormat('dd/MM/yyyy HH:mm').format(dateTime);
   }
 
   @override

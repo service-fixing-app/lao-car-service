@@ -55,8 +55,8 @@ class _TowingcarshopFormState extends State<TowingcarshopForm> {
     super.initState();
 
     typeService = [
-      {"val": 1, "name": "ບໍລິການແກ່ລົດນ້ອຍ"},
-      {"val": 2, "name": "ບໍລິການແກ່ລົດໃຫຍ່"},
+      {"val": 1, "name": "ບໍລິການແກ່ລົດເບົາ"},
+      {"val": 2, "name": "ບໍລິການແກ່ລົດໝັກ"},
     ];
 
     provinces = [

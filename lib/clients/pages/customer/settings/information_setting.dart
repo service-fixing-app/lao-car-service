@@ -75,7 +75,9 @@ class _InformationSettingState extends State<InformationSetting> {
           village: _villageController.text,
           district: _districtController.text,
           province: _provinceController.text,
-          profileImage: _imageFile!,
+          profileImage: _imageFile,
+          existingProfileImageUrl:
+              _getCustomerController.getCustomerData['profile_image'],
         );
         _updateCustomerController.updateCustomerData(updateCustomerData);
       }
@@ -135,7 +137,6 @@ class _InformationSettingState extends State<InformationSetting> {
             _villageController.text = customerData['village'];
             _districtController.text = customerData['district'];
             _provinceController.text = customerData['province'];
-            // _imageprofile = customerData['profile_image'];
 
             return Padding(
               padding: const EdgeInsets.all(15.0),
@@ -148,11 +149,6 @@ class _InformationSettingState extends State<InformationSetting> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // CircleAvatar(
-                              //   radius: 60,
-                              //   backgroundImage: NetworkImage(
-                              //       '${userData['profile_image']}'),
-                              // ),
                               CircleAvatar(
                                 radius: 60,
                                 backgroundImage: _imageFile != null

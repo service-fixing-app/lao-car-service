@@ -54,7 +54,8 @@ class _RepairshopFormState extends State<RepairshopForm> {
 
     typeService = [
       {"val": 1, "name": "ບໍລິການສ້ອມແປງລົດຈັກທົ່ວໄປ"},
-      {"val": 2, "name": "ບໍລິການສ້ອມແປງລົດໃຫຍ່"},
+      {"val": 2, "name": "ບໍລິການສ້ອມແປງລົດເບົາ"},
+      {"val": 2, "name": "ບໍລິການສ້ອມແປງລົດໝັກ"},
     ];
     provinces = [
       {"val": 1, "name": "ນະຄອນຫຼວງຈັນ"},
@@ -142,14 +143,21 @@ class _RepairshopFormState extends State<RepairshopForm> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            // CircleAvatar(
+                            //   radius: 60,
+                            //   backgroundImage: _imageFile != null
+                            //       ? FileImage(_imageFile!)
+                            //       : null,
+                            //   child: _imageFile == null
+                            //       ? const Icon(Icons.person, size: 60)
+                            //       : null,
+                            // ),
                             CircleAvatar(
-                              radius: 60,
                               backgroundImage: _imageFile != null
-                                  ? FileImage(_imageFile!)
-                                  : null,
-                              child: _imageFile == null
-                                  ? const Icon(Icons.person, size: 60)
-                                  : null,
+                                  ? FileImage(_imageFile!) as ImageProvider
+                                  : const AssetImage(
+                                      'assets/images/default_profile.png'),
+                              radius: 60,
                             ),
                           ],
                         ),
@@ -653,45 +661,46 @@ class _RepairshopFormState extends State<RepairshopForm> {
                       Expanded(
                         child: SizedBox(
                           height: 50.0,
-                          // width: 190.0,if (_formKey.currentState!.validate()) {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                if (_imageFile == null) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Column(
-                                          children: [
-                                            Image.asset(
-                                              'assets/images/warning.png',
-                                              fit: BoxFit.cover,
-                                              width: 50,
-                                              height: 50,
-                                            ),
-                                            const Text(
-                                              'ຂໍ້ຄວາມແຈ້ງເຕືອນ',
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                          ],
-                                        ), // title: const Text('warning'),
-                                        content: const Text(
-                                            'ກະລຸນາອັບໂລດຮູບ profile'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                } else if (_documentImageFile == null) {
+                                // if (_imageFile == null) {
+                                //   showDialog(
+                                //     context: context,
+                                //     builder: (BuildContext context) {
+                                //       return AlertDialog(
+                                //         title: Column(
+                                //           children: [
+                                //             Image.asset(
+                                //               'assets/images/warning.png',
+                                //               fit: BoxFit.cover,
+                                //               width: 50,
+                                //               height: 50,
+                                //             ),
+                                //             const Text(
+                                //               'ຂໍ້ຄວາມແຈ້ງເຕືອນ',
+                                //               style: TextStyle(
+                                //                 color: Colors.red,
+                                //               ),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //         content: const Text(
+                                //             'ກະລຸນາອັບໂລດຮູບ profile'),
+                                //         actions: <Widget>[
+                                //           TextButton(
+                                //             onPressed: () {
+                                //               Navigator.of(context).pop();
+                                //             },
+                                //             child: const Text('OK'),
+                                //           ),
+                                //         ],
+                                //       );
+                                //     },
+                                //   );
+                                // }
+
+                                if (_documentImageFile == null) {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -742,7 +751,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                                       village: villageController.text,
                                       // typeService: typeServiceController.text,
                                       typeService: selectTypeService ?? '',
-                                      profileImage: _imageFile!,
+                                      profileImage: _imageFile,
                                       documentImage: _documentImageFile!,
                                       tel: '',
                                       isVerified: false,

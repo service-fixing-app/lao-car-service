@@ -18,6 +18,7 @@ class UpdateCustomerData {
   final String? district;
   final String? province;
   File? profileImage;
+  final String? existingProfileImageUrl;
 
   UpdateCustomerData({
     this.firstName,
@@ -30,10 +31,11 @@ class UpdateCustomerData {
     this.district,
     this.province,
     this.profileImage,
+    this.existingProfileImageUrl,
   });
   Future<String?> uploadProfileImageToFirebaseStorage() async {
     try {
-      if (profileImage == null) return null;
+      if (profileImage == null) return existingProfileImageUrl;
 
       // Get image name
       String imageName = profileImage!.path.split('/').last;
@@ -81,7 +83,7 @@ class UpdateCustomerController extends GetxController {
           'village': data.village,
           'district': data.district,
           'province': data.province,
-          'profile_image': imageUrl,
+          'profile_image': imageUrl ?? data.existingProfileImageUrl,
         }),
       );
 

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:service_fixing/clients/components/cover_imagetowing.dart';
 import 'package:service_fixing/clients/components/customer/towingshop_section.dart';
 import 'package:service_fixing/clients/components/cover_image.dart';
 import 'package:service_fixing/clients/components/findtowing_map.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
+import 'package:service_fixing/clients/controllers/shop/getTowingshopController.dart';
 import 'package:service_fixing/clients/pages/shop/message/towingshop_message.dart';
 import 'package:service_fixing/constants.dart';
 
@@ -18,6 +20,8 @@ class TowingShopHome extends StatefulWidget {
 class _TowingShopHomeState extends State<TowingShopHome> {
   final AuthController authController = Get.find();
   final HistoryController historyController = Get.put(HistoryController());
+  final GetTowingshopController _getTowingshopController =
+      Get.put(GetTowingshopController());
 
   int newMessageCount = 0;
 
@@ -38,13 +42,7 @@ class _TowingShopHomeState extends State<TowingShopHome> {
 
   @override
   Widget build(BuildContext context) {
-    final userData = authController.userData['user'];
-    // print('User Data: ${authController.userData}');
-    // int newMessageCount = historyController.messages
-    //     .where((message) => message['status'] == 'warning')
-    //     .length;
-
-    // int newMessageCount = 10;
+    final towingshopData = _getTowingshopController.getOneTowingshop;
     return Scaffold(
       backgroundColor: bgColor,
       body: Column(
@@ -54,7 +52,7 @@ class _TowingShopHomeState extends State<TowingShopHome> {
             alignment: Alignment.center,
             clipBehavior: Clip.none,
             children: [
-              const CoverImage(),
+              const CoverImageTowingShop(),
               const Positioned(
                 top: CoverImage.coverHeight / 1.2,
                 left: 0,
@@ -66,7 +64,7 @@ class _TowingShopHomeState extends State<TowingShopHome> {
                 left: 10,
                 right: 0,
                 child: Text(
-                  'ຍິນດີຕ້ອນຮັບ, ${userData['manager_name']}',
+                  'ຍິນດີຕ້ອນຮັບ, ${towingshopData['manager_name']}',
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'phetsarath_ot',
@@ -114,7 +112,7 @@ class _TowingShopHomeState extends State<TowingShopHome> {
                 left: 290,
                 child: InkWell(
                   onTap: () {
-                    Get.to(()=> TowingShopMessage());
+                    Get.to(() => TowingShopMessage());
                   },
                   child: const Icon(
                     Icons.notifications_active,

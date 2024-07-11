@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/logout/logout.dart';
-import 'package:service_fixing/clients/pages/shop/repairshop_settings/information_setting.dart';
+import 'package:service_fixing/clients/controllers/shop/getTowingshopController.dart';
 import 'package:service_fixing/clients/pages/shop/repairshop_settings/password_setting.dart';
 import 'package:service_fixing/clients/pages/shop/repairshop_settings/statusShop_setting.dart';
+import 'package:service_fixing/clients/pages/shop/towingshop_settings/information_setting.dart';
+import 'package:service_fixing/clients/pages/shop/towingshop_settings/report_towingshop.dart';
 import 'package:service_fixing/clients/pages/shop/towingshop_settings/towingshop_location.dart';
 import 'package:service_fixing/constants.dart';
 
@@ -64,7 +66,7 @@ class TowingshopSetting extends StatelessWidget {
                                   icon: Icons.person,
                                   text: 'ຂໍ້ມູນພື້ນຖານ',
                                   onTap: () {
-                                    Get.to(const InformationSetting());
+                                    Get.to(() => const TowingshopInfoSetting());
                                   },
                                 ),
                                 _buildSettingRow(
@@ -86,6 +88,13 @@ class TowingshopSetting extends StatelessWidget {
                                   text: 'ກຳນົດທີ່ຢູ່ຮ້ານ',
                                   onTap: () {
                                     Get.to(() => const TowingShopLocation());
+                                  },
+                                ),
+                                _buildShopLocation(
+                                  icon: Icons.data_saver_off,
+                                  text: 'ລາຍງານ',
+                                  onTap: () {
+                                    Get.to(() => const ReportTowingshop());
                                   },
                                 ),
                                 _buildLogout(
@@ -116,27 +125,6 @@ class TowingshopSetting extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // child: const Padding(
-                          //   padding: EdgeInsets.all(10.0),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Icon(
-                          //         Icons.admin_panel_settings_rounded,
-                          //         color: primaryColor,
-                          //       ),
-                          //       SizedBox(width: 10),
-                          //       Text(
-                          //         'Admin  02077665494',
-                          //         style: TextStyle(
-                          //           color: primaryColor,
-                          //           fontSize: 18,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                         ),
                       ],
                     ),
@@ -196,27 +184,16 @@ class TowingshopSetting extends StatelessWidget {
   }
 
   Widget _buildLocationRow() {
-    final AuthController authController = Get.find();
-    final userData = authController.userData['user'];
+    final GetTowingshopController _getTowingshopController =
+        Get.put(GetTowingshopController());
+    final towingshopData = _getTowingshopController.getOneTowingshop;
     return Row(
       children: [
         const SizedBox(width: 10),
         CircleAvatar(
           radius: 40,
-          backgroundImage: NetworkImage('${userData['profile_image']}'),
+          backgroundImage: NetworkImage('${towingshopData['profile_image']}'),
         ),
-        //   width: 120,
-        //   height: 120,
-        //   decoration: BoxDecoration(
-        //     color: Colors.grey[200],
-        //     // border: Border.all(color: primaryColor, width: 1.0),
-        //     shape: BoxShape.circle,
-        //     image: DecorationImage(
-        //       fit: BoxFit.scaleDown,
-        //       image: NetworkImage('${userData['profile_image']}'),
-        //     ),
-        //   ),
-        // ),
         const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,7 +202,7 @@ class TowingshopSetting extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '${userData['manager_name']}',
+              '${towingshopData['manager_name']}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,
@@ -236,7 +213,7 @@ class TowingshopSetting extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '+856 ${userData['tel']}',
+              '+856 ${towingshopData['tel']}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,

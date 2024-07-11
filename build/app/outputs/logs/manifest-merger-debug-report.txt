@@ -15,6 +15,8 @@ MERGED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_e
 MERGED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-17:19
 MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-12:19
 MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-12:19
+MERGED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-17:19
+MERGED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-17:19
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-16:19
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-16:19
 MERGED from [com.onesignal:OneSignal:4.8.8] C:\Users\ACER\.gradle\caches\transforms-3\9d9474549fad857fb1af098b538103e1\transformed\jetified-OneSignal-4.8.8\AndroidManifest.xml:49:5-134:19
@@ -113,6 +115,7 @@ MERGED from [:image_picker_android] C:\Users\ACER\Desktop\Service_Fixing\front_e
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:path_provider_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-19:12
 MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-18:12
 MERGED from [:flutter_phone_direct_caller] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\flutter_phone_direct_caller\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-13:12
@@ -303,6 +306,8 @@ MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_e
 MERGED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:onesignal_flutter] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
@@ -731,6 +736,16 @@ ADDED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_en
 		ADDED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-71
 	android:name
 		ADDED from [:url_launcher_android] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-74
+provider#net.nfet.flutter.printing.PrintFileProvider
+ADDED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-16:20
+	android:grantUriPermissions
+		ADDED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-47
+	android:authorities
+		ADDED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-68
+	android:exported
+		ADDED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-37
+	android:name
+		ADDED from [:printing] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-71
 service#com.lyokone.location.FlutterLocationService
 ADDED from [:location] C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-15:56
 	android:enabled

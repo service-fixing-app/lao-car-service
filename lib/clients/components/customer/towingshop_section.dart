@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/shop/getTowingshopController.dart';
+import 'package:service_fixing/clients/pages/map/towingshop_map.dart';
 import 'package:service_fixing/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -83,7 +84,7 @@ class TowingshopSection extends StatelessWidget {
             ],
           ),
           onTap: () {
-            // print('Click object');
+            Get.to(() => TowingshopMap());
           },
         ),
       ),

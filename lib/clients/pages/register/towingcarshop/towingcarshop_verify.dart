@@ -175,10 +175,10 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                                     '$_countryCode${_phoneNumberController.text}',
                                 verificationCompleted:
                                     (PhoneAuthCredential credential) {
-                                  print("Verification completed");
+                                  // print("Verification completed");
                                 },
                                 verificationFailed: (FirebaseAuthException e) {
-                                  print("Verification failed: ${e.message}");
+                                  // print("Verification failed: ${e.message}");
                                 },
                                 codeSent:
                                     (String verificationId, int? resendToken) {
@@ -195,7 +195,7 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                                 },
                                 codeAutoRetrievalTimeout:
                                     (String verificationId) {
-                                  print("Code auto retrieval timeout");
+                                  // print("Code auto retrieval timeout");
                                 },
                               );
                             } catch (e) {
@@ -206,7 +206,13 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                               });
                             }
                           } else {
-                            print("Invalid phone number length");
+                            // print("Invalid phone number length");
+                            Get.snackbar(
+                              'ຂໍ້ຄວາມ',
+                              'ເບີຂອງທ່ານຜິດພາດ, ກະລຸນາສອບຄືນໃໝ່',
+                              backgroundColor: Colors.white,
+                              colorText: Colors.red,
+                            );
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -393,12 +399,12 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                               );
                             },
                           );
-                          return; // Do not proceed further
+                          return;
                         } else {
                           if (widget.profileImage == null) {
                             // Handle the case where the image file does not exist
                             // print('Image file does not exist.');
-                            print(widget.profileImage);
+                            // print(widget.profileImage);
                             return;
                           }
 
@@ -426,11 +432,11 @@ class _TowingshopVerifyState extends State<TowingshopVerify> {
                                 .isSuccess.value) {
                               // Registration successful
                               // Navigate to success page or perform other actions
-                              print('success added');
+                              // print('success added');
                               Get.to(const LoginPage());
                             } else {
                               // Registration failed
-                              print('added error');
+                              // print('added error');
                             }
                           } catch (error) {
                             // Handle error

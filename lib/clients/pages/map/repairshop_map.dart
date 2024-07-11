@@ -9,8 +9,9 @@ import 'package:service_fixing/clients/controllers/reviews/reviews_controller.da
 import 'package:service_fixing/clients/controllers/shop/getReviewShopImageController.dart';
 import 'package:service_fixing/clients/controllers/shop/getShopLocation_controller.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
+import 'package:service_fixing/clients/pages/map/repairshop_comment.dart';
 import 'package:service_fixing/clients/pages/map/review_ratestar.dart';
-import 'package:service_fixing/clients/pages/map/slidebutton.dart';
+import 'package:service_fixing/clients/pages/map/slideButton_repairMap.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -87,18 +88,18 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     super.initState();
     _getLocation();
     addCustomIcon();
     addCustomCurrentIcons();
     _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
@@ -201,7 +202,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                   markers: {
                     Marker(
                       markerId: const MarkerId("_currentLocation"),
-                      icon: markerCurrent,
+                      icon: BitmapDescriptor.defaultMarker,
                       position: _currentPosition!,
                       draggable: true,
                       infoWindow: const InfoWindow(
@@ -209,6 +210,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                       ),
                       onDragEnd: (LatLng newPosition) {
                         setState(() {
+                          print('location : $newPosition');
                           _currentPosition = newPosition;
                           clatitude = newPosition.latitude;
                           clongitude = newPosition.longitude;
@@ -243,11 +245,16 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                                 "ເຈົ້າຂອງຮ້ານ: ${shopLocation['managerName']}",
                                 "${shopLocation['phoneNumber']}",
                                 'ນິຍົມ : ',
-                                _buildStarRating(
-                                    reviewsController.ratingStarList),
-                                'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
+                                // _buildStarRating(
+                                //     reviewsController.ratingStarList),
+                                Obx(() {
+                                  return _buildStarRating(
+                                      reviewsController.ratingStarList);
+                                }),
                                 shopLocation['id'],
                                 shopLocation['Status'],
+                                shopLocation['latitude'],
+                                shopLocation['longitude'],
                               );
                             },
                           ),
@@ -336,15 +343,17 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
 
   // Function to show bottom sheet
   void _showBottomSheet(
-      BuildContext context,
-      String markerName,
-      String ownerName,
-      String tel,
-      String score,
-      Widget ratingStar,
-      String typeOfService,
-      String shopId,
-      String statusOpenShop) {
+    BuildContext context,
+    String markerName,
+    String ownerName,
+    String tel,
+    String score,
+    Widget ratingStar,
+    String shopId,
+    String statusOpenShop,
+    double latitude,
+    double longitude,
+  ) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -361,6 +370,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
             Get.put(GetReviewController());
         final GetReviewsShopImage getReviewsShopImage =
             Get.put(GetReviewsShopImage());
+
         reviewsController.getRatingStar(shopId);
         getCustomerReviewsController.getReviews(shopId);
         getReviewsShopImage.reviewsShopImage(shopId);
@@ -466,19 +476,13 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                           ratingStar,
                         ],
                       ),
-                      Text(
-                        typeOfService,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'phetsarath_ot',
-                        ),
-                      ),
                       const SizedBox(height: 10),
                       const Divider(height: 4),
                       const SizedBox(height: 10),
                       // all buttons
-                      SlideButtons(
+                      SlideButtonsRepair(
+                        latitude: latitude,
+                        longitude: longitude,
                         shopId: shopId,
                         clatitude: clatitude,
                         clongitude: clongitude,
@@ -492,8 +496,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                           return const Center(
                               child: CircularProgressIndicator());
                         } else if (getReviewsShopImage.imageUrls.isEmpty) {
-                          return const Center(
-                              child: Text('No images available'));
+                          return const Center(child: Text('ຍັງບໍ່ມີຮູບພາບ'));
                         } else {
                           return SizedBox(
                             height: 240.0,
@@ -545,7 +548,15 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                               const Card(
                                 margin: EdgeInsets.all(0.0),
                                 child: Column(
-                                  children: [],
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 30),
+                                    Text(
+                                        'ຮ້ານເປີດໃນປີ 2010 ບໍລິການມາ 10 ກ່ວາປີ'),
+                                    SizedBox(height: 20),
+                                    Text(
+                                        'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)')
+                                  ],
                                 ),
                               ),
                               Obx(() {
@@ -680,114 +691,6 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
           },
         );
       },
-    );
-  }
-}
-
-class buildAllComments extends StatelessWidget {
-  const buildAllComments({
-    super.key,
-    required this.getCustomerReviewsController,
-    required this.formatDateString,
-  });
-
-  final GetReviewController getCustomerReviewsController;
-  final String Function(String) formatDateString;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Obx(
-        () {
-          if (getCustomerReviewsController.isLoading.value) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (getCustomerReviewsController.customerReviews.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/empty-folder.png',
-                    fit: BoxFit.cover,
-                  ),
-                  const Text(
-                    'ຍັງບໍ່ມີຂໍ້ຄວາມຮ້ອງຂໍ',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return ListView.builder(
-              itemCount: getCustomerReviewsController.customerReviews.length,
-              itemBuilder: (BuildContext context, int index) {
-                final review =
-                    getCustomerReviewsController.customerReviews[index];
-                return Card(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                review.profileImage,
-                              ),
-                              radius: 20,
-                            ),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  review.name,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  formatDateString(review.createdAt.toString()),
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        RatingBarIndicator(
-                          rating: review.rate,
-                          itemBuilder: (context, index) => const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          itemCount: 5,
-                          itemSize: 16.0,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          review.comment,
-                          style: const TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          }
-        },
-      ),
     );
   }
 }

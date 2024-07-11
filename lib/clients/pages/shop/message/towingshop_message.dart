@@ -74,7 +74,7 @@ class _TowingShopMessageState extends State<TowingShopMessage> {
             );
           } else {
             return ListView.builder(
-              reverse: true,
+              reverse: false,
               itemCount: historyController.messages.length,
               itemBuilder: (BuildContext context, int index) {
                 final message = historyController.messages[index];

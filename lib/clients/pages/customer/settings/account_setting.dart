@@ -160,8 +160,6 @@ class AccountSetting extends StatelessWidget {
   }
 
   Widget _buildLocationRow() {
-    // final AuthController authController = Get.find();
-    // final userData = authController.userData['user'];
     final GetCustomerController _getCustomerController =
         Get.put(GetCustomerController());
     final customerData = _getCustomerController.getCustomerData;
@@ -172,18 +170,6 @@ class AccountSetting extends StatelessWidget {
           radius: 40,
           backgroundImage: NetworkImage('${customerData['profile_image']}'),
         ),
-        // Container(
-        //   width: 120,
-        //   height: 120,
-        //   decoration: BoxDecoration(
-        //     color: Colors.grey[200],
-        //     shape: BoxShape.circle,
-        //     image: DecorationImage(
-        //       fit: BoxFit.scaleDown,
-        //       image: NetworkImage('${userData['profile_image']}'),
-        //     ),
-        //   ),
-        // ),
         const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

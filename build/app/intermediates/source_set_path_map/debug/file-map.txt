@@ -53,4 +53,5 @@ com.example.service_fixing.app-packaged_res-51 C:\Users\ACER\Desktop\Service_Fix
 com.example.service_fixing.app-packaged_res-52 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\location\intermediates\packaged_res\debug
 com.example.service_fixing.app-packaged_res-53 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\onesignal_flutter\intermediates\packaged_res\debug
 com.example.service_fixing.app-packaged_res-54 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\path_provider_android\intermediates\packaged_res\debug
-com.example.service_fixing.app-packaged_res-55 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\packaged_res\debug
+com.example.service_fixing.app-packaged_res-55 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\printing\intermediates\packaged_res\debug
+com.example.service_fixing.app-packaged_res-56 C:\Users\ACER\Desktop\Service_Fixing\front_end\service_fixing\build\url_launcher_android\intermediates\packaged_res\debug

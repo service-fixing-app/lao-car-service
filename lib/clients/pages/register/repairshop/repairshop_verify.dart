@@ -35,7 +35,7 @@ class RepairshopVerify extends StatefulWidget {
     required this.district,
     required this.village,
     required this.typeService,
-    required this.profileImage,
+    this.profileImage,
     required this.documentImage,
     required this.tel,
     required this.isVerified,
@@ -179,10 +179,10 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                                     '$_countryCode${_phoneNumberController.text}',
                                 verificationCompleted:
                                     (PhoneAuthCredential credential) {
-                                  print("Verification completed");
+                                  // print("Verification completed");
                                 },
                                 verificationFailed: (FirebaseAuthException e) {
-                                  print("Verification failed: ${e.message}");
+                                  // print("Verification failed: ${e.message}");
                                 },
                                 codeSent:
                                     (String verificationId, int? resendToken) {
@@ -199,7 +199,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                                 },
                                 codeAutoRetrievalTimeout:
                                     (String verificationId) {
-                                  print("Code auto retrieval timeout");
+                                  // print("Code auto retrieval timeout");
                                 },
                               );
                             } catch (e) {
@@ -427,7 +427,7 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                             district: widget.district,
                             province: widget.province,
                             typeService: widget.typeService,
-                            profileImage: widget.profileImage!,
+                            profileImage: widget.profileImage,
                             documentImage: widget.documentImage!,
                           );
 
@@ -436,11 +436,11 @@ class _RepairshopVerifyState extends State<RepairshopVerify> {
                                 .repairshopRegistrationData(customer);
                             if (customerRegisterController.isSuccess.value) {
                               // Registration successful
-                              print('success added');
+                              // print('success added');
                               Get.to(const LoginPage());
                             } else {
                               // Registration failed
-                              print('added error');
+                              // print('added error');
                             }
                           } catch (error) {
                             // Handle error

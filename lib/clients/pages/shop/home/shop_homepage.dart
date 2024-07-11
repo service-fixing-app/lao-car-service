@@ -5,6 +5,7 @@ import 'package:service_fixing/clients/components/cover_image.dart';
 import 'package:service_fixing/clients/components/find_map.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
+import 'package:service_fixing/clients/controllers/shop/getRepairshopController.dart';
 import 'package:service_fixing/clients/pages/shop/message/repairshop_message.dart';
 import 'package:service_fixing/constants.dart';
 
@@ -18,6 +19,8 @@ class ShopHomePage extends StatefulWidget {
 class _ShopHomePageState extends State<ShopHomePage> {
   final AuthController authController = Get.find();
   final HistoryController historyController = Get.put(HistoryController());
+  final GetRepairshopController _getRepairshopController =
+      Get.put(GetRepairshopController());
 
   int newMessageCount = 0;
 
@@ -38,13 +41,7 @@ class _ShopHomePageState extends State<ShopHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final userData = authController.userData['user'];
-    // print('User Data: ${authController.userData}');
-    // int newMessageCount = historyController.messages
-    //     .where((message) => message['status'] == 'warning')
-    //     .length;
-
-    // int newMessageCount = 10;
+    final repairshopData = _getRepairshopController.getOneRepairshop;
     return Scaffold(
       backgroundColor: bgColor,
       body: Column(
@@ -66,7 +63,7 @@ class _ShopHomePageState extends State<ShopHomePage> {
                 left: 10,
                 right: 0,
                 child: Text(
-                  'ຍິນດີຕ້ອນຮັບ, ${userData['manager_name']}',
+                  'ຍິນດີຕ້ອນຮັບ, ${repairshopData['manager_name']}',
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'phetsarath_ot',
@@ -114,7 +111,7 @@ class _ShopHomePageState extends State<ShopHomePage> {
                 left: 290,
                 child: InkWell(
                   onTap: () {
-                    Get.to(()=> RepairShopMessage());
+                    Get.to(() => RepairShopMessage());
                   },
                   child: const Icon(
                     Icons.notifications_active,

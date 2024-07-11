@@ -185,6 +185,10 @@ class RepairshopRegisterController extends GetxController {
             'document_verify':
                 documentImageUrl, // Send the image URL to the database
             'role': 'repairshop',
+            'latitude': '0',
+            'longitude': '0',
+            'status': 'ປິດ',
+            'permission_status': 'true'
           },
         );
 

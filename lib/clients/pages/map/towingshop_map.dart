@@ -10,8 +10,9 @@ import 'package:service_fixing/clients/controllers/shop/getReviewShopImageContro
 import 'package:service_fixing/clients/controllers/shop/getTowingshopController.dart';
 import 'package:service_fixing/clients/controllers/shop/openShop_controller.dart';
 import 'package:service_fixing/clients/pages/map/review_ratestar.dart';
-import 'package:service_fixing/clients/pages/map/slidebutton.dart';
+import 'package:service_fixing/clients/pages/map/slideButton_repairMap.dart';
 import 'package:intl/intl.dart';
+import 'package:service_fixing/clients/pages/map/slideButton_towingMap.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TowingshopMap extends StatefulWidget {
@@ -229,8 +230,10 @@ class _TowingshopMapState extends State<TowingshopMap>
                                 "ເຈົ້າຂອງຮ້ານ: ${shopLocation['managerName']}",
                                 "${shopLocation['phoneNumber']}",
                                 'ນິຍົມ : ',
-                                _buildStarRating(
-                                    reviewsController.ratingStarList),
+                                Obx(() {
+                                  return _buildStarRating(
+                                      reviewsController.ratingStarList);
+                                }),
                                 'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
                                 shopLocation['id'],
                                 shopLocation['Status'],
@@ -476,7 +479,7 @@ class _TowingshopMapState extends State<TowingshopMap>
                       const Divider(height: 4),
                       const SizedBox(height: 10),
                       // all buttons
-                      SlideButtons(
+                      SlideButtonsTowing(
                         shopId: shopId,
                         clatitude: clatitude,
                         clongitude: clongitude,

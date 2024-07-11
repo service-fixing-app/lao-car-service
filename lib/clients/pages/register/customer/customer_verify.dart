@@ -455,10 +455,10 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                               await customerRegisterController
                                   .customerRegistrationData(customer);
                               if (customerRegisterController.isSuccess.value) {
-                                print('success added');
+                                // print('success added');
                                 Get.to(const LoginPage());
                               } else {
-                                print('added error');
+                                // print('added error');
                               }
                             } catch (error) {
                               // Handle error

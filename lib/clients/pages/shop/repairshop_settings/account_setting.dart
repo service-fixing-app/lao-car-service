@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/logout/logout.dart';
+import 'package:service_fixing/clients/controllers/shop/getRepairshopController.dart';
 import 'package:service_fixing/clients/pages/shop/repairshop_settings/information_setting.dart';
 import 'package:service_fixing/clients/pages/shop/repairshop_settings/password_setting.dart';
+import 'package:service_fixing/clients/pages/shop/repairshop_settings/report_repairshop.dart';
 import 'package:service_fixing/clients/pages/shop/repairshop_settings/shop_location.dart';
 import 'package:service_fixing/clients/pages/shop/repairshop_settings/statusShop_setting.dart';
 import 'package:service_fixing/constants.dart';
@@ -86,6 +88,13 @@ class AccountSetting extends StatelessWidget {
                                   text: 'ກຳນົດທີ່ຢູ່ຮ້ານ',
                                   onTap: () {
                                     Get.to(() => const ShopLocation());
+                                  },
+                                ),
+                                _buildShopLocation(
+                                  icon: Icons.data_saver_off,
+                                  text: 'ລາຍງານ',
+                                  onTap: () {
+                                    Get.to(() => const ReportRepairshop());
                                   },
                                 ),
                                 _buildLogout(
@@ -196,27 +205,16 @@ class AccountSetting extends StatelessWidget {
   }
 
   Widget _buildLocationRow() {
-    final AuthController authController = Get.find();
-    final userData = authController.userData['user'];
+    final GetRepairshopController _getRepairshopController =
+        Get.put(GetRepairshopController());
+    final repairshopData = _getRepairshopController.getOneRepairshop;
     return Row(
       children: [
         const SizedBox(width: 10),
         CircleAvatar(
           radius: 40,
-          backgroundImage: NetworkImage('${userData['profile_image']}'),
+          backgroundImage: NetworkImage('${repairshopData['profile_image']}'),
         ),
-        // Container(
-        //   width: 120,
-        //   height: 120,
-        //   decoration: BoxDecoration(
-        //     color: Colors.grey[200],
-        //     shape: BoxShape.circle,
-        //     image: DecorationImage(
-        //       fit: BoxFit.contain,
-        //       image: NetworkImage('${userData['profile_image']}'),
-        //     ),
-        //   ),
-        // ),
         const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,7 +223,7 @@ class AccountSetting extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '${userData['manager_name']}',
+              '${repairshopData['manager_name']}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,
@@ -236,7 +234,7 @@ class AccountSetting extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '+856 ${userData['tel']}',
+              '+856 ${repairshopData['tel']}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,

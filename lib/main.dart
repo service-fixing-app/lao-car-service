@@ -28,6 +28,7 @@ import 'clients/pages/map/repairshop_map.dart';
 //   );
 // }
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Get.put(AuthController());
   Get.put(OtpController());
   Get.put(OtpRepairshopController());
@@ -37,7 +38,6 @@ void main() async {
   Get.put(OpenshopController());
   Get.put(LogoutController());
   Get.put(ShopLocationController());
-  WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
@@ -57,9 +57,10 @@ void main() async {
     // print("Accepted Permission : $accepted");
   });
 
-  runApp(const MaterialApp(
-    home: MyApp(),
-  ));
+  // runApp(const MaterialApp(
+  //   home: MyApp(),
+  // ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -117,8 +118,6 @@ class MyApp extends StatelessWidget {
         ),
       ],
       initialRoute: '/',
-      // home: const CustomBottomBar(),
-      // home: const MapPage(),
     );
   }
 }
