@@ -234,9 +234,12 @@ class _TowingshopMapState extends State<TowingshopMap>
                                   return _buildStarRating(
                                       reviewsController.ratingStarList);
                                 }),
-                                'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
+                                // 'ຮັບບໍລິການສ້ອມແປງລົດຈັກ (8ໂມງເຊົ້າ - 5ໂມງແລງ)',
+
                                 shopLocation['id'],
                                 shopLocation['Status'],
+                                shopLocation['latitude'],
+                                shopLocation['longitude'],
                               );
                             },
                           ),
@@ -325,15 +328,17 @@ class _TowingshopMapState extends State<TowingshopMap>
 
   // Function to show bottom sheet
   void _showBottomSheet(
-      BuildContext context,
-      String markerName,
-      String ownerName,
-      String tel,
-      String score,
-      Widget ratingStar,
-      String typeOfService,
-      String shopId,
-      String statusOpenShop) {
+    BuildContext context,
+    String markerName,
+    String ownerName,
+    String tel,
+    String score,
+    Widget ratingStar,
+    String shopId,
+    String statusOpenShop,
+    double latitude,
+    double longitude,
+  ) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -467,20 +472,16 @@ class _TowingshopMapState extends State<TowingshopMap>
                           ratingStar,
                         ],
                       ),
-                      Text(
-                        typeOfService,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'phetsarath_ot',
-                        ),
-                      ),
+
                       const SizedBox(height: 10),
                       const Divider(height: 4),
                       const SizedBox(height: 10),
                       // all buttons
                       SlideButtonsTowing(
+                        latitude: latitude,
+                        longitude: longitude,
                         shopId: shopId,
+                        status: statusOpenShop,
                         clatitude: clatitude,
                         clongitude: clongitude,
                         markerName: markerName,

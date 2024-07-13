@@ -48,14 +48,23 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
   double? clatitude;
   double? clongitude;
 
-  //Get the current location of the user
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _getLocation();
+    addCustomIcon();
+    addCustomCurrentIcons();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
   Future<void> _getLocation() async {
     try {
       bool serviceEnabled = await locationController.serviceEnabled();
       if (!serviceEnabled) {
         serviceEnabled = await locationController.requestService();
         if (!serviceEnabled) {
-          // Location services are still disabled, handle this case
           return;
         }
       }
@@ -65,7 +74,6 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
       if (permissionStatus == PermissionStatus.denied) {
         permissionStatus = await locationController.requestPermission();
         if (permissionStatus != PermissionStatus.granted) {
-          // Location permission is denied, handle this case
           return;
         }
       }
@@ -76,24 +84,10 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
             LatLng(locationData.latitude!, locationData.longitude!);
         clatitude = locationData.latitude!;
         clongitude = locationData.longitude!;
-        // print("clatitude $clatitude");
-        // print("clongitude $clongitude");
-        // print(' current location : $_currentPosition');
       });
     } catch (e) {
-      // print("Error getting location: $e");
+      print("Error getting location: $e");
     }
-  }
-
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _getLocation();
-    addCustomIcon();
-    addCustomCurrentIcons();
-    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -108,25 +102,21 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
   void addCustomIcon() {
     BitmapDescriptor.fromAssetImage(
             const ImageConfiguration(), "assets/images/location2.png")
-        .then(
-      (icon) {
-        setState(() {
-          markerIcon = icon;
-        });
-      },
-    );
+        .then((icon) {
+      setState(() {
+        markerIcon = icon;
+      });
+    });
   }
 
   void addCustomCurrentIcons() {
     BitmapDescriptor.fromAssetImage(
             const ImageConfiguration(), "assets/images/pinlocation.png")
-        .then(
-      (icon) {
-        setState(() {
-          markerCurrent = icon;
-        });
-      },
-    );
+        .then((icon) {
+      setState(() {
+        markerCurrent = icon;
+      });
+    });
   }
 
   Widget _buildStarRating(List<dynamic> ratingStarList) {
@@ -210,7 +200,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                       ),
                       onDragEnd: (LatLng newPosition) {
                         setState(() {
-                          print('location : $newPosition');
+                          // print('location : $newPosition');
                           _currentPosition = newPosition;
                           clatitude = newPosition.latitude;
                           clongitude = newPosition.longitude;
@@ -484,6 +474,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                         latitude: latitude,
                         longitude: longitude,
                         shopId: shopId,
+                        status: statusOpenShop,
                         clatitude: clatitude,
                         clongitude: clongitude,
                         markerName: markerName,

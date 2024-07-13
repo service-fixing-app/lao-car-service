@@ -139,7 +139,7 @@ class CustomerRegisterController extends GetxController {
       String? imageUrl = await customer.uploadProfileImageToFirebaseStorage();
 
       // Send shop data along with image URL to database
-      if (imageUrl != null) {
+      
         var response = await http.post(
           Uri.parse('http://192.168.43.127:5000/api/customer/addCustomer'),
           body: {
@@ -153,7 +153,7 @@ class CustomerRegisterController extends GetxController {
             'village': customer.village,
             'district': customer.district,
             'province': customer.province,
-            'profile_image': imageUrl,
+            'profile_image': imageUrl ?? '',
             'role': 'customer',
           },
         );
@@ -171,10 +171,7 @@ class CustomerRegisterController extends GetxController {
             print('Server error');
           }
         }
-      } else {
-        print('Error: Image upload failed');
-        isSuccess.value = false;
-      }
+      
     } catch (error) {
       // Handle network errors or exceptions
       isSuccess.value = false;

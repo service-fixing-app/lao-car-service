@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -29,11 +28,12 @@ class buildAllComments extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/empty-folder.png',
+                    'assets/images/empty-box.png',
+                    width: 200,
                     fit: BoxFit.cover,
                   ),
                   const Text(
-                    'ຍັງບໍ່ມີຂໍ້ຄວາມຮ້ອງຂໍ',
+                    'ຍັງບໍ່ມີຂໍ້ຄວາມລີວິວ',
                     style: TextStyle(fontSize: 14),
                   ),
                 ],

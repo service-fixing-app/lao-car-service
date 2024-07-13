@@ -33,7 +33,7 @@ class Towingcarshop {
     required this.district,
     required this.province,
     required this.typeService,
-    required this.profileImage,
+    this.profileImage,
     required this.documentImage,
   });
 
@@ -171,7 +171,7 @@ class TowingcarshopRegisterController extends GetxController {
           await towingcarshop.uploadDocumentImageToFirebaseStorage();
 
       // Send shop data along with image URLs to database
-      if (profileImageUrl != null && documentImageUrl != null) {
+      if ( documentImageUrl != null) {
         var response = await http.post(
           Uri.parse(urlRegister),
           body: {
@@ -187,10 +187,14 @@ class TowingcarshopRegisterController extends GetxController {
             'province': towingcarshop.province,
             'type_service': towingcarshop.typeService,
             'profile_image':
-                profileImageUrl, // Send the profile image URL to the database
+                profileImageUrl ?? '', 
             'document_verify':
-                documentImageUrl, // Send the document image URL to the database
+                documentImageUrl, 
             'role': 'towingshop',
+            'latitude': '0',
+            'longitude': '0',
+            'status': 'ປິດ',
+            'permission_status': 'false'
           },
         );
 

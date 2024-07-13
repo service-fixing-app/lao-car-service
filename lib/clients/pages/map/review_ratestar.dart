@@ -8,7 +8,7 @@ import 'package:service_fixing/constants.dart';
 
 class ReviewRatingStar extends StatefulWidget {
   final String shopId;
-  ReviewRatingStar({super.key, required this.shopId});
+  const ReviewRatingStar({super.key, required this.shopId});
 
   @override
   State<ReviewRatingStar> createState() => _ReviewRatingStarState();

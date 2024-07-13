@@ -661,41 +661,42 @@ class _TowingcarshopFormState extends State<TowingcarshopForm> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                if (_imageFile == null) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Column(
-                                          children: [
-                                            Image.asset(
-                                              'assets/images/warning.png',
-                                              fit: BoxFit.cover,
-                                              width: 50,
-                                              height: 50,
-                                            ),
-                                            const Text(
-                                              'ຂໍ້ຄວາມແຈ້ງເຕືອນ',
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        content: const Text(
-                                            'ກະລຸນາອັບໂລດຮູບ profile'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                } else if (_documentImageFile == null) {
+                                // if (_imageFile == null) {
+                                //   showDialog(
+                                //     context: context,
+                                //     builder: (BuildContext context) {
+                                //       return AlertDialog(
+                                //         title: Column(
+                                //           children: [
+                                //             Image.asset(
+                                //               'assets/images/warning.png',
+                                //               fit: BoxFit.cover,
+                                //               width: 50,
+                                //               height: 50,
+                                //             ),
+                                //             const Text(
+                                //               'ຂໍ້ຄວາມແຈ້ງເຕືອນ',
+                                //               style: TextStyle(
+                                //                 color: Colors.red,
+                                //               ),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //         content: const Text(
+                                //             'ກະລຸນາອັບໂລດຮູບ profile'),
+                                //         actions: <Widget>[
+                                //           TextButton(
+                                //             onPressed: () {
+                                //               Navigator.of(context).pop();
+                                //             },
+                                //             child: const Text('OK'),
+                                //           ),
+                                //         ],
+                                //       );
+                                //     },
+                                //   );
+                                // } else
+                                if (_documentImageFile == null) {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -745,7 +746,7 @@ class _TowingcarshopFormState extends State<TowingcarshopForm> {
                                       village: villageController.text,
                                       // typeService: typeServiceController.text,
                                       typeService: selectTypeService ?? '',
-                                      profileImage: _imageFile!,
+                                      profileImage: _imageFile,
                                       documentImage: _documentImageFile!,
                                       tel: '',
                                       isVerified: false,

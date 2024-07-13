@@ -35,7 +35,7 @@ class TowingshopVerify extends StatefulWidget {
     required this.district,
     required this.village,
     required this.typeService,
-    required this.profileImage,
+     this.profileImage,
     required this.documentImage,
     required this.tel,
     required this.isVerified,

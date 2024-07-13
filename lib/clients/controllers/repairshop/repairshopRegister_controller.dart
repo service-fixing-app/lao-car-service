@@ -32,7 +32,7 @@ class Repairshop {
     required this.district,
     required this.province,
     required this.typeService,
-    required this.profileImage,
+    this.profileImage,
     required this.documentImage,
   });
 
@@ -166,7 +166,7 @@ class RepairshopRegisterController extends GetxController {
           await shop.uploadDocumentImageToFirebaseStorage();
 
       // Send shop data along with image URL to database
-      if (imageUrl != null) {
+      if (documentImageUrl != null) {
         var response = await http.post(
           Uri.parse('http://192.168.43.127:5000/api/repairshop/addRepairshop'),
           body: {
@@ -181,14 +181,13 @@ class RepairshopRegisterController extends GetxController {
             'district': shop.district,
             'province': shop.province,
             'type_service': shop.typeService,
-            'profile_image': imageUrl, // Send the image URL to the database
-            'document_verify':
-                documentImageUrl, // Send the image URL to the database
+            'profile_image': imageUrl ?? '',
+            'document_verify': documentImageUrl,
             'role': 'repairshop',
             'latitude': '0',
             'longitude': '0',
             'status': 'ປິດ',
-            'permission_status': 'true'
+            'permission_status': 'false'
           },
         );
 
@@ -217,7 +216,7 @@ class RepairshopRegisterController extends GetxController {
     } catch (error) {
       // Handle network errors or exceptions
       isSuccess.value = false;
-      print("Error: $error");
+      print("Errors: $error");
     } finally {
       isLoading.value = false;
     }

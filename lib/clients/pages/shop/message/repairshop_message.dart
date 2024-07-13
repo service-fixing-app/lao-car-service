@@ -63,7 +63,8 @@ class _RepairShopMessageState extends State<RepairShopMessage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/empty-folder.png',
+                    'assets/images/empty-box.png',
+                    width: 200,
                     fit: BoxFit.cover,
                   ),
                   const Text('ຍັງບໍ່ມີຂໍ້ຄວາມຮ້ອງຂໍ',
@@ -72,15 +73,20 @@ class _RepairShopMessageState extends State<RepairShopMessage> {
               ),
             );
           } else {
+            historyController.messages.sort((a, b) {
+              DateTime dateTimeA = DateTime.parse(a['createdAt']);
+              DateTime dateTimeB = DateTime.parse(b['createdAt']);
+              return dateTimeB.compareTo(dateTimeA);
+            });
             return ListView.builder(
-              reverse: true,
+              reverse: false,
               itemCount: historyController.messages.length,
               itemBuilder: (BuildContext context, int index) {
                 final message = historyController.messages[index];
                 return _buildNotificationItem(
                   profileImage: const AssetImage('assets/images/man.png'),
                   date: formatDateString(message['createdAt']),
-                  senderName: message['receiver_name'],
+                  senderName: message['sender_name'],
                   content: message['message'],
                   status: message['status'],
                   onAccept: () {

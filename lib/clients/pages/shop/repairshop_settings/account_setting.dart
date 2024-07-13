@@ -69,13 +69,13 @@ class AccountSetting extends StatelessWidget {
                                     Get.to(() => const InformationSetting());
                                   },
                                 ),
-                                _buildSettingRow(
-                                  icon: Icons.lock_person,
-                                  text: 'ຂໍ້ມູນລະຫັດຜ່ານ ແລະ ເບີຕິດຕໍ່',
-                                  onTap: () {
-                                    Get.to(() => const PasswordSetting());
-                                  },
-                                ),
+                                // _buildSettingRow(
+                                //   icon: Icons.lock_person,
+                                //   text: 'ຂໍ້ມູນລະຫັດຜ່ານ ແລະ ເບີຕິດຕໍ່',
+                                //   onTap: () {
+                                //     Get.to(() => const PasswordSetting());
+                                //   },
+                                // ),
                                 _buildSettingRow(
                                   icon: Icons.settings,
                                   text: 'ຕັ້ງສະຖານະ ແລະ ຮູບພາບຮ້ານ',
@@ -109,9 +109,6 @@ class AccountSetting extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // const SizedBox(
-                        //   height: 20.0,
-                        // ),
                         Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -125,27 +122,6 @@ class AccountSetting extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // child: const Padding(
-                          //   padding: EdgeInsets.all(10.0),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Icon(
-                          //         Icons.admin_panel_settings_rounded,
-                          //         color: primaryColor,
-                          //       ),
-                          //       SizedBox(width: 10),
-                          //       Text(
-                          //         'Admin  02077665494',
-                          //         style: TextStyle(
-                          //           color: primaryColor,
-                          //           fontSize: 18,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                         ),
                       ],
                     ),
@@ -211,10 +187,20 @@ class AccountSetting extends StatelessWidget {
     return Row(
       children: [
         const SizedBox(width: 10),
+        // CircleAvatar(
+        //   radius: 40,
+        //   backgroundImage: NetworkImage('${repairshopData['profile_image']}'),
+        // ),
         CircleAvatar(
+          backgroundColor: Colors.blue,
           radius: 40,
-          backgroundImage: NetworkImage('${repairshopData['profile_image']}'),
+          backgroundImage: (repairshopData['profile_image'] != null &&
+                  (repairshopData['profile_image'] as String).isNotEmpty)
+              ? NetworkImage(repairshopData['profile_image'] as String)
+              : const AssetImage('assets/images/default-white.png')
+                  as ImageProvider,
         ),
+
         const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

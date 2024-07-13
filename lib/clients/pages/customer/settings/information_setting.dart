@@ -149,12 +149,27 @@ class _InformationSettingState extends State<InformationSetting> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              // CircleAvatar(
+                              //   radius: 60,
+                              //   backgroundImage: _imageFile != null
+                              //       ? FileImage(_imageFile!)
+                              //       : NetworkImage(
+                              //               '${customerData['profile_image']}')
+                              //           as ImageProvider,
+                              // ),
                               CircleAvatar(
-                                radius: 60,
-                                backgroundImage: _imageFile != null
-                                    ? FileImage(_imageFile!)
-                                    : NetworkImage(
-                                            '${customerData['profile_image']}')
+                                backgroundColor: Colors.blue,
+                                radius: 50,
+                                backgroundImage: (customerData[
+                                                'profile_image'] !=
+                                            null &&
+                                        (customerData['profile_image']
+                                                as String)
+                                            .isNotEmpty)
+                                    ? NetworkImage(
+                                        customerData['profile_image'] as String)
+                                    : const AssetImage(
+                                            'assets/images/default-white.png')
                                         as ImageProvider,
                               ),
                             ],

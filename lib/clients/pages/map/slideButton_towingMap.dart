@@ -9,28 +9,29 @@ import 'package:url_launcher/url_launcher.dart';
 class SlideButtonsTowing extends StatelessWidget {
   const SlideButtonsTowing({
     super.key,
-    required this.clatitude,
-    required this.clongitude,
-    required this.markerName,
-    required this.tel,
-    required this.score,
-    required this.shopId,
     this.latitude,
     this.longitude,
+    required this.shopId,
+    required this.status,
+    this.clatitude,
+    this.clongitude,
+    required this.markerName,
+    required this.score,
+    required this.tel,
   });
-  final String markerName;
-  final String tel;
-  final String score;
-  final double? clatitude;
-  final double? clongitude;
-  final String shopId;
   final double? latitude;
   final double? longitude;
+  final String markerName;
+  final String shopId;
+  final String status;
+  final double? clatitude;
+  final double? clongitude;
+  final String score;
+  final String tel;
 
   @override
   Widget build(BuildContext context) {
-    final GetTowingshopController _getTowingshopController =
-        Get.find();
+    final GetTowingshopController _getTowingshopController = Get.find();
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -91,19 +92,10 @@ class SlideButtonsTowing extends StatelessWidget {
                     // print('clatitude : $clatitude');
                     // print('clongitude : $clongitude');
                     // any logic
-                    
+
                     final towingshopData =
                         _getTowingshopController.getOneTowingshop;
-                    if (
-                        towingshopData['role'] != 'towingshop') {
-                      Get.to(() => ServiceRepair(
-                            shopId: shopId,
-                            shopName: markerName,
-                            phoneNumber: tel,
-                            clatitude: clatitude,
-                            clongitude: clongitude,
-                          ));
-                    } else {
+                    if (towingshopData['role'] == 'towingshop') {
                       Get.snackbar(
                         'ປະ​ຕິ​ເສດ​ການ​ເຂົ້າ​ເຖິງ',
                         'ທ່ານບໍ່ມີສິດໃນການເຂົ້າເຖິງການບໍລິການນີ້.',
@@ -111,6 +103,22 @@ class SlideButtonsTowing extends StatelessWidget {
                         backgroundColor: Colors.white,
                         colorText: Colors.red,
                       );
+                    } else if (status == 'ປິດ') {
+                      Get.snackbar(
+                        'ບໍ່ສາມາດຮ້ອງຂໍໄດ້',
+                        'ຮ້ານທີ່ທ່ານຮ້ອງຂໍໄດ້ປິດຮ້ານໃນຄະນະນີ້.',
+                        snackPosition: SnackPosition.TOP,
+                        backgroundColor: Colors.white,
+                        colorText: Colors.red,
+                      );
+                    } else {
+                      Get.to(() => ServiceRepair(
+                            shopId: shopId,
+                            shopName: markerName,
+                            phoneNumber: tel,
+                            clatitude: clatitude,
+                            clongitude: clongitude,
+                          ));
                     }
                   },
                   style: OutlinedButton.styleFrom(

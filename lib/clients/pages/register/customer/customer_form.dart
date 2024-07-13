@@ -550,59 +550,58 @@ class _CustomerFormState extends State<CustomerForm> {
                             onPressed: () {
                               //
                               if (_formKey.currentState!.validate()) {
-                                if (_imageFile == null) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Column(
-                                          children: [
-                                            Image.asset(
-                                              'assets/images/warning.png',
-                                              fit: BoxFit.cover,
-                                              width: 50,
-                                              height: 50,
-                                            ),
-                                            const Text(
-                                              'ຂໍ້ຄວາມແຈ້ງເຕືອນ',
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        content: const Text(
-                                            'ກະລຸນາອັບໂລບຮູບພາບ profile'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  Get.to(
-                                    CustomerVerify(
-                                      firstName: firstNameController.text,
-                                      lastName: lastNameController.text,
-                                      age: ageController.text,
-                                      gender: _selectGender,
-                                      birthdate: _selectedDate != null
-                                          ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                                          : '',
-                                      province: selectedProvince ?? '',
-                                      district: selectedState ?? '',
-                                      village: villageController.text,
-                                      profileImage: _imageFile!,
-                                      tel: '',
-                                      isVerified: false,
-                                    ),
-                                  );
-                                }
+                                // if (_imageFile == null) {
+                                //   showDialog(
+                                //     context: context,
+                                //     builder: (BuildContext context) {
+                                //       return AlertDialog(
+                                //         title: Column(
+                                //           children: [
+                                //             Image.asset(
+                                //               'assets/images/warning.png',
+                                //               fit: BoxFit.cover,
+                                //               width: 50,
+                                //               height: 50,
+                                //             ),
+                                //             const Text(
+                                //               'ຂໍ້ຄວາມແຈ້ງເຕືອນ',
+                                //               style: TextStyle(
+                                //                 color: Colors.red,
+                                //               ),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //         content: const Text(
+                                //             'ກະລຸນາອັບໂລບຮູບພາບ profile'),
+                                //         actions: <Widget>[
+                                //           TextButton(
+                                //             onPressed: () {
+                                //               Navigator.of(context).pop();
+                                //             },
+                                //             child: const Text('OK'),
+                                //           ),
+                                //         ],
+                                //       );
+                                //     },
+                                //   );
+                                // } else {
+                                Get.to(
+                                  CustomerVerify(
+                                    firstName: firstNameController.text,
+                                    lastName: lastNameController.text,
+                                    age: ageController.text,
+                                    gender: _selectGender,
+                                    birthdate: _selectedDate != null
+                                        ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                                        : '',
+                                    province: selectedProvince ?? '',
+                                    district: selectedState ?? '',
+                                    village: villageController.text,
+                                    profileImage: _imageFile,
+                                    tel: '',
+                                    isVerified: false,
+                                  ),
+                                );
                               }
                             },
                             style: ElevatedButton.styleFrom(

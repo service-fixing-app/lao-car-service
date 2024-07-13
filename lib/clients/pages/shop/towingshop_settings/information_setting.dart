@@ -153,12 +153,28 @@ class _TowingshopInfoSettingState extends State<TowingshopInfoSetting> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              // CircleAvatar(
+                              //   radius: 60,
+                              //   backgroundImage: _imageFile != null
+                              //       ? FileImage(_imageFile!)
+                              //       : NetworkImage(
+                              //               '${repairshopData['profile_image']}')
+                              //           as ImageProvider,
+                              // ),
                               CircleAvatar(
-                                radius: 60,
-                                backgroundImage: _imageFile != null
-                                    ? FileImage(_imageFile!)
-                                    : NetworkImage(
-                                            '${repairshopData['profile_image']}')
+                                backgroundColor: Colors.blue,
+                                radius: 40,
+                                backgroundImage: (repairshopData[
+                                                'profile_image'] !=
+                                            null &&
+                                        (repairshopData['profile_image']
+                                                as String)
+                                            .isNotEmpty)
+                                    ? NetworkImage(
+                                        repairshopData['profile_image']
+                                            as String)
+                                    : const AssetImage(
+                                            'assets/images/default-white.png')
                                         as ImageProvider,
                               ),
                             ],

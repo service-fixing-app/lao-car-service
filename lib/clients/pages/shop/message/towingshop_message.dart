@@ -64,7 +64,8 @@ class _TowingShopMessageState extends State<TowingShopMessage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/empty-folder.png',
+                    'assets/images/empty-box.png',
+                    width: 200,
                     fit: BoxFit.cover,
                   ),
                   const Text('ຍັງບໍ່ມີຂໍ້ຄວາມຮ້ອງຂໍ',
@@ -73,6 +74,11 @@ class _TowingShopMessageState extends State<TowingShopMessage> {
               ),
             );
           } else {
+            historyController.messages.sort((a, b) {
+              DateTime dateTimeA = DateTime.parse(a['createdAt']);
+              DateTime dateTimeB = DateTime.parse(b['createdAt']);
+              return dateTimeB.compareTo(dateTimeA);
+            });
             return ListView.builder(
               reverse: false,
               itemCount: historyController.messages.length,

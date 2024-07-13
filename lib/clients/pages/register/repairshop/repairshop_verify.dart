@@ -26,6 +26,7 @@ class RepairshopVerify extends StatefulWidget {
   bool isVerified;
 
   RepairshopVerify({
+    super.key,
     required this.shopName,
     required this.shopownerName,
     required this.age,

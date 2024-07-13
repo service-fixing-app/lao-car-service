@@ -166,9 +166,18 @@ class AccountSetting extends StatelessWidget {
     return Row(
       children: [
         const SizedBox(width: 10),
+        // CircleAvatar(
+        //   radius: 40,
+        //   backgroundImage: NetworkImage('${customerData['profile_image']}'),
+        // ),
         CircleAvatar(
+          backgroundColor: Colors.blue,
           radius: 40,
-          backgroundImage: NetworkImage('${customerData['profile_image']}'),
+          backgroundImage: (customerData['profile_image'] != null &&
+                  (customerData['profile_image'] as String).isNotEmpty)
+              ? NetworkImage(customerData['profile_image'] as String)
+              : const AssetImage('assets/images/default-white.png')
+                  as ImageProvider,
         ),
         const SizedBox(width: 20),
         Column(

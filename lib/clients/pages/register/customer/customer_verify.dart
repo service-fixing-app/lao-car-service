@@ -33,7 +33,7 @@ class CustomerVerify extends StatefulWidget {
     required this.province,
     required this.district,
     required this.village,
-    required this.profileImage,
+    this.profileImage,
     required this.tel,
     //
     required this.isVerified,
@@ -430,11 +430,11 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                             );
                             return; // Do not proceed further
                           } else {
-                            if (widget.profileImage == null ||
-                                !widget.profileImage!.existsSync()) {
-                              print(widget.profileImage);
-                              return;
-                            }
+                            // if (widget.profileImage == null ||
+                            //     !widget.profileImage!.existsSync()) {
+                            //   print(widget.profileImage);
+                            //   return;
+                            // }
 
                             // Proceed with sending image data and other form data to the API
                             final customer = Customer(
@@ -448,7 +448,7 @@ class _CustomerVerifyState extends State<CustomerVerify> {
                               village: widget.village,
                               district: widget.district,
                               province: widget.province,
-                              profileImage: widget.profileImage!,
+                              profileImage: widget.profileImage,
                             );
 
                             try {

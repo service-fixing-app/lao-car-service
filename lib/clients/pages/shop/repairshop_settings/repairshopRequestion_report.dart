@@ -180,7 +180,20 @@ class _RepairshopRequestReportState extends State<RepairshopRequestReport> {
       ),
       body: Obx(() {
         if (_getRequestRepairController.requestRepairData.isEmpty) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/empty-box.png',
+                  width: 200,
+                  fit: BoxFit.cover,
+                ),
+                const Text('ຍັງບໍ່ມີຂໍ້ມູນລາຍງານນີ້',
+                    style: TextStyle(fontSize: 14)),
+              ],
+            ),
+          );
         } else {
           List<Map<String, dynamic>> filteredRows = getFilteredRows();
           return SingleChildScrollView(

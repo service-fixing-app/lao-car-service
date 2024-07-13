@@ -2,30 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:service_fixing/clients/controllers/shop/getRepairshopController.dart';
-import 'package:service_fixing/clients/controllers/shop/getTowingshopController.dart';
 import 'package:service_fixing/clients/pages/customer/services/service_repair.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SlideButtonsRepair extends StatelessWidget {
-  const SlideButtonsRepair({
-    super.key,
-    required this.clatitude,
-    required this.clongitude,
-    required this.markerName,
-    required this.tel,
-    required this.score,
-    required this.shopId,
+  SlideButtonsRepair({
+    Key? key,
     this.latitude,
     this.longitude,
-  });
-  final String markerName;
-  final String tel;
-  final String score;
-  final double? clatitude;
-  final double? clongitude;
-  final String shopId;
+    required this.shopId,
+    required this.status,
+    this.clatitude,
+    this.clongitude,
+    required this.markerName,
+    required this.score,
+    required this.tel,
+  }) : super(key: key);
+
   final double? latitude;
   final double? longitude;
+  final String shopId;
+  final String status;
+  final double? clatitude;
+  final double? clongitude;
+  final String markerName;
+  final String score;
+  final String tel;
 
   @override
   Widget build(BuildContext context) {
@@ -93,15 +95,7 @@ class SlideButtonsRepair extends StatelessWidget {
                     final repairshopData =
                         _getRepairshopController.getOneRepairshop;
 
-                    if (repairshopData['role'] != 'repairshop') {
-                      Get.to(() => ServiceRepair(
-                            shopId: shopId,
-                            shopName: markerName,
-                            phoneNumber: tel,
-                            clatitude: clatitude,
-                            clongitude: clongitude,
-                          ));
-                    } else {
+                    if (repairshopData['role'] == 'repairshop') {
                       Get.snackbar(
                         'ປະ​ຕິ​ເສດ​ການ​ເຂົ້າ​ເຖິງ',
                         'ທ່ານບໍ່ມີສິດໃນການເຂົ້າເຖິງການບໍລິການນີ້.',
@@ -109,6 +103,22 @@ class SlideButtonsRepair extends StatelessWidget {
                         backgroundColor: Colors.white,
                         colorText: Colors.red,
                       );
+                    } else if (status == 'ປິດ') {
+                      Get.snackbar(
+                        'ບໍ່ສາມາດຮ້ອງຂໍໄດ້',
+                        'ຮ້ານທີ່ທ່ານຮ້ອງຂໍໄດ້ປິດຮ້ານໃນຄະນະນີ້.',
+                        snackPosition: SnackPosition.TOP,
+                        backgroundColor: Colors.white,
+                        colorText: Colors.red,
+                      );
+                    } else {
+                      Get.to(() => ServiceRepair(
+                            shopId: shopId,
+                            shopName: markerName,
+                            phoneNumber: tel,
+                            clatitude: clatitude,
+                            clongitude: clongitude,
+                          ));
                     }
                   },
                   style: OutlinedButton.styleFrom(

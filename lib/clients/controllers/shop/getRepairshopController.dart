@@ -27,7 +27,7 @@ class GetRepairshopController extends GetxController {
         isSuccess.value = true;
         final List<dynamic> data = jsonDecode(response.body);
         getrepairshopData.assignAll(data);
-        // print('Fetched Messages: $getrepairshopData');
+        print('Fetched Messages: $getrepairshopData');
       } else {
         isSuccess.value = false;
         // print(Failed Status code: ${response.statusCode}');

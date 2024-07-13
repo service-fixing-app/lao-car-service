@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:service_fixing/clients/controllers/login/auth_controller.dart';
 import 'package:service_fixing/clients/controllers/requestion/customer_historyController.dart';
 import 'package:service_fixing/clients/controllers/requestion/history_controller.dart';
+import 'package:service_fixing/clients/controllers/reviews/getReviews_controller.dart';
 
 // model
 class Reviews {
@@ -47,7 +48,7 @@ class ReviewsController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         // Registration successful
         isSuccess.value = true;
-        print("Error: ${response.statusCode}");
+        print("Errors: ${response.statusCode}");
         Get.dialog(
           AlertDialog(
             icon: Image.asset(
@@ -62,9 +63,18 @@ class ReviewsController extends GetxController {
               ),
             ),
             content: const Text('ສຳເລັດໃນການຄຳຕິຊົນ, ຂໍຂອບໃຈ'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back(); // Close the dialog
+                  Get.back(); // Navigate back to the previous page
+                },
+                child: const Text('OK'),
+              ),
+            ],
           ),
         );
-        Get.back();
+        Get.find<GetReviewController>().getReviews(data.shopId);
       } else {
         isSuccess.value = false;
         print("Error: ${response.statusCode}");

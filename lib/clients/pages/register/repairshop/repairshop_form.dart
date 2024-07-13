@@ -143,22 +143,22 @@ class _RepairshopFormState extends State<RepairshopForm> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            // CircleAvatar(
-                            //   radius: 60,
-                            //   backgroundImage: _imageFile != null
-                            //       ? FileImage(_imageFile!)
-                            //       : null,
-                            //   child: _imageFile == null
-                            //       ? const Icon(Icons.person, size: 60)
-                            //       : null,
-                            // ),
                             CircleAvatar(
-                              backgroundImage: _imageFile != null
-                                  ? FileImage(_imageFile!) as ImageProvider
-                                  : const AssetImage(
-                                      'assets/images/default_profile.png'),
                               radius: 60,
+                              backgroundImage: _imageFile != null
+                                  ? FileImage(_imageFile!)
+                                  : null,
+                              child: _imageFile == null
+                                  ? const Icon(Icons.person, size: 60)
+                                  : null,
                             ),
+                            // CircleAvatar(
+                            //   backgroundImage: _imageFile != null
+                            //       ? FileImage(_imageFile!) as ImageProvider
+                            //       : const AssetImage(
+                            //           'assets/images/default_profile.png'),
+                            //   radius: 60,
+                            // ),
                           ],
                         ),
                         Positioned(
@@ -286,7 +286,7 @@ class _RepairshopFormState extends State<RepairshopForm> {
                   const SizedBox(height: 20.0),
                   TextFormField(
                     controller: ageController,
-                    keyboardType: TextInputType.name,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'ອາຍຸ',
                       labelStyle: const TextStyle(
