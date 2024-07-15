@@ -157,7 +157,7 @@ class RequestController extends GetxController {
 
   Future<void> callNotificationAPI() async {
     try {
-      var devices = ["d6c79b80-02b8-4f81-8f51-50c3e49e94b1"];
+      var devices = ["5f137587-b4e9-45b6-a230-240cc3ffaccd"];
       var response = await http.post(
         Uri.parse(
             'http://192.168.43.127:5000/api/notification/pushNotificationToDevice'),
